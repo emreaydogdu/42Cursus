@@ -17,62 +17,62 @@
 void	t_isalpha(void)
 {
 	printf("%s\t\t: ", "isalpha");
-	ASSERT(isalpha('a' - 1) == ft_isalpha('a' - 1))
-	ASSERT(isalpha('a') == ft_isalpha('a'))
-	ASSERT(isalpha('z' + 1) == ft_isalpha('z' + 1))
-	ASSERT(isalpha('z') == ft_isalpha('z'))
-	ASSERT(isalpha('A' - 1) == ft_isalpha('A' - 1))
-	ASSERT(isalpha('A') == ft_isalpha('A'))
-	ASSERT(isalpha('Z' + 1) == ft_isalpha('Z' + 1))
-	ASSERT(isalpha('Z') == ft_isalpha('Z'))
+	ASSERT(isalpha('a' - 1) != 0 == ft_isalpha('a' - 1) != 0)
+	ASSERT(isalpha('a') != 0 == ft_isalpha('a') != 0)
+	ASSERT(isalpha('z' + 1) != 0 == ft_isalpha('z' + 1) != 0)
+	ASSERT(isalpha('z') != 0 == ft_isalpha('z') != 0)
+	ASSERT(isalpha('A' - 1) != 0 == ft_isalpha('A' - 1) != 0)
+	ASSERT(isalpha('A') != 0 == ft_isalpha('A') != 0)
+	ASSERT(isalpha('Z' + 1) != 0 == ft_isalpha('Z' + 1) != 0)
+	ASSERT(isalpha('Z') != 0 == ft_isalpha('Z') != 0)
 	printf("\n");
 }
 
 void	t_isdigit(void)
 {
 	printf("%s\t\t: ", "isdigit");
-	ASSERT(isdigit('0' - 1) == ft_isdigit('0' - 1))
-	ASSERT(isdigit('0') == ft_isdigit('0'))
-	ASSERT(isdigit('9' + 1) == ft_isdigit('9' + 1))
-	ASSERT(isdigit('9') == ft_isdigit('9'))
+	ASSERT(isdigit('0' - 1) != 0 == ft_isdigit('0' - 1) != 0)
+	ASSERT(isdigit('0') != 0 == ft_isdigit('0') != 0)
+	ASSERT(isdigit('9' + 1) != 0 == ft_isdigit('9' + 1) != 0)
+	ASSERT(isdigit('9') != 0 == ft_isdigit('9') != 0)
 	printf("\n");
 }
 
 void	t_isalnum(void)
 {
 	printf("%s\t\t: ", "isalnum");
-	ASSERT(isalnum('a' - 1) == ft_isalnum('a' - 1))
-	ASSERT(isalnum('a') == ft_isalnum('a'))
-	ASSERT(isalnum('z' + 1) == ft_isalnum('z' + 1))
-	ASSERT(isalnum('z') == ft_isalnum('z'))
-	ASSERT(isalnum('A' - 1) == ft_isalnum('A' - 1))
-	ASSERT(isalnum('A') == ft_isalnum('A'))
-	ASSERT(isalnum('Z' + 1) == ft_isalnum('Z' + 1))
-	ASSERT(isalnum('Z') == ft_isalnum('Z'))
-	ASSERT(isalnum('0' - 1) == ft_isalnum('0' - 1))
-	ASSERT(isalnum('0') == ft_isalnum('0'))
-	ASSERT(isalnum('9' + 1) == ft_isalnum('9' + 1))
-	ASSERT(isalnum('9') == ft_isalnum('9'))
+	ASSERT(isalnum('a' - 1) != 0 == ft_isalnum('a' - 1) != 0)
+	ASSERT(isalnum('a') != 0 == ft_isalnum('a') != 0)
+	ASSERT(isalnum('z' + 1) != 0 == ft_isalnum('z' + 1) != 0)
+	ASSERT(isalnum('z') != 0 == ft_isalnum('z') != 0)
+	ASSERT(isalnum('A' - 1) != 0 == ft_isalnum('A' - 1) != 0)
+	ASSERT(isalnum('A') != 0 == ft_isalnum('A') != 0)
+	ASSERT(isalnum('Z' + 1) != 0 == ft_isalnum('Z' + 1) != 0)
+	ASSERT(isalnum('Z') != 0 == ft_isalnum('Z') != 0)
+	ASSERT(isalnum('0' - 1) != 0 == ft_isalnum('0' - 1) != 0)
+	ASSERT(isalnum('0') != 0 == ft_isalnum('0') != 0)
+	ASSERT(isalnum('9' + 1) != 0 == ft_isalnum('9' + 1) != 0)
+	ASSERT(isalnum('9') != 0 == ft_isalnum('9') != 0)
 	printf("\n");
 }
 
 void	t_isascii(void)
 {
 	printf("%s\t\t: ", "isascii");
-	ASSERT(isascii(-1) == ft_isascii(-1))
-	ASSERT(isascii(0) == ft_isascii(0))
-	ASSERT(isascii(128) == ft_isascii(128))
-	ASSERT(isascii(127) == ft_isascii(127))
+	ASSERT(isascii(-1) != 0 == ft_isascii(-1) != 0)
+	ASSERT(isascii(0) != 0 == ft_isascii(0) != 0)
+	ASSERT(isascii(128) != 0 == ft_isascii(128) != 0)
+	ASSERT(isascii(127) != 0 == ft_isascii(127) != 0)
 	printf("\n");
 }
 
 void	t_isprint(void)
 {
 	printf("%s\t\t: ", "isprint");
-	ASSERT(isprint(' ' - 1) == ft_isprint(' ' - 1))
-	ASSERT(isprint(' ') == ft_isprint(' '))
-	ASSERT(isprint('~' + 1) == ft_isprint('~' + 1))
-	ASSERT(isprint('~') == ft_isprint('~'))
+	ASSERT(isprint(' ' - 1) != 0 == ft_isprint(' ' - 1) != 0)
+	ASSERT(isprint(' ') != 0 == ft_isprint(' ') != 0)
+	ASSERT(isprint('~' + 1) != 0 == ft_isprint('~' + 1) != 0)
+	ASSERT(isprint('~') != 0 == ft_isprint('~') != 0)
 	printf("\n");
 }
 

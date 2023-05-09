@@ -20,8 +20,8 @@ void	t_fail(void)
 {
 	printf("%sKO%s  ", "\033[1m\x1B[31m", "\x1B[0m");
 }
+
 void	t_succ(void)
 {
 	printf("%sOK%s  ", "\033[1m\033[32m", "\x1B[0m");
 }
-

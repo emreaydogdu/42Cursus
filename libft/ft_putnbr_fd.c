@@ -13,9 +13,26 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char	*out;
+	char	number;
 
-	out = ft_itoa(n);
-	write(fd, out, ft_strlen(out));
-	free(out);
+	if (n == -2147483648)
+	{
+		write(fd, "-2147483648", ft_strlen("-2147483648"));
+		return ;
+	}
+	if (n < 0)
+	{
+		n *= -1;
+		write(fd, "-", 1);
+	}
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+	{
+		number = n + '0';
+		write(fd, &number, 1);
+	}
 }

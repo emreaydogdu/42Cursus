@@ -34,22 +34,22 @@ static size_t	strcounter(char const *s, char c)
 
 static void	fillarr(char **arr, size_t len_arr, char const *s, char c)
 {
-	size_t	idx;
+	size_t	i;
 	size_t	len_word;
 
-	idx = 0;
-	while (idx < len_arr)
+	i = 0;
+	while (i < len_arr)
 	{
 		len_word = 0;
 		while (*s == c && *s != 0)
 			s++;
 		while (s[len_word] != c && s[len_word] != '\0')
 			len_word++;
-		arr[idx] = ft_substr(s, 0, len_word);
+		arr[i] = ft_substr(s, 0, len_word);
 		s += len_word;
-		idx++;
+		i++;
 	}
-	arr[idx] = 0;
+	arr[i] = 0;
 }
 
 char	**ft_split(char const *s, char c)

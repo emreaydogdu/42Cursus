@@ -6,13 +6,13 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 20:50:19 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/10 17:26:37 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:08:45 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <ctype.h>
 #include <string.h>
 #include <limits.h>
-#include "../libft.h"
+#include "../libft/libft.h"
 #include "util.c"
 #include <stdio.h>
 #include <stdlib.h>

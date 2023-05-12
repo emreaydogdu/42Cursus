@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:45:40 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/11 16:43:59 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:17:26 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -20,7 +20,7 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 		return (NULL);
 	d = dst;
 	s = src;
-	if (d < s)
+	if (d <= s)
 		while (n--)
 			*d++ = *s++;
 	else

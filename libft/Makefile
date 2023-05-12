@@ -4,25 +4,25 @@ B_SRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 			ft_lstclear.c ft_lstiter.c ft_lstmap.c
 OBJS = ${SRCS:.c=.o}
 B_OBJS = ${B_SRCS:.c=.o}
-LIB  = libft.a
+NAME  = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-all: ${LIB}
+all: ${NAME}
 
 %.o : %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
-${LIB} : ${OBJS}
-	ar rc ${LIB} ${OBJS}
+${NAME} : ${OBJS}
+	ar rc ${NAME} ${OBJS}
 
-bonus: ${LIB} ${B_OBJS}
-	ar rc ${LIB} ${B_OBJS}
+bonus: ${NAME} ${B_OBJS}
+	ar rc ${NAME} ${B_OBJS}
 
 clean:
 	rm -f ${OBJS}
 
 fclean: clean
-	rm -f ${LIB}
+	rm -f ${NAME}
 
 re: fclean all

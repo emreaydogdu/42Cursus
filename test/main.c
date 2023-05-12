@@ -520,6 +520,7 @@ void	t_itoa(void)
 
 int	main(void)
 {
+	/*
 	t_isalpha();
 	t_isdigit();
 	t_isalnum();
@@ -557,7 +558,7 @@ int	main(void)
 	else
 	if (!tabstr[0])
 		printf("OK\n");
-	/*
+	/
 	char	**tabstr;
 	int i = 0;
 	if (!(tabstr = ft_split("", 'z')))
@@ -578,5 +579,8 @@ int	main(void)
 		}
 
 		*/
+
+
+	printf("%s\n", ft_split("Hallo!", ' '));
 	return (0);
 }

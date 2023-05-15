@@ -27,22 +27,27 @@ int	ft_puthex(unsigned int n, int caps)
 	return (size + (int)write(1, &number, 1));
 }
 
-int	ft_print_adress_hex(char *p)
+int	ft_puthexp(unsigned long n)
 {
-	intptr_t	x;
-	size_t		i;
-	char		buf[9];
+	unsigned char	number;
+	int				size;
 
-	x = (intptr_t)p;
-	i = 0;
-	while (i <= 8)
+	size = 0;
+	if (n >= 16)
+		size += ft_puthexp(n / 16);
+	number = "0123456789abcdef"[n % 16];
+	return (size + (int)write(1, &number, 1));
+}
+
+int	ft_puthexph(unsigned long n)
+{
+	if (n == 0)
+		return ((int) write(1, "(nil)", 5));
+	else
 	{
-		buf[i] = "0123456789abcdef"[(x >> ((8 - i) * 4)) & 0xf];
-		i++;
+		write(1, "0x", 2);
+		return (2 + ft_puthexp(n));
 	}
-	write(1, "0x", 2);
-	write(1, buf, sizeof(buf));
-	return (sizeof(buf) + 2);
 }
 
 int	ft_formats(va_list args, const char c)
@@ -55,7 +60,7 @@ int	ft_formats(va_list args, const char c)
 	else if (c == 's')
 		size = size + ft_putstr(va_arg(args, char *));
 	else if (c == 'p')
-		size = size + ft_print_adress_hex(va_arg(args, void *));
+		size = size + ft_puthexph(va_arg(args, unsigned long));
 	else if (c == 'i' || c == 'd')
 		size = size + ft_putnbr(va_arg(args, int));
 	else if (c == 'u')
@@ -87,17 +92,15 @@ int	ft_printf(const char *format, ...)
 	return (va_end(args), size);
 }
 
-/*
-int	main(void)
-{
-	int i = 0, j = 0;
-	//char *str  = "Pointer";
-	//char *str2 = "Hello World";
+// int	main(void)
+// {
+// 	int i = 0, j = 0;
+// 	// char *str  = "Pointer";
+// 	// char *str2 = "Hello World";
 
-	j = ft_printf("\n %c %c %c ", '0', 0, '1');
-	i = printf("\n %c %c %c ", '0', 0, '1');
+// 	j = ft_printf("\n %p", NULL);
+// 	i = printf("\n %p", NULL);
 
-	printf("\n\nc: %d my: %d", i, j);
-	return (0);
-}
- */
+// 	printf("\n\nc: %d my: %d", i, j);
+// 	return (0);
+// }

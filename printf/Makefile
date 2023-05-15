@@ -14,8 +14,8 @@ all: ${NAME}
 ${NAME} : ${OBJS}
 	ar rc ${NAME} ${OBJS}
 
-bonus: ${NAME} ${B_OBJS}
-	ar rc ${NAME} ${B_OBJS}
+#bonus: ${NAME} ${B_OBJS}
+#	ar rc ${NAME} ${B_OBJS}
 
 clean:
 	rm -f ${OBJS}

@@ -20,7 +20,8 @@ int	ft_putstr(char *s);
 int	ft_putnbr(int n);
 int	ft_putunbr(unsigned int n);
 int	ft_puthex(unsigned int n, int caps);
-int	ft_print_adress_hex(char *p);
+int	ft_puthexp(unsigned long n);
+int	ft_puthexph(unsigned long n);
 int	ft_formats(va_list args, const char c);
 int	ft_printf(const char *str, ...);
 

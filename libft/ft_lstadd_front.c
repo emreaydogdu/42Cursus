@@ -13,10 +13,6 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	new->next = lst[0];
-	*lst = new;
-}
-/*
 	if (*lst == NULL)
 		*lst = new;
 	else
@@ -24,4 +20,4 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 		new -> next = *lst;
 		*lst = new;
 	}
- */
+}

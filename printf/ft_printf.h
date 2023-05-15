@@ -15,13 +15,13 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-int		ft_printf(const char *s, ...);
-void	ft_print(char c, va_list args);
-void	ft_putchar(va_list args);
-void	ft_putstr(char *s);
-void	ft_putnbr(int n);
-void	ft_putunbr(unsigned int n);
-void	ft_puthex(int n, int caps);
-void	ft_print_adress_hex(char *p);
+int	ft_putchar(char c);
+int	ft_putstr(char *s);
+int	ft_putnbr(int n);
+int	ft_putunbr(unsigned int n);
+int	ft_puthex(unsigned int n, int caps);
+int	ft_print_adress_hex(char *p);
+int	ft_formats(va_list args, const char c);
+int	ft_printf(const char *str, ...);
 
 #endif

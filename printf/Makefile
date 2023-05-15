@@ -1,5 +1,5 @@
-SRCS = ft_printf.c ft_puts.c ft_putshex.c
-B_SRCS = ft_printf.c ft_puts.c ft_putshex.c
+SRCS = ft_printf.c ft_puts.c
+B_SRCS = ft_printf.c ft_puts.c
 OBJS = ${SRCS:.c=.o}
 B_OBJS = ${B_SRCS:.c=.o}
 NAME  = libftprintf.a

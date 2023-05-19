@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 19:09:10 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/18 18:25:51 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:12:27 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_read(int fd, char *str)
 {
@@ -38,27 +38,32 @@ static char	*ft_read(int fd, char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[MAX_FD];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = ft_read(fd, str);
-	if (!str)
+	str[fd] = ft_read(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	line = ft_splitfrst(str);
-	str = ft_splitscnd(str);
+	line = ft_splitfrst(str[fd]);
+	str[fd] = ft_splitscnd(str[fd]);
 	return (line);
 }
 /*
 int	main(void)
 {
-	int		fd;
+	int		fd1;
+	int		fd2;
 
-	fd = open("../getNextLine/file", O_RDONLY);
-	printf("%d", BUFFER_SIZE);
-	printf("%s", get_next_line(fd));
-	close(fd);
+	fd1 = open("../getNextLine/file", O_RDONLY);
+	fd2 = open("../getNextLine/file_bonus", O_RDONLY);
+	printf("[%d] || [%d]\n", fd1, fd2);
+	printf("[%s] || [%s]", get_next_line(fd1), get_next_line(fd2));
+	printf("[%s] || [%s]", get_next_line(fd1), get_next_line(fd2));
+	printf("[%s] || [%s]", get_next_line(fd1), get_next_line(fd2));
+	close(fd1);
+	close(fd2);
 	printf("\n\nBUFFER -> %d\n\n", BUFFER_SIZE);
 	return (0);
 }

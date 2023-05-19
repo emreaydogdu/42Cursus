@@ -23,14 +23,12 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <sys/fcntl.h>
-# include <sys/syslimits.h>
 
 size_t	ft_strlen(const char *s);
 int		ft_nlchr(char *str);
 char	*ft_strjoin(char *str, char *buf);
 char	*ft_splitfrst(const char *str);
 char	*ft_splitscnd(char *str);
-char	*ft_read(int fd, char *str);
 char	*get_next_line(int fd);
 
 #endif

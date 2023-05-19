@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-char	*ft_read(int fd, char *str)
+static char	*ft_read(int fd, char *str)
 {
 	char	*buffer;
 	ssize_t	i;
@@ -50,16 +50,14 @@ char	*get_next_line(int fd)
 	str = ft_splitscnd(str);
 	return (line);
 }
-
 /*
 int	main(void)
 {
 	int		fd;
-	char	*line;
 
 	fd = open("../getNextLine/file", O_RDONLY);
-	while (line = get_next_line(fd))
-		printf("%s", line);
+	printf("%d", BUFFER_SIZE);
+	printf("%s", get_next_line(fd));
 	close(fd);
 	printf("\n\nBUFFER -> %d\n\n", BUFFER_SIZE);
 	return (0);

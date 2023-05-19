@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
 
-char	*ft_read(int fd, char *str)
+static char	*ft_read(int fd, char *str)
 {
 	char	*buffer;
 	ssize_t	i;
@@ -50,7 +50,6 @@ char	*get_next_line(int fd)
 	str[fd] = ft_splitscnd(str[fd]);
 	return (line);
 }
-
 /*
 int	main(void)
 {

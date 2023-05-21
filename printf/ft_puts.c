@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/21 11:42:52 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/21 11:53:43 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -28,28 +28,6 @@ int	ft_putstr(char *s)
 	return ((int) write(1, s, i));
 }
 
-int	ft_count_digits(int n)
-{
-	int	size;
-
-	size = 0;
-	if (n == -2147483648)
-	{
-		return (11);
-	}
-	if (n < 0)
-	{
-		n *= -1;
-		size++;
-	}
-	while (n / 10)
-	{
-		n /= 10;
-		size++;
-	}
-	return (++size);
-}
-
 int	ft_putnbr_b(int n, t_print *p)
 {
 	int				size;
@@ -57,36 +35,11 @@ int	ft_putnbr_b(int n, t_print *p)
 	size = 0;
 	if (!p->plus && p->space && n >= 0)
 	{
-		//p->width = p->width - 1;
 		p->plus = 0;
 		p->space = 0;
 		size += (int)write(1, " ", 1);
 	}
-	/*
-	if (p->width && !p->minus)
-	{
-		if (p->plus)
-			p->width = p->width - 1;
-		p->width = p->width - ft_count_digits(n);
-		while (p->width > 0)
-		{
-			p->width = p->width - 1;
-			size += (int)write(1, " ", 1);
-		}
-	}
-	*/
 	size += ft_putnbr(n, p);
-	/*
-	if (p->width && p->minus)
-	{
-		p->width = p->width - ft_count_digits(n);
-		while (p->width > 0)
-		{
-			p->width = p->width - 1;
-			size += (int)write(1, " ", 1);
-		}
-	}
-	 */
 	return (size);
 }
 
@@ -97,10 +50,7 @@ int	ft_putnbr(int n, t_print *p)
 
 	size = 0;
 	if (n == -2147483648)
-	{
-		write(1, "-2147483648", 11);
-		return (11);
-	}
+		return ((int) write(1, "-2147483648", 11));
 	if (n < 0)
 	{
 		p->plus = 0;
@@ -111,7 +61,6 @@ int	ft_putnbr(int n, t_print *p)
 	}
 	else if (p->plus)
 	{
-		//p->width = p->width - 1;
 		p->plus = 0;
 		p->space = 0;
 		size += (int)write(1, "+", 1);

@@ -6,101 +6,102 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/14 23:56:42 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:50:23 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 #include "ft_printf.h"
 
-int	ft_puthex(unsigned int n, int caps)
+char	*ft_check(char *format, t_print *p)
 {
-	unsigned char	number;
-	int				size;
-
-	size = 0;
-	if (n >= 16)
-		size += ft_puthex(n / 16, caps);
-	if (caps == 'X')
-		number = "0123456789ABCDEF"[n % 16];
-	else
-		number = "0123456789abcdef"[n % 16];
-	return (size + (int)write(1, &number, 1));
-}
-
-int	ft_puthexp(unsigned long n)
-{
-	unsigned char	number;
-	int				size;
-
-	size = 0;
-	if (n >= 16)
-		size += ft_puthexp(n / 16);
-	number = "0123456789abcdef"[n % 16];
-	return (size + (int)write(1, &number, 1));
-}
-
-int	ft_puthexph(unsigned long n)
-{
-	if (n == 0)
-		return ((int) write(1, "(nil)", 5));
-	else
+	format++;
+	if (*format == '#')
 	{
-		write(1, "0x", 2);
-		return (2 + ft_puthexp(n));
+		p->hash = 1;
+		while (*format == '#')
+			format++;
+		format = ft_check(--format, p);
 	}
+	if (*format == ' ')
+	{
+		p->space = 1;
+		while (*format == ' ')
+			format++;
+		format = ft_check(--format, p);
+	}
+	if (*format == '+')
+	{
+		p->plus = 1;
+		while (*format == '+')
+			format++;
+		format = ft_check(--format, p);
+	}
+	/*
+	if (*format >= '1' && *format <= '9')
+	{
+		while (*format >= '0' && *format <= '9')
+			p->width = p->width * 10 + (*format++ - '0');
+		format = ft_check(--format, p);
+	}
+	*/
+	return (format);
 }
 
-int	ft_formats(va_list args, const char c)
+void	ft_reset(t_print *p)
 {
-	int	size;
+	p->c = '\0';
+	p->hash = 0;
+	p->plus = 0;
+	p->space = 0;
+	//p->width = 0;
+	//p->minus = 0;
+}
 
-	size = 0;
-	if (c == 'c')
-		size = size + ft_putchar(va_arg(args, int));
-	else if (c == 's')
-		size = size + ft_putstr(va_arg(args, char *));
-	else if (c == 'p')
-		size = size + ft_puthexph(va_arg(args, unsigned long));
-	else if (c == 'i' || c == 'd')
-		size = size + ft_putnbr(va_arg(args, int));
-	else if (c == 'u')
-		size = size + ft_putunbr(va_arg(args, int));
-	else if (c == 'x' || c == 'X')
-		size = size + ft_puthex(va_arg(args, int), c);
-	else if (c == '%')
-		size = size + (int)write(1, "%", 1);
-	return (size);
+char	*ft_formats(va_list args, char *format, t_print *p)
+{
+	format = ft_check(format, p);
+	if (*format == 'c')
+		p->len += ft_putchar(va_arg(args, int));
+	else if (*format == 's')
+		p->len += ft_putstr(va_arg(args, char *));
+	else if (*format == 'p')
+		p->len += ft_puthexph(va_arg(args, unsigned long));
+	else if (*format == 'i' || *format == 'd')
+		p->len += ft_putnbr_b(va_arg(args, int), p);
+	else if (*format == 'u')
+		p->len += ft_putunbr(va_arg(args, int));
+	else if (*format == 'x' || *format == 'X')
+		p->len += ft_puthex(va_arg(args, int), p->c, p);
+	else if (*format == '%')
+		p->len += (int)write(1, "%", 1);
+	return (++format);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	int		size;
+	t_print	p;
 	va_list	args;
 
 	va_start(args, format);
-	size = 0;
+	p.len = 0;
 	while (*format)
 	{
+		ft_reset(&p);
 		if (*format == '%')
-		{
-			size += ft_formats(args, *(format + 1));
-			format += 2;
-		}
+			format = ft_formats(args, format, &p);
 		else
-			size += (int)write(1, format++, 1);
+			p.len += (int)write(1, format++, 1);
 	}
-	return (va_end(args), size);
+	return (va_end(args), p.len);
 }
 
-// int	main(void)
-// {
-// 	int i = 0, j = 0;
-// 	// char *str  = "Pointer";
-// 	// char *str2 = "Hello World";
+int	main(void)
+{
+	int	i;
+	int	j;
 
-// 	j = ft_printf("\n %p", NULL);
-// 	i = printf("\n %p", NULL);
-
-// 	printf("\n\nc: %d my: %d", i, j);
-// 	return (0);
-// }
+	j = ft_printf("|%# +d|\n", 3100);
+	i = printf("|%+d|\n", 3100);
+	printf("\n\nc: %d my: %d", i, j);
+	return (0);
+}

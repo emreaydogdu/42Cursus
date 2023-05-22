@@ -6,9 +6,10 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/22 11:22:17 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:49:34 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <limits.h>
 #include "ft_printf.h"
 
 char	*ft_check(char *format, t_print *p)
@@ -86,14 +87,15 @@ int	ft_printf(const char *format, ...)
 	return (va_end(args), p.len);
 }
 
-
+/*
 int	main(void)
 {
 	int	i;
 	int	j;
 
-	j = ft_printf("%X\n", 10);
-	i = printf("%X\n", 10);
+	j = ft_printf("|% 1s|\n", "");
+	i = printf("|% 1s|\n", "");
 	printf("\n\nc: %d my: %d", i, j);
 	return (0);
 }
+*/

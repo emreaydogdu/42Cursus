@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/22 11:22:33 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:40:33 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -17,9 +17,10 @@ int	ft_puthex(unsigned int n, int caps, t_print *p)
 	int				size;
 
 	size = 0;
-	if (p->hash)
+	if (p->hash && n != 0)
 	{
-		size += (int)write(1, "0x", 2);
+		size += (int)write(1, "0", 1);
+		size += (int)write(1, &caps, 1);
 		p->hash = 0;
 	}
 	if (n >= 16)

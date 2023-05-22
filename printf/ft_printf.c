@@ -6,10 +6,9 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/21 11:57:18 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:22:17 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 #include "ft_printf.h"
 
 char	*ft_check(char *format, t_print *p)
@@ -61,7 +60,7 @@ char	*ft_formats(va_list args, char *format, t_print *p)
 	else if (*format == 'u')
 		p->len += ft_putunbr(va_arg(args, int));
 	else if (*format == 'x' || *format == 'X')
-		p->len += ft_puthex(va_arg(args, int), p->c, p);
+		p->len += ft_puthex(va_arg(args, int), *format, p);
 	else if (*format == '%')
 		p->len += (int)write(1, "%", 1);
 	return (++format);
@@ -87,13 +86,14 @@ int	ft_printf(const char *format, ...)
 	return (va_end(args), p.len);
 }
 
+
 int	main(void)
 {
 	int	i;
 	int	j;
 
-	j = ft_printf("|%# +d|\n", 3100);
-	i = printf("|%+d|\n", 3100);
+	j = ft_printf("%X\n", 10);
+	i = printf("%X\n", 10);
 	printf("\n\nc: %d my: %d", i, j);
 	return (0);
 }

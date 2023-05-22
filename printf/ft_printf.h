@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:08:23 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/21 11:42:17 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:33:19 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_H
@@ -14,6 +14,7 @@
 
 # include <stdarg.h>
 # include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_print
 {

@@ -1,5 +1,5 @@
-SRCS = ft_printf.c ft_puts.c
-B_SRCS = ft_printf.c ft_puts.c
+SRCS = ft_printf.c ft_puts.c ft_putsx.c
+B_SRCS = ft_printf.c ft_puts.c ft_putsx.c
 OBJS = ${SRCS:.c=.o}
 B_OBJS = ${B_SRCS:.c=.o}
 NAME  = libftprintf.a
@@ -14,8 +14,8 @@ all: ${NAME}
 ${NAME} : ${OBJS}
 	ar rc ${NAME} ${OBJS}
 
-#bonus: ${NAME} ${B_OBJS}
-#	ar rc ${NAME} ${B_OBJS}
+bonus: ${NAME} ${B_OBJS}
+	ar rc ${NAME} ${B_OBJS}
 
 clean:
 	rm -f ${OBJS}

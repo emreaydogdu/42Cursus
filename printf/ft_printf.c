@@ -6,38 +6,12 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/22 11:49:34 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/22 23:40:33 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <limits.h>
+#include <stdlib.h>
 #include "ft_printf.h"
-
-char	*ft_check(char *format, t_print *p)
-{
-	format++;
-	if (*format == '#')
-	{
-		p->hash = 1;
-		while (*format == '#')
-			format++;
-		format = ft_check(--format, p);
-	}
-	if (*format == ' ')
-	{
-		p->space = 1;
-		while (*format == ' ')
-			format++;
-		format = ft_check(--format, p);
-	}
-	if (*format == '+')
-	{
-		p->plus = 1;
-		while (*format == '+')
-			format++;
-		format = ft_check(--format, p);
-	}
-	return (format);
-}
 
 void	ft_reset(t_print *p)
 {
@@ -45,25 +19,31 @@ void	ft_reset(t_print *p)
 	p->hash = 0;
 	p->plus = 0;
 	p->space = 0;
+	p->pad = ' ';
+	p->minus = 0;
+	p->width = 0;
+	p->dot = 0;
+	p->precision = 0;
 }
 
 char	*ft_formats(va_list args, char *format, t_print *p)
 {
-	format = ft_check(format, p);
+	ft_check_b1(&format, p);
+	ft_check_b2(&format, p);
 	if (*format == 'c')
-		p->len += ft_putchar(va_arg(args, int));
+		p->len += ft_putchar(va_arg(args, int), p);
 	else if (*format == 's')
-		p->len += ft_putstr(va_arg(args, char *));
+		p->len += ft_putstr(va_arg(args, char *), p);
 	else if (*format == 'p')
-		p->len += ft_puthexph(va_arg(args, unsigned long));
+		p->len += ft_putptr(va_arg(args, unsigned long), p);
 	else if (*format == 'i' || *format == 'd')
-		p->len += ft_putnbr_b(va_arg(args, int), p);
+		p->len += ft_putnbr(va_arg(args, int), p);
 	else if (*format == 'u')
-		p->len += ft_putunbr(va_arg(args, int));
+		p->len += ft_putunbr(va_arg(args, int), p);
 	else if (*format == 'x' || *format == 'X')
 		p->len += ft_puthex(va_arg(args, int), *format, p);
 	else if (*format == '%')
-		p->len += (int)write(1, "%", 1);
+		p->len += ft_putchar('%', p);
 	return (++format);
 }
 
@@ -80,7 +60,7 @@ int	ft_printf(const char *format, ...)
 	{
 		ft_reset(&p);
 		if (*f == '%')
-			f = ft_formats(args, f, &p);
+			f = ft_formats(args, ++f, &p);
 		else
 			p.len += (int)write(1, f++, 1);
 	}
@@ -92,9 +72,13 @@ int	main(void)
 {
 	int	i;
 	int	j;
+	char	*s = "1234";
 
-	j = ft_printf("|% 1s|\n", "");
-	i = printf("|% 1s|\n", "");
+	ft_printf("|");
+	j = ft_printf(" % d ", -10);
+	printf("|\n|");
+	i = printf(" % d ", -10);
+	printf("|");
 	printf("\n\nc: %d my: %d", i, j);
 	return (0);
 }

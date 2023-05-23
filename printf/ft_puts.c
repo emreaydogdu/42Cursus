@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/22 21:19:51 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:31:14 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -37,6 +37,7 @@ int	ft_putchar(char c, t_print *p)
 int	ft_putstr(char *s, t_print *p)
 {
 	int	i;
+	int	len;
 
 	i = 0;
 	if (s == NULL)
@@ -48,10 +49,13 @@ int	ft_putstr(char *s, t_print *p)
 			i += ft_print_width(p->width - 6, p);
 		return (i);
 	}
+	len = ft_strlen(s);
+	if (p->dot && p->precision < len)
+		len = p->precision;
 	if (!p->minus && p->width)
-		i += ft_print_width(p->width - ft_strlen(s), p);
-	i += write(1, s, ft_strlen(s));
+		i += ft_print_width(p->width - len, p);
+	i += (int)write(1, s, len);
 	if (p->minus && p->width)
-		i += ft_print_width(p->width - ft_strlen(s), p);
+		i += ft_print_width(p->width - len, p);
 	return (i);
 }

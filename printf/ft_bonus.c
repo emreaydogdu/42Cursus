@@ -16,7 +16,7 @@ int	ft_print_width(int n, t_print *p)
 	int	size;
 
 	size = 0;
-	while (n-- && n >= 0)
+	while (n > 0 && n--)
 		size += (int)write(1, &p->pad, 1);
 	return (size);
 }
@@ -59,6 +59,8 @@ void	ft_check_b2(char **format, t_print *p)
 			p->space = 0;
 		if (p->minus)
 			p->pad = ' ';
+		if (p->dot)
+			p->pad = '0';
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/22 21:38:17 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:10:16 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -39,8 +39,8 @@ int	ft_puthex(unsigned int n, int caps, t_print *p)
 	}
 	else
 	{
-		if (!p->minus && p->width)
-			i += ft_print_width(p->width - ft_putptr_c(n), p);
+		if ((!p->minus && p->width) || p->dot)
+			i += ft_print_width(p->width + p->precision - ft_putptr_c(n), p);
 		i += ft_puthex_h(n, caps, p);
 		if (p->minus && p->width)
 			i += ft_print_width(p->width - ft_putptr_c(n), p);

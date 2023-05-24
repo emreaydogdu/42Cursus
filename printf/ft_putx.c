@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 16:14:12 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/25 00:02:39 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -26,28 +26,19 @@ int	ft_putptr_c(unsigned long n)
 int	ft_puthex(unsigned int n, int caps, t_print *p)
 {
 	int	i;
+	int	len;
 
 	i = 0;
-	if (n == 0 && p->dot && !p->precision)
-		return (0);
-	if (n == 0)
-	{
-		if ((!p->minus && p->width) || p->dot)
-			i += ft_print_width(1, p);
-		i += (int) write(1, "0", 1);
-		if (p->minus && p->width)
-			i += ft_print_width(1, p);
-		return (i);
-	}
-	else
-	{
-		if ((!p->minus && p->width) || p->dot)
-			i += ft_print_width(ft_putptr_c(n), p);
-		i += ft_puthex_h(n, caps, p);
-		if (p->minus && p->width)
-			i += ft_print_width(ft_putptr_c(n), p);
-		return (i);
-	}
+	len = ft_putptr_c(n);
+	p->pad = '0';
+	if ((!p->minus && p->width))
+		i += ft_pwidth(len, p);
+	if (p->dot && p->precision > len)
+		i += ft_pprecision(len, p);
+	i += ft_puthex_h(n, caps, p);
+	if (p->minus && p->width)
+		i += ft_pwidth(i, p);
+	return (i);
 }
 
 int	ft_puthex_h(unsigned int n, int caps, t_print *p)

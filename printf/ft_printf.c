@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 19:10:44 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/25 00:47:39 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <limits.h>
@@ -42,10 +42,7 @@ char	*ft_formats(va_list args, char *format, t_print *p)
 	else if (*format == 'p')
 		p->len += ft_putptr(va_arg(args, unsigned long), p);
 	else if (*format == 'i' || *format == 'd')
-	{
-		p->pad = '0';
 		p->len += ft_putnbr(va_arg(args, int), p);
-	}
 	else if (*format == 'u')
 		p->len += ft_putunbr(va_arg(args, int), p);
 	else if (*format == 'x' || *format == 'X')
@@ -81,12 +78,96 @@ int	main(void)
 	int	j;
 	char	*s = "1234";
 
-	ft_printf("|");
-	j = ft_printf("%.1d", 1);
-	printf("|\n|");
-	i = printf("%.1d", 1);
-	printf("|");
-	printf("\n\nc: %d my: %d", i, j);
+	j = ft_printf("|%10.1s|", "21.shool.ru");
+	ft_printf("\n");
+	i = printf("|%10.1s|", "21.shool.ru");
+	printf("\nc: %d my: %d\n\n", i, j); //
+
+	j = ft_printf("|%-1.10d|", 0);
+	ft_printf("\n");
+	i = printf("|%-1.10d|", 0);
+	printf("\nc: %d my: %d\n\n", i, j); //
+
+	j = ft_printf("|%-10.5d|", -10);
+	ft_printf("\n");
+	i = printf("|%-10.5d|", -10);
+	printf("\nc: %d my: %d\n\n", i, j); //
+
+	j = ft_printf("|%-10.2d|", -10);
+	ft_printf("\n");
+	i = printf("|%-10.2d|", -10);
+	printf("\nc: %d my: %d\n\n", i, j); //
+
+	j = ft_printf("|%-10.5d|", 5000);
+	ft_printf("\n");
+	i = printf("|%-10.5d|", 5000);
+	printf("\nc: %d my: %d\n\n", i, j); //
+
+	j = ft_printf("|%-10.2d|", -5000);
+	ft_printf("\n");
+	i = printf("|%-10.2d|", -5000);
+	printf("\nc: %d my: %d\n\n", i, j); //
+
+	j = ft_printf("|%--4.1s|", "the");
+	ft_printf("\n");
+	i = printf("|%--4.1s|", "the");
+	printf("\nc: %d my: %d\n\n", i, j); //
+
+	j = ft_printf("|%-1.8u|", 0);
+	ft_printf("\n");
+	i = printf("|%-1.8u|", 0);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%-1.10u|", -10);
+	ft_printf("\n");
+	i = printf("|%-1.10u|", -10);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%-10.5u|", 0);
+	ft_printf("\n");
+	i = printf("|%-10.5u|", 0);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%-.2x|", 0);
+	ft_printf("\n");
+	i = printf("|%-.2x|", 0);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%-1.8x|", 0);
+	ft_printf("\n");
+	i = printf("|%-1.8x|", 0);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%-.3x|", 7);
+	ft_printf("\n");
+	i = printf("|%-.3x|", 7);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%010d|", 42);
+	ft_printf("\n");
+	i = printf("|%010d|", 42);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%012d|", -2147483648);
+	ft_printf("\n");
+	i = printf("|%012d|", (int)-2147483648);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%020d|", -42000);
+	ft_printf("\n");
+	i = printf("|%020d|", -42000);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%03.d|", 0);
+	ft_printf("\n");
+	i = printf("|%03.d|", 0);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%+ 030d|", 2147483647);
+	ft_printf("\n");
+	i = printf("|%+ 030d|", 2147483647);
+	printf("\nc: %d my: %d\n\n", i, j);
+
 	return (0);
 }
 */

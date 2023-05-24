@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:04:23 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 19:07:55 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/25 00:36:15 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -23,13 +23,14 @@ int	ft_print_width(int n, t_print *p)
 			i = p->width - ((p->precision - n) + n + p->sign);
 		else
 			i = p->width - n;
+		p->precision -= i;
 		while (i > 0 && i--)
 			size += (int)write(1, " ", 1);
 	}
 	if (p->precision)
 	{
-		if (p->dot && p->precision && p->width != 0 && p->c == 's')
-			i = p->width - (n - p->sign);
+		if (p->c == 's')
+			i = 0;
 		else if (p->dot && p->precision && p->width != 0)
 			i = p->precision - (n - p->sign);
 		else
@@ -107,4 +108,32 @@ int	ft_psign(t_print *p)
 	}
 	else
 		return (0);
+}
+
+int	ft_pwidth(int n, t_print *p)
+{
+	int	size;
+	int	i;
+
+	size = 0;
+	i = p->width - n;
+	size += ft_psign(p);
+	while (i > 0 && i--)
+		size += (int)write(1, &p->pad, 1);
+	return (size);
+}
+
+int	ft_pprecision(int n, t_print *p)
+{
+	int	size;
+	int	i;
+
+	size = 0;
+	i = p->precision - (n - p->sign);
+	if (p->c == 's')
+		i = 0;
+	size += ft_psign(p);
+	while (i > 0 && i--)
+		size += (int)write(1, "0", 1);
+	return (size);
 }

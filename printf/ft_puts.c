@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/23 13:31:14 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:44:13 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -27,10 +27,10 @@ int	ft_putchar(char c, t_print *p)
 
 	i = 0;
 	if (!p->minus && p->width)
-		i += ft_print_width(p->width - 1, p);
+		i += ft_print_width(1, p);
 	i += (int) write(1, &c, 1);
 	if (p->minus && p->width)
-		i += ft_print_width(p->width - 1, p);
+		i += ft_print_width(1, p);
 	return (i);
 }
 
@@ -43,19 +43,19 @@ int	ft_putstr(char *s, t_print *p)
 	if (s == NULL)
 	{
 		if (!p->minus)
-			i += ft_print_width(p->width - 6, p);
+			i += ft_print_width(6, p);
 		i += (int) write(1, "(null)", 6);
 		if (p->minus)
-			i += ft_print_width(p->width - 6, p);
+			i += ft_print_width(6, p);
 		return (i);
 	}
 	len = ft_strlen(s);
 	if (p->dot && p->precision < len)
 		len = p->precision;
 	if (!p->minus && p->width)
-		i += ft_print_width(p->width - len, p);
+		i += ft_print_width(len, p);
 	i += (int)write(1, s, len);
 	if (p->minus && p->width)
-		i += ft_print_width(p->width - len, p);
+		i += ft_print_width(len, p);
 	return (i);
 }

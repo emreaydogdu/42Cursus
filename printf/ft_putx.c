@@ -39,7 +39,6 @@ int	ft_puthex(unsigned int n, int caps, t_print *p)
 	}
 	else
 	{
-		printf("[%d]", p->width + p->precision);
 		if ((!p->minus && p->width) || p->dot)
 			i += ft_print_width(p->width + p->precision - ft_putptr_c(n), p);
 		i += ft_puthex_h(n, caps, p);
@@ -79,20 +78,20 @@ int	ft_putptr(unsigned long n, t_print *p)
 	if (n == 0)
 	{
 		if (!p->minus)
-			i += ft_print_width(p->width - 5, p);
+			i += ft_print_width(5, p);
 		i += (int) write(1, "(nil)", 5);
 		if (p->minus)
-			i += ft_print_width(p->width - 5, p);
+			i += ft_print_width(5, p);
 		return (i);
 	}
 	else
 	{
 		if (!p->minus && p->width)
-			i += ft_print_width(p->width - ft_putptr_c(n) - 2, p);
+			i += ft_print_width(ft_putptr_c(n) - 2, p);
 		i += (int)write(1, "0x", 2);
 		i += ft_putptr_h(n);
 		if (p->minus && p->width)
-			i += ft_print_width(p->width - ft_putptr_c(n) - 2, p);
+			i += ft_print_width(ft_putptr_c(n) - 2, p);
 		return (i);
 	}
 }

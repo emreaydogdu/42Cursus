@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 14:50:02 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:51:54 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -43,7 +43,6 @@ int	ft_putnbr(int n, t_print *p)
 	if (n < 0)
 	{
 		p->sign = 1;
-		p->width - 1;
 		n *= -1;
 		if (!p->dot && !p->width)
 			write(1, "-", 1);
@@ -68,7 +67,7 @@ int	ft_putnbr_b(int n, t_print *p)
 
 	size = 0;
 	if (n == -2147483648)
-		return ((int) write(1, "-2147483648", 11));
+		return ((int) write(1, "2147483648", 11));
 	if (n < 0)
 	{
 		if (p->dot)
@@ -89,10 +88,10 @@ int	ft_putunbr(unsigned int n, t_print *p)
 
 	size = 0;
 	if ((!p->minus && p->width) || p->dot)
-		size += ft_print_width(p->width + p->precision - ft_count_digits(n, p), p);
+		size += ft_print_width(ft_count_digits(n, p), p);
 	size += ft_putunbr_b(n, p);
 	if (p->minus && p->width)
-		size += ft_print_width(p->width - ft_count_digits(n, p), p);
+		size += ft_print_width(ft_count_digits(n, p), p);
 	return (size);
 }
 

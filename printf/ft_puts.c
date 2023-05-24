@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 16:09:24 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:43:20 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -40,9 +40,10 @@ int	ft_putstr(char *s, t_print *p)
 	int	len;
 
 	i = 0;
-	if (s == NULL && p->precision >= 6)
+	if (s == NULL)
 	{
-		p->precision = 0;
+		if (p->precision < 6)
+			return (0);
 		if (!p->minus)
 			i += ft_print_width(6, p);
 		i += (int) write(1, "(null)", 6);
@@ -50,8 +51,6 @@ int	ft_putstr(char *s, t_print *p)
 			i += ft_print_width(6, p);
 		return (i);
 	}
-	else if (s == NULL)
-		return (0);
 	len = ft_strlen(s);
 	if (p->dot && p->precision < len)
 		len = p->precision;

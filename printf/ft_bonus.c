@@ -26,15 +26,15 @@ int	ft_print_width(int n, t_print *p)
 		while (i > 0 && i--)
 			size += (int)write(1, " ", 1);
 	}
-	size += ft_psign(p);
 	if (p->precision)
 	{
 		if (p->dot && p->precision && !p->width)
-			i = p->precision - n + p->sign;
+			i = p->precision - (n - p->sign);
 		else if (p->dot && p->precision > p->width && p->width)
-			i = p->precision - n + p->sign;
+			i = p->precision - (n - p->sign);
 		else
-			i = p->precision - n + p->sign;
+			i = p->precision - (n - p->sign);
+		size += ft_psign(p);
 		while (i > 0 && i--)
 			size += (int)write(1, &p->pad, 1);
 	}

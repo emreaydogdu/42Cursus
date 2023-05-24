@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:04:23 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 15:08:33 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:35:49 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -26,11 +26,13 @@ int	ft_print_width(int n, t_print *p)
 		while (i > 0 && i--)
 			size += (int)write(1, " ", 1);
 	}
-	if (p->sign)
-		(int)write(1, "-", 1);
+	size += ft_psign(p);
 	if (p->precision)
 	{
-		i = p->precision - n + p->sign;
+		if (p->dot && p->precision > p->width)
+			i = p->width - (n + p->sign);
+		else
+			i = p->precision - n + p->sign;
 		while (i > 0 && i--)
 			size += (int)write(1, &p->pad, 1);
 	}
@@ -73,10 +75,10 @@ void	ft_check_b2(char **format, t_print *p)
 	{
 		if (p->plus)
 			p->space = 0;
-		if (p->minus)
-			p->pad = ' ';
 		if (p->dot)
 			p->pad = '0';
+		if (p->minus)
+			p->pad = ' ';
 	}
 }
 
@@ -90,4 +92,15 @@ int	ft_pspace(t_print *p)
 {
 	p->space = 0;
 	return ((int)write(1, " ", 1));
+}
+
+int	ft_psign(t_print *p)
+{
+	if (p->sign)
+	{
+		p->sign = 0;
+		return ((int)write(1, "-", 1));
+	}
+	else
+		return (0);
 }

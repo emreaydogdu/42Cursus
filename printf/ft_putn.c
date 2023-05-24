@@ -45,6 +45,8 @@ int	ft_putnbr(int n, t_print *p)
 		p->sign = 1;
 		p->width - 1;
 		n *= -1;
+		if (!p->dot && !p->width)
+			write(1, "-", 1);
 		size++;
 	}
 	else if (p->plus)

@@ -25,10 +25,14 @@ int	ft_print_width(int n, t_print *p)
 			i = p->width - n;
 		while (i > 0 && i--)
 			size += (int)write(1, " ", 1);
+		if (p->width > p->precision)
+			p->precision = 0;
 	}
 	if (p->precision)
 	{
 		if (p->dot && p->precision && p->width != 0 && p->c == 's')
+			i = p->width - (p->precision - (n - p->sign));
+		else if (p->dot && p->precision && p->width == 0 && p->c == 's')
 			i = p->width - (n - p->sign);
 		else if (p->dot && p->precision && p->width == 0)
 			i = p->precision - (n - p->sign);

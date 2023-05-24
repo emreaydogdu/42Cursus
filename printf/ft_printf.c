@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 19:00:34 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:06:20 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <limits.h>
@@ -82,9 +82,9 @@ int	main(void)
 	char	*s = "1234";
 
 	ft_printf("|");
-	j = ft_printf("%-.3d", -10);
+	j = ft_printf("%-1.8d", 0);
 	printf("|\n|");
-	i = printf("%-5.7s", "us");
+	i = printf("%-1.8d", 0);
 	printf("|");
 	printf("\n\nc: %d my: %d", i, j);
 	return (0);

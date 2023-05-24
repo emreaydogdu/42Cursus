@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:08:23 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/22 23:04:48 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:33:08 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_H
@@ -20,12 +20,13 @@ typedef struct s_print
 {
 	char	c;
 	int		len;
+	int		sign;
 	int		hash;
 	int		plus;
 	int		space;
 	char	pad;
 	int		minus;
-	int	width;
+	int		width;
 	int		dot;
 	int		precision;
 }	t_print;

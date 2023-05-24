@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:04:23 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/22 23:31:37 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:08:33 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -14,10 +14,26 @@
 int	ft_print_width(int n, t_print *p)
 {
 	int	size;
+	int	i;
 
 	size = 0;
-	while (n > 0 && n--)
-		size += (int)write(1, &p->pad, 1);
+	if (p->width)
+	{
+		if (p->dot && p->precision > n)
+			i = p->width - ((p->precision - n) + n + p->sign);
+		else
+			i = p->width - n;
+		while (i > 0 && i--)
+			size += (int)write(1, " ", 1);
+	}
+	if (p->sign)
+		size += (int)write(1, "-", 1);
+	if (p->precision)
+	{
+		i = p->precision - n + p->sign;
+		while (i > 0 && i--)
+			size += (int)write(1, &p->pad, 1);
+	}
 	return (size);
 }
 

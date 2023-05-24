@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 13:36:35 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:27:59 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <limits.h>
@@ -17,6 +17,7 @@ void	ft_reset(t_print *p)
 {
 	p->c = '\0';
 	p->hash = 0;
+	p->sign = 0;
 	p->plus = 0;
 	p->space = 0;
 	p->pad = ' ';
@@ -74,9 +75,9 @@ int	main(void)
 	char	*s = "1234";
 
 	ft_printf("|");
-	j = ft_printf(" %.11x", LONG_MIN);
+	j = ft_printf("%40.30d", -1L);
 	printf("|\n|");
-	i = printf(" %.11x", LONG_MIN);
+	i = printf("%40.30d", -1L);
 	printf("|");
 	printf("\n\nc: %d my: %d", i, j);
 	return (0);

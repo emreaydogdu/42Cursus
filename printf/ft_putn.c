@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/23 13:54:43 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:50:02 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -40,6 +40,31 @@ int	ft_putnbr(int n, t_print *p)
 
 	size = 0;
 	len = ft_count_digits(n, p);
+	if (n < 0)
+	{
+		p->sign = 1;
+		p->width - 1;
+		n *= -1;
+		size++;
+	}
+	else if (p->plus)
+		size += ft_pplus(p);
+	else if (p->space)
+		size += ft_pspace(p);
+	if ((!p->minus && p->width) || p->dot)
+		size += ft_print_width(len, p);
+	size += ft_putnbr_b(n, p);
+	if (p->minus && p->width)
+		size += ft_print_width(len, p);
+	return (size);
+}
+
+int	ft_putnbr_b(int n, t_print *p)
+{
+	unsigned char	number;
+	int				size;
+
+	size = 0;
 	if (n == -2147483648)
 		return ((int) write(1, "-2147483648", 11));
 	if (n < 0)
@@ -50,24 +75,6 @@ int	ft_putnbr(int n, t_print *p)
 		n *= -1;
 		size++;
 	}
-	else if (p->plus)
-		size += ft_pplus(p);
-	else if (p->space)
-		size += ft_pspace(p);
-	if ((!p->minus && p->width) || p->dot)
-		size += ft_print_width(p->width + p->precision - len, p);
-	size += ft_putnbr_b(n, p);
-	if (p->minus && p->width)
-		size += ft_print_width(p->width - len, p);
-	return (size);
-}
-
-int	ft_putnbr_b(int n, t_print *p)
-{
-	unsigned char	number;
-	int				size;
-
-	size = 0;
 	if (n > 9)
 		size += ft_putnbr_b(n / 10, p);
 	number = (n % 10) + '0';

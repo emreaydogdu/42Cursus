@@ -27,7 +27,7 @@ int	ft_print_width(int n, t_print *p)
 			size += (int)write(1, " ", 1);
 	}
 	if (p->sign)
-		size += (int)write(1, "-", 1);
+		(int)write(1, "-", 1);
 	if (p->precision)
 	{
 		i = p->precision - n + p->sign;

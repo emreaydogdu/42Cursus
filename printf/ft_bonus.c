@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:04:23 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 16:35:49 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:00:43 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -29,8 +29,10 @@ int	ft_print_width(int n, t_print *p)
 	size += ft_psign(p);
 	if (p->precision)
 	{
-		if (p->dot && p->precision > p->width)
-			i = p->width - (n + p->sign);
+		if (p->dot && p->precision && !p->width)
+			i = p->precision - n + p->sign;
+		else if (p->dot && p->precision > p->width && p->width)
+			i = p->precision - n + p->sign;
 		else
 			i = p->precision - n + p->sign;
 		while (i > 0 && i--)

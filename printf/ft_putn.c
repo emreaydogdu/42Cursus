@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 16:49:45 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:50:52 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -64,8 +64,8 @@ int	ft_putnbr_b(int n, t_print *p)
 	size = 0;
 	if (n == -2147483648)
 	{
-		ft_psign(p);
-		return ((int) write(1, "2147483648", 10));
+		size += ft_psign(p);
+		return (size + (int) write(1, "2147483648", 10));
 	}
 	if (n < 0)
 	{

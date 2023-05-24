@@ -30,15 +30,16 @@ int	ft_puthex(unsigned int n, int caps, t_print *p)
 	i = 0;
 	if (n == 0)
 	{
-		if (!p->minus)
-			i += ft_print_width(p->width - 1, p);
+		if ((!p->minus && p->width) || p->dot)
+			i += ft_print_width(p->width + p->precision - 1, p);
 		i += (int) write(1, "0", 1);
-		if (p->minus)
+		if (p->minus && p->width)
 			i += ft_print_width(p->width - 1, p);
 		return (i);
 	}
 	else
 	{
+		printf("[%d]", p->width + p->precision);
 		if ((!p->minus && p->width) || p->dot)
 			i += ft_print_width(p->width + p->precision - ft_putptr_c(n), p);
 		i += ft_puthex_h(n, caps, p);

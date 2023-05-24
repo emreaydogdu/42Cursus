@@ -42,7 +42,7 @@ int	ft_putstr(char *s, t_print *p)
 	i = 0;
 	if (s == NULL)
 	{
-		if (p->precision < 6)
+		if (p->dot && p->precision < 6)
 			return (0);
 		if (!p->minus)
 			i += ft_print_width(6, p);

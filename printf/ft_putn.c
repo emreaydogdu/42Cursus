@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 16:46:11 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:49:45 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -43,10 +43,7 @@ int	ft_putnbr(int n, t_print *p)
 	if (n == 0 && p->dot && !p->precision)
 		return (0);
 	if (n < 0)
-	{
 		p->sign = 1;
-		size++;
-	}
 	else if (p->plus)
 		size += ft_pplus(p);
 	else if (p->space)

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:04:23 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/25 00:36:15 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:59:13 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -117,7 +117,8 @@ int	ft_pwidth(int n, t_print *p)
 
 	size = 0;
 	i = p->width - n;
-	size += ft_psign(p);
+	if (p->pad == '0')
+		size += ft_psign(p);
 	while (i > 0 && i--)
 		size += (int)write(1, &p->pad, 1);
 	return (size);

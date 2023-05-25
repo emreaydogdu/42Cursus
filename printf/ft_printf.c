@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/25 00:47:39 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/25 10:03:37 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <limits.h>
@@ -153,21 +153,37 @@ int	main(void)
 	i = printf("|%012d|", (int)-2147483648);
 	printf("\nc: %d my: %d\n\n", i, j);
 
-	j = ft_printf("|%020d|", -42000);
-	ft_printf("\n");
-	i = printf("|%020d|", -42000);
-	printf("\nc: %d my: %d\n\n", i, j);
 
 	j = ft_printf("|%03.d|", 0);
 	ft_printf("\n");
 	i = printf("|%03.d|", 0);
 	printf("\nc: %d my: %d\n\n", i, j);
 
-	j = ft_printf("|%+ 030d|", 2147483647);
+	j = ft_printf("|%020d|", -42000);
 	ft_printf("\n");
-	i = printf("|%+ 030d|", 2147483647);
+	i = printf("|%020d|", -42000);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%20d|", -42000);
+	ft_printf("\n");
+	i = printf("|%20d|", -42000);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%.5d|", -1234);
+	ft_printf("\n");
+	i = printf("|%.5d|", -1234);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%.0d|", 0);
+	ft_printf("\n");
+	i = printf("|%.0d|", 0);
+	printf("\nc: %d my: %d\n\n", i, j);
+
+	j = ft_printf("|%.0d|", (int)-2147483648);
+	ft_printf("\n");
+	i = printf("|%.0d|", (int)-2147483648);
 	printf("\nc: %d my: %d\n\n", i, j);
 
 	return (0);
 }
-*/
+ */

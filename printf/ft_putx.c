@@ -30,7 +30,7 @@ int	ft_puthex(unsigned int n, int caps, t_print *p)
 
 	i = 0;
 	len = ft_putptr_c(n);
-	p->pad = '0';
+	p->pad = ' ';
 	if ((!p->minus && p->width))
 		i += ft_pwidth(len, p);
 	if (p->dot && p->precision > len)

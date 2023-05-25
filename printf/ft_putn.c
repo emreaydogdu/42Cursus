@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/25 10:07:49 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/25 10:20:24 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -95,8 +95,6 @@ int	ft_putunbr(unsigned int n, t_print *p)
 		p->pad = ' ';
 	if (n == 0)
 	{
-		if (p->dot)
-			len--;
 	}
 	if (!p->minus && p->width)
 		size += ft_pwidth(len, p);
@@ -114,7 +112,7 @@ int	ft_putunbr_b(unsigned int n, t_print *p)
 	int				size;
 
 	size = 0;
-	if (n == 0)
+	if (n == 0 && p->dot && !p->precision)
 		return ((int) write(1, "", 0));
 	if (n > 9)
 		size += ft_putunbr_b(n / 10, p);

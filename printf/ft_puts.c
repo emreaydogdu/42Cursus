@@ -56,9 +56,11 @@ int	ft_putstr(char *s, t_print *p)
 	if (p->dot && p->precision < len)
 		len = p->precision;
 	if (!p->minus && p->width)
-		i += ft_print_width(len, p);
+		i += ft_pwidth(len, p);
+	if (p->dot && p->precision > len)
+		i += ft_pprecision(len, p);
 	i += (int)write(1, s, len);
 	if (p->minus && p->width)
-		i += ft_print_width(len, p);
+		i += ft_pwidth(i, p);
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:08:23 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 23:00:21 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:55:38 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_H
@@ -19,13 +19,12 @@
 typedef struct s_print
 {
 	char	c;
+	char	*sign;
 	int		len;
-	int		sign;
 	int		hash;
-	int		plus;
-	int		space;
 	char	pad;
 	int		minus;
+	int		zero;
 	int		width;
 	int		dot;
 	int		precision;
@@ -53,10 +52,12 @@ int	ft_printf(const char *str, ...);
 int		ft_print_width(int n, t_print *p);
 void	ft_check_b1(char **format, t_print *p);
 void	ft_check_b2(char **format, t_print *p);
-int		ft_pplus(t_print *p);
-int		ft_pspace(t_print *p);
+void	ft_check_args(t_print *p);
 int		ft_psign(t_print *p);
 int		ft_pprecision(int n, t_print *p);
 int		ft_pwidth(int n, t_print *p);
+void	ft_printArgs(t_print *p);
+int	ft_calc_width(int len, t_print *p);
+int	ft_calc_precision(int len, t_print *p);
 
 #endif

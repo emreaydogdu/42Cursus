@@ -27,10 +27,10 @@ int	ft_putchar(char c, t_print *p)
 
 	i = 0;
 	if (!p->minus && p->width)
-		i += ft_print_width(1, p);
+		i += ft_pwidth(1, p);
 	i += (int) write(1, &c, 1);
 	if (p->minus && p->width)
-		i += ft_print_width(1, p);
+		i += ft_pwidth(1, p);
 	return (i);
 }
 

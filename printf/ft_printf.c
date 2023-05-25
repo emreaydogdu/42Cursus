@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 21:55:21 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/25 10:25:15 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:05:41 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <limits.h>
@@ -16,12 +16,11 @@
 void	ft_reset(t_print *p)
 {
 	p->c = '\0';
+	p->sign = "";
 	p->hash = 0;
-	p->sign = 0;
-	p->plus = 0;
-	p->space = 0;
 	p->pad = ' ';
 	p->minus = 0;
+	p->zero = 0;
 	p->width = 0;
 	p->dot = 0;
 	p->precision = 0;
@@ -31,24 +30,25 @@ char	*ft_formats(va_list args, char *format, t_print *p)
 {
 	ft_check_b1(&format, p);
 	ft_check_b2(&format, p);
-	if (*format == 'c')
+	p->c = *format;
+	ft_check_args(p);
+	//ft_printArgs(p);
+	if (p->c == 'c')
 		p->len += ft_putchar(va_arg(args, int), p);
 	else if (*format == 's')
-	{
-		p->c = 's';
-		p->pad = ' ';
 		p->len += ft_putstr(va_arg(args, char *), p);
-	}
 	else if (*format == 'p')
 		p->len += ft_putptr(va_arg(args, unsigned long), p);
 	else if (*format == 'i' || *format == 'd')
 		p->len += ft_putnbr(va_arg(args, int), p);
-	else if (*format == 'u')
-		p->len += ft_putunbr(va_arg(args, int), p);
 	else if (*format == 'x' || *format == 'X')
 		p->len += ft_puthex(va_arg(args, int), *format, p);
 	else if (*format == '%')
 		p->len += ft_putchar('%', p);
+	/*
+	else if (*format == 'u')
+		p->len += ft_putunbr(va_arg(args, int), p);
+	 */
 	return (++format);
 }
 
@@ -71,13 +71,80 @@ int	ft_printf(const char *format, ...)
 	}
 	return (va_end(args), p.len);
 }
+
 /*
 int	main(void)
 {
 	int	i;
 	int	j;
 	char	*s = "1234";
+	int p = -30;
 
+	//t_print *pp;
+	//ft_reset(pp);
+	//pp->sign = "-";
+	//printf("%d", ft_count_digits(-10, pp));
+
+	j = ft_printf("|%d|\n", p);
+	i = printf("|%d|\n\n", p);
+
+	j = ft_printf("|%15d|\n", p);
+	i = printf("|%15d|\n\n", p);
+
+	j = ft_printf("|%-15d|\n", p);
+	i = printf("|%-15d|\n\n", p);
+
+	j = ft_printf("|%015d|\n", p);
+	i = printf("|%015d|\n\n", p);
+
+	j = ft_printf("|%-015d|\n", p);
+	i = printf("|%-015d|\n\n", p);
+
+	j = ft_printf("|%-015.10d|\n", p);
+	i = printf("|%-015.10d|\n\n", p);
+
+	j = ft_printf("|%-015.10d|\n", p);
+	i = printf("|%-015.10d|\n\n", p);
+
+	j = ft_printf("|%.5d|\n", p);
+	i = printf("|%.5d|\n\n", p);
+
+	j = ft_printf("|%+.5d|\n", p);
+	i = printf("|%+.5d|\n\n", p);
+
+	j = ft_printf("|% .5d|\n", p);
+	i = printf("|% .5d|\n\n", p);
+
+	j = ft_printf("|%+10.5d|\n", p);
+	i = printf("|%+10.5d|\n\n", p);
+
+	j = ft_printf("|%010.5d|\n", p);
+	i = printf("|%010.5d|\n\n", p);
+
+	j = ft_printf("|% .d|\n", p);
+	i = printf("|% .d|\n\n", p);
+
+	j = ft_printf("|% .0d|\n", p);
+	i = printf("|% .0d|\n\n", p);
+
+	j = ft_printf("|%+15.5d|\n", p);
+	i = printf("|%+15.5d|\n\n", p);
+
+	j = ft_printf("|% .1d|\n", p);
+	i = printf("|% .1d|\n\n", p);
+
+	j = ft_printf("%10s", "21.shool.ru");
+	j = ft_printf("%10.s", "21.shool.ru");
+	j = ft_printf("%10.0s", "21.shool.ru");
+	j = ft_printf("%10.5s", "21.shool.ru");
+	j = ft_printf("%.s", "21.shool.ru");
+	j = ft_printf("%.0s", "21.shool.ru");
+	j = ft_printf("%.5s", "21.shool.ru");
+	j = ft_printf("%-10.1s", "21.shool.ru");
+	j = ft_printf("%+10.5s", "21.shool.ru");
+	j = ft_printf("% 10.5s", "21.shool.ru");
+	j = ft_printf("%010.5s", "21.shool.ru");
+	j = ft_printf("%#10.5s", "21.shool.ru");
 	j = ft_printf("|%10.1s|", "21.shool.ru");
 	ft_printf("\n");
 	i = printf("|%10.1s|", "21.shool.ru");
@@ -194,11 +261,10 @@ int	main(void)
 	i = printf("|%-1.8u|", 0);
 	printf("\nc: %d my: %d\n\n", i, j);
 
-	j = ft_printf("|%-5.7s|", "us");
+	j = ft_printf("|%01.2d|", -4);
 	ft_printf("\n");
-	i = printf("|%-5.7s|", "us");
+	i = printf("|%01.2d|", -4);
 	printf("\nc: %d my: %d\n\n", i, j);
-
 	return (0);
 }
-*/
+ */

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:46:24 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/26 13:52:30 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:33:18 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -98,3 +98,15 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (p.size);
 }
+
+/*
+int	main(void)
+{
+	int	i;
+
+	i = ft_printf("|%10.5i|", -216);
+	printf("\n|%10.5i|", -216);
+	printf("\n|%10d|\n", i);
+	return (0);
+}
+*/

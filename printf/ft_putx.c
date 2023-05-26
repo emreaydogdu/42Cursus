@@ -29,7 +29,7 @@ int	ft_print_x(char *nbstr, int n, int is_upper, t_flags flags)
 		count += ft_print_x_prefix(is_upper);
 	if (flags.precision >= 0)
 		count += ft_putwidth(flags.precision - 1,
-			ft_strlen(nbstr) - 1, 1);
+				ft_strlen(nbstr) - 1, 1);
 	count += ft_print_s(nbstr);
 	return (count);
 }

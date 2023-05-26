@@ -39,9 +39,11 @@ int	ft_putwidth(int width, int size, int zero)
 
 	count = 0;
 	while (width-- - size > 0)
+	{
 		if (zero)
 			count += ft_putchar('0');
 		else
 			count += ft_putchar(' ');
+	}
 	return (count);
 }

@@ -86,7 +86,7 @@ void	ft_parse(char *str, va_list args, t_flags *p)
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	t_flags p;
+	t_flags	p;
 	char	*str;
 
 	p.size = 0;

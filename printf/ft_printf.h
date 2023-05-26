@@ -40,7 +40,7 @@ int		ft_precision(const char *str, int pos, va_list args, t_flags *flags);
 /* ---------- LIBFT -------------------- */
 size_t	ft_strlen(const char *str);
 void	*ft_callocc(size_t count, size_t size);
-int	ft_isdigit(int c);
+int		ft_isdigit(int c);
 
 /* ---------- PRINTF -------------------- */
 int		ft_printf(const char *format, ...);

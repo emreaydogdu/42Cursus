@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:44:50 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/05/26 12:30:50 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:44:00 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,17 @@ int	ft_istype(int c)
 {
 	return (c == 'c' || c == 's' || c == 'd' || c == 'i' || c == 'u'
 		|| c == 'x' || c == 'X' || c == 'p' || c == '%');
+}
+
+int	ft_putwidth(int width, int size, int zero)
+{
+	int	count;
+
+	count = 0;
+	while (width-- - size > 0)
+		if (zero)
+			count += ft_putchar('0');
+		else
+			count += ft_putchar(' ');
+	return (count);
 }

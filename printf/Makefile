@@ -1,32 +1,28 @@
-NAME			=	libftprintf.a
+.PHONY: all bonus clean fclean re
 
-CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror
-AR				=	ar
-ARFLAGS 		=	rcs
-RM				=	rm -rf
+NAME = libftprintf.a
+SRC = ft_printf.c ft_putc.c ft_puts.c ft_putx.c ft_putn.c ft_putp.c ft_putu.c ft_libft ft_conversions.c ft_conversions_h.c ft_itoa.c ft_utoa.c ft_xtoa.c
+OBJS = ${B_SRCS:.c=.o}
+AR = ar
+ARFLAGS = rc
+RM = rm
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-SRC				=	ft_printf ft_putc ft_puts ft_putx ft_putn ft_putp ft_putu ft_libft ft_conversions ft_conversions_h ft_itoa ft_utoa ft_xtoa
-SRCS 			=	$(addsuffix .c, $(SRC))
+all: $(NAME)
 
-OBJS			=	$(SRCS:%.c=%.o)
+%.o : %.c
+	$(CC) -c $(CFLAGS) $< -o $@
 
-%.o:		%.c
-					$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJS)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 
-all:				$(NAME)
-
-bonus:				all
-
-$(NAME):			$(OBJS)
-					$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+bonus: all
 
 clean:
-					rm -f ${OBJS}
+	rm -f ${OBJS}
 
-fclean:				clean
-					$(RM) $(NAME)
+fclean: clean
+	$(RM) $(NAME)
 
-re:					fclean all
-
-.PHONY:				all bonus clean fclean re
+re: fclean all

@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:25:09 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/05/26 12:20:40 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:24:02 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_flag_precision(const char *str, int pos,
 			va_list args, t_flags *flags);
 
 /* ---------- HELPER -------------------- */
-int	ft_strlen(const char *str);
+size_t	ft_strlen(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 int	ft_isdigit(int c);
 

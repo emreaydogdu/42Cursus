@@ -6,7 +6,7 @@ AR				=	ar
 ARFLAGS 		=	rcs
 RM				=	rm -rf
 
-SRC				=	ft_printf ft_putc ft_puts ft_putx ft_putn ft_putp ft_putu ft_nbr_len ft_flags ft_flags_utils ft_print_flag ft_printf_itoa ft_printf_utoa ft_printf_xtoa
+SRC				=	ft_printf ft_putc ft_puts ft_putx ft_putn ft_putp ft_putu ft_libft ft_conversions ft_conversions_h ft_itoa ft_utoa ft_xtoa
 SRCS 			=	$(addsuffix .c, $(SRC))
 
 OBJS			=	$(SRCS:%.c=%.o)

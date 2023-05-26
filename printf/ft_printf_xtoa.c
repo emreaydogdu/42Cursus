@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_xtoa.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/17 18:02:35 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/01/17 18:02:42 by mcombeau         ###   ########.fr       */
+/*   Created: 2023/05/12 11:25:43 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/26 13:51:52 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 static size_t	ft_xtoa_len(long num)

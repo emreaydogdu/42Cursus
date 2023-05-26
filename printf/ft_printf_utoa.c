@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utoa.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/17 18:02:22 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/01/17 18:02:28 by mcombeau         ###   ########.fr       */
+/*   Created: 2023/05/12 11:25:43 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/26 13:52:06 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 static size_t	ft_utoa_len(long num)

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:25:43 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/25 22:41:25 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:34:19 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_ptr_len(unsigned long int n)
+{
+	int	len;
+
+	len = 0;
+	if (n == 0)
+		return (1);
+	while (n >= 1)
+	{
+		len++;
+		n /= 16;
+	}
+	return (len);
+}
 
 void	ft_print_adr(unsigned long int n)
 {

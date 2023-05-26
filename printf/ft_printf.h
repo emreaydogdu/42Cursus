@@ -46,7 +46,7 @@ t_flags	ft_flag_width(va_list args, t_flags flags);
 int		ft_flag_precision(const char *str, int pos,
 			va_list args, t_flags *flags);
 
-/* ---------- HELPER -------------------- */
+/* ---------- LIBFT -------------------- */
 size_t	ft_strlen(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 int	ft_isdigit(int c);

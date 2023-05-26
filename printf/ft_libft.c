@@ -6,11 +6,10 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:09:27 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/26 15:34:50 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:41:10 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include "printf.h"
+#include "ft_printf.h"
 
 size_t	ft_strlen(const char *str)
 {

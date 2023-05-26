@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 15:57:31 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/05/26 13:15:18 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:29:20 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,13 @@ void	ft_width(va_list args, t_flags *p)
 
 int	ft_precision(const char *str, int i, va_list args, t_flags *p)
 {
-	i++;
-	if (str[i] == '*')
-	{
+	if (str[++i] == '*')
 		p->precision = va_arg(args, int);
-		return (++i);
-	}
-	p->precision = 0;
-	while (ft_isdigit(str[i]))
+	else
 	{
-		p->precision = (p->precision * 10) + (str[i] - '0');
-		i++;
+		p->precision = 0;
+		while (ft_isdigit(str[i]))
+			p->precision = (p->precision * 10) + (str[i++] - '0');
 	}
 	return (i);
 }

@@ -6,12 +6,12 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:25:43 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/26 13:47:19 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:03:15 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	ft_ptr_len(unsigned long int n)
+static int	ft_ptr_len(unsigned long int n)
 {
 	int	len;
 
@@ -26,12 +26,12 @@ int	ft_ptr_len(unsigned long int n)
 	return (len);
 }
 
-void	ft_print_adr(unsigned long int n)
+static void	ft_putp(unsigned long int n)
 {
 	if (n >= 16)
 	{
-		ft_print_adr(n / 16);
-		ft_print_adr(n % 16);
+		ft_putp(n / 16);
+		ft_putp(n % 16);
 	}
 	else
 	{
@@ -42,35 +42,35 @@ void	ft_print_adr(unsigned long int n)
 	}
 }
 
-int	ft_putptr(unsigned long int n)
+static int	ft_putptr(unsigned long int n)
 {
 	int	count;
 
 	count = 0;
 	if (n == 0)
 	{
-		count += ft_print_s("(nil)");
+		count += ft_puts("(nil)");
 		return (count);
 	}
-	count += ft_print_s("0x");
-	ft_print_adr(n);
+	count += ft_puts("0x");
+	ft_putp(n);
 	count += ft_ptr_len(n);
 	return (count);
 }
 
-int	ft_putptr_f(unsigned long int n, t_flags flags)
+int	ft_putptr_f(unsigned long int n, t_print p)
 {
 	int	count;
 
 	count = 0;
 	if (n == 0)
-		flags.width -= ft_strlen("(nil)") - 1;
+		p.width -= ft_strlen("(nil)") - 1;
 	else
-		flags.width -= 2;
-	if (flags.minus == 1)
+		p.width -= 2;
+	if (p.minus == 1)
 		count += ft_putptr(n);
-	count += ft_putwidth(flags.width, ft_ptr_len(n), 0);
-	if (flags.minus == 0)
+	count += ft_putwidth(p.width, ft_ptr_len(n), 0);
+	if (p.minus == 0)
 		count += ft_putptr(n);
 	return (count);
 }

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-void	ft_putarg(char type, va_list args, t_flags *p)
+void	ft_putarg(char type, va_list args, t_print *p)
 {
 	if (type == 'c')
 		p->size += ft_putchar_f(va_arg(args, int), *p);
@@ -30,7 +30,7 @@ void	ft_putarg(char type, va_list args, t_flags *p)
 		p->size += ft_putchar_f('%', *p);
 }
 
-int	ft_parse_args(const char *str, int i, va_list args, t_flags *p)
+int	ft_parse_args(const char *str, int i, va_list args, t_print *p)
 {
 	while (str[++i] && ft_isflag(str[i]))
 	{
@@ -59,7 +59,7 @@ int	ft_parse_args(const char *str, int i, va_list args, t_flags *p)
 	return (i);
 }
 
-void	ft_parse(char *str, va_list args, t_flags *p)
+void	ft_parse(char *str, va_list args, t_print *p)
 {
 	int	i;
 	int	x;
@@ -86,7 +86,7 @@ void	ft_parse(char *str, va_list args, t_flags *p)
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	t_flags	p;
+	t_print	p;
 	char	*str;
 
 	p.size = 0;

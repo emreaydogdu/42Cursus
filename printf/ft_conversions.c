@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-void	ft_reset(t_flags *p)
+void	ft_reset(t_print *p)
 {
 	p->spec = 0;
 	p->width = 0;
@@ -24,20 +24,20 @@ void	ft_reset(t_flags *p)
 	p->plus = 0;
 }
 
-void	ft_minus(t_flags *p)
+void	ft_minus(t_print *p)
 {
 	p->minus = 1;
 	p->zero = 0;
 }
 
-void	ft_width_num(char c, t_flags *p)
+void	ft_width_num(char c, t_print *p)
 {
 	if (p->star == 1)
 		p->width = 0;
 	p->width = (p->width * 10) + (c - '0');
 }
 
-void	ft_width(va_list args, t_flags *p)
+void	ft_width(va_list args, t_print *p)
 {
 	p->star = 1;
 	p->width = va_arg(args, int);
@@ -48,7 +48,7 @@ void	ft_width(va_list args, t_flags *p)
 	}
 }
 
-int	ft_precision(const char *str, int i, va_list args, t_flags *p)
+int	ft_precision(const char *str, int i, va_list args, t_print *p)
 {
 	if (str[++i] == '*')
 		p->precision = va_arg(args, int);

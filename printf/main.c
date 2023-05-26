@@ -17,7 +17,7 @@ int	main(void)
 {
 	int	i;
 
-	i = ft_printf("|%-10.5X|", -543);
+	i = ft_printf("|%15.*d|", 100, -543);
 	printf("\n|%10d|\n", i);
 	return (0);
 }

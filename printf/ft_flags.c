@@ -6,67 +6,61 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 15:57:31 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/05/25 18:54:01 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:15:18 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_flags	ft_reset_flags(t_flags flags)
+void	ft_reset(t_flags *p)
 {
-	flags.spec = 0;
-	flags.width = 0;
-	flags.minus = 0;
-	flags.zero = 0;
-	flags.star = 0;
-	flags.precision = -1;
-	flags.hash = 0;
-	flags.space = 0;
-	flags.plus = 0;
-	return (flags);
+	p->spec = 0;
+	p->width = 0;
+	p->minus = 0;
+	p->zero = 0;
+	p->star = 0;
+	p->precision = -1;
+	p->hash = 0;
+	p->space = 0;
+	p->plus = 0;
 }
 
-t_flags	ft_flag_left(t_flags flags)
+void	ft_minus(t_flags *p)
 {
-	flags.minus = 1;
-	flags.zero = 0;
-	return (flags);
+	p->minus = 1;
+	p->zero = 0;
 }
 
-t_flags	ft_flag_digit(char c, t_flags flags)
+void	ft_width_num(char c, t_flags *p)
 {
-	if (flags.star == 1)
-		flags.width = 0;
-	flags.width = (flags.width * 10) + (c - '0');
-	return (flags);
+	if (p->star == 1)
+		p->width = 0;
+	p->width = (p->width * 10) + (c - '0');
 }
 
-t_flags	ft_flag_width(va_list args, t_flags flags)
+void	ft_width(va_list args, t_flags *p)
 {
-	flags.star = 1;
-	flags.width = va_arg(args, int);
-	if (flags.width < 0)
+	p->star = 1;
+	p->width = va_arg(args, int);
+	if (p->width < 0)
 	{
-		flags.minus = 1;
-		flags.width *= -1;
+		p->minus = 1;
+		p->width *= -1;
 	}
-	return (flags);
 }
 
-int	ft_flag_precision(const char *str, int pos, va_list args, t_flags *flags)
+int	ft_precision(const char *str, int i, va_list args, t_flags *p)
 {
-	int	i;
-
-	i = pos + 1;
+	i++;
 	if (str[i] == '*')
 	{
-		flags->precision = va_arg(args, int);
-		return (i++);
+		p->precision = va_arg(args, int);
+		return (++i);
 	}
-	flags->precision = 0;
+	p->precision = 0;
 	while (ft_isdigit(str[i]))
 	{
-		flags->precision = (flags->precision * 10) + (str[i] - '0');
+		p->precision = (p->precision * 10) + (str[i] - '0');
 		i++;
 	}
 	return (i);

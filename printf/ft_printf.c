@@ -6,102 +6,95 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:46:24 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/26 12:41:31 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:03:59 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	ft_putarg(char type, va_list args, t_flags flags)
+void	ft_putarg(char type, va_list args, t_flags *p)
 {
-	int		count;
-
-	count = 0;
 	if (type == 'c')
-		count += ft_putchar_f(va_arg(args, int), flags);
-	else if (type == 's') //TODO
-		count += ft_putstr_f(va_arg(args, const char *), flags);
+		p->size += ft_putchar_f(va_arg(args, int), *p);
+	else if (type == 's')
+		p->size += ft_putstr_f(va_arg(args, const char *), *p);
 	else if (type == 'd' || type == 'i')
-		count += ft_putnumbr_f(va_arg(args, int), flags);
+		p->size += ft_putnumbr_f(va_arg(args, int), *p);
 	else if (type == 'x' || type == 'X')
-		count += ft_puthex_f(va_arg(args, unsigned int),
-				type == 'X', flags);
+		p->size += ft_puthex_f(va_arg(args, unsigned int),
+				type == 'X', *p);
 	else if (type == 'u')
-		count += ft_putunumbr_f(va_arg(args, unsigned int), flags);
+		p->size += ft_putunumbr_f(va_arg(args, unsigned int), *p);
 	else if (type == 'p')
-		count += ft_putptr_f((unsigned long int) va_arg(args, void *), flags);
+		p->size += ft_putptr_f((unsigned long int) va_arg(args, void *), *p);
 	else if (type == '%')
-		count += ft_putchar_f('%', flags);
-	return (count);
+		p->size += ft_putchar_f('%', *p);
 }
 
-int	ft_parse_flags(const char *str, int i, va_list args, t_flags *flags)
+int	ft_parse_args(const char *str, int i, va_list args, t_flags *p)
 {
 	while (str[++i] && ft_isflag(str[i]))
 	{
 		if (str[i] == '-')
-			*flags = ft_flag_left(*flags);
+			ft_minus(p);
 		if (str[i] == '#')
-			flags->hash = 1;
+			p->hash = 1;
 		if (str[i] == ' ')
-			flags->space = 1;
+			p->space = 1;
 		if (str[i] == '+')
-			flags->plus = 1;
-		if (str[i] == '0' && flags->minus == 0 && flags->width == 0)
-			flags->zero = 1;
+			p->plus = 1;
+		if (str[i] == '0' && p->minus == 0 && p->width == 0)
+			p->zero = 1;
 		if (str[i] == '.')
-			i = ft_flag_precision(str, i, args, flags);
+			i = ft_precision(str, i, args, p);
 		if (str[i] == '*')
-			*flags = ft_flag_width(args, *flags);
+			ft_width(args, p);
 		if (ft_isdigit(str[i]))
-			*flags = ft_flag_digit(str[i], *flags);
+			ft_width_num(str[i], p);
 		if (ft_istype(str[i]))
 		{
-			flags->spec = (int)str[i];
+			p->spec = (int)str[i];
 			break ;
 		}
 	}
 	return (i);
 }
 
-int	ft_parse(char *str, va_list args)
+void	ft_parse(char *str, va_list args, t_flags *p)
 {
-	int		i;
-	int		x;
-	int		count;
-	t_flags	flags;
+	int	i;
+	int	x;
 
 	i = -1;
-	count = 0;
 	while (str[++i])
 	{
-		flags = ft_reset_flags(flags);
+		ft_reset(p);
 		if (str[i] == '%' && str[i + 1])
 		{
-			x = ft_parse_flags(str, i, args, &flags);
-			if (flags.spec)
+			x = ft_parse_args(str, i, args, p);
+			if (p->spec)
 				i = x;
-			if (str[i] && flags.spec && ft_istype(str[i]))
-				count += ft_putarg(str[i], args, flags);
+			if (str[i] && p->spec && ft_istype(str[i]))
+				ft_putarg(str[i], args, p);
 			else if (str[i])
-				count += ft_putchar(str[i]);
+				p->size += ft_putchar(str[i]);
 		}
 		else
-			count += ft_putchar(str[i]);
+			p->size += ft_putchar(str[i]);
 	}
-	return (count);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	int		count;
+	t_flags p;
 	char	*str;
 
+	p.size = 0;
 	if (!format || *format == '\0')
 		return (0);
 	str = (char *)format;
 	va_start(args, format);
-	count = ft_parse(str, args);
+	ft_parse(str, args, &p);
 	va_end(args);
-	return (count);
+	return (p.size);
 }

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 11:46:24 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/26 12:41:08 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:04:06 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_H
@@ -31,11 +31,11 @@ typedef struct s_flags
 	int	size;
 }		t_flags;
 
-t_flags	ft_reset_flags(t_flags flags);
-t_flags	ft_flag_left(t_flags flags);
-t_flags	ft_flag_digit(char c, t_flags flags);
-t_flags	ft_flag_width(va_list args, t_flags flags);
-int		ft_flag_precision(const char *str, int pos, va_list args, t_flags *flags);
+void	ft_reset(t_flags *p);
+void	ft_minus(t_flags *p);
+void	ft_width_num(char c, t_flags *p);
+void	ft_width(va_list args, t_flags *p);
+int		ft_precision(const char *str, int pos, va_list args, t_flags *flags);
 
 /* ---------- LIBFT -------------------- */
 size_t	ft_strlen(const char *str);
@@ -44,7 +44,7 @@ int	ft_isdigit(int c);
 
 /* ---------- PRINTF -------------------- */
 int		ft_printf(const char *format, ...);
-int		ft_putarg(char type, va_list args, t_flags flags);
+void	ft_putarg(char type, va_list args, t_flags *flags);
 
 // c
 int		ft_putchar(char c);

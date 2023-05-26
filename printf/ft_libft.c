@@ -1,0 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_libft.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/26 12:09:27 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/26 12:19:43 by emaydogd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include <stdlib.h>
+#include "printf.h"
+
+int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+int	ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*dst;
+	size_t	n;
+
+	n = count * size;
+	dst = malloc(count * size);
+	if (dst == NULL)
+		return (NULL);
+	while (n--)
+		((unsigned char *)dst)[n] = (unsigned char)'\0';
+	return (dst);
+}

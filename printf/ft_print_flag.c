@@ -9,7 +9,6 @@
 /*   Updated: 2023/05/25 18:45:12 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int	ft_putwidth(int width, int size, int zero)

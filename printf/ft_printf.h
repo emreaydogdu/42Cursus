@@ -6,7 +6,7 @@
 /*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:25:09 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/05/25 18:40:04 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:20:40 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "libft/libft.h"
 
 # if defined (__linux__)
 #  define PTRNULL "(nil)"
@@ -46,6 +45,11 @@ t_flags	ft_flag_digit(char c, t_flags flags);
 t_flags	ft_flag_width(va_list args, t_flags flags);
 int		ft_flag_precision(const char *str, int pos,
 			va_list args, t_flags *flags);
+
+/* ---------- HELPER -------------------- */
+int	ft_strlen(const char *str);
+void	*ft_calloc(size_t count, size_t size);
+int	ft_isdigit(int c);
 
 /* ---------- PRINTF -------------------- */
 int		ft_printf(const char *format, ...);

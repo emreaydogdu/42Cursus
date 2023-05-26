@@ -11,9 +11,6 @@ SRCS 			=	$(addsuffix .c, $(SRC))
 
 OBJS			=	$(SRCS:%.c=%.o)
 
-LIBFT_PATH		=	./libft
-LIBFT			=	$(LIBFT_PATH)/libft.a
-
 %.o:		%.c
 					$(CC) $(CFLAGS) -c $< -o $@
 
@@ -21,21 +18,15 @@ all:				$(NAME)
 
 bonus:				all
 
-$(NAME):			$(LIBFT) $(OBJS)
-				cp	$(LIBFT) $(NAME)
+$(NAME):			$(OBJS)
 					$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 
-$(LIBFT):
-					make -C $(LIBFT_PATH) all
-
 clean:
-					make -C $(LIBFT_PATH) clean
+					rm -f ${OBJS}
 
 fclean:				clean
-					make -C $(LIBFT_PATH) fclean
-					rm -f ${OBJS}
 					$(RM) $(NAME)
 
 re:					fclean all
 
-.PHONY:				all bonus clean fclean re libft
+.PHONY:				all bonus clean fclean re

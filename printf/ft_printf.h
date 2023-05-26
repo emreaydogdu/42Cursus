@@ -72,9 +72,9 @@ int		ft_putptr(unsigned long int n);
 void	ft_print_adr(unsigned long int n);
 
 /* ---------- HELPER FUNCTIONS ---------- */
-char	*ft_printf_itoa(long nb);
-char	*ft_printf_utoa(unsigned int nb);
-char	*ft_printf_xtoa(unsigned long int nb, int is_upper);
+char	*ft_itoa_h(long nb);
+char	*ft_utoa_h(unsigned int nb);
+char	*ft_xtoa_h(unsigned long int nb, int is_upper);
 int		ft_ptr_len(unsigned long int n);
 int		ft_istype(int c);
 int		ft_isspec(int c);

@@ -94,7 +94,7 @@ int	ft_putnumbr_f(int n, t_flags flags)
 	}
 	if (flags.precision == 0 && n == 0)
 		return (count + ft_putwidth(flags.width, 0, 0));
-	nbstr = ft_printf_itoa(nb);
+	nbstr = ft_itoa_h(nb);
 	if (!nbstr)
 		return (0);
 	count += ft_putnumbr(nbstr, n, flags);

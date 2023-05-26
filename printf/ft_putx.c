@@ -69,7 +69,7 @@ int	ft_puthex_f(unsigned int n, int is_upper, t_flags flags)
 		count += ft_putwidth(flags.width, 0, 0);
 		return (count);
 	}
-	nbstr = ft_printf_xtoa(n, is_upper);
+	nbstr = ft_xtoa_h(n, is_upper);
 	if (!nbstr)
 		return (0);
 	count += ft_puthex(nbstr, n, is_upper, flags);

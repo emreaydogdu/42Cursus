@@ -55,7 +55,7 @@ int	ft_putunumbr_f(unsigned n, t_flags flags)
 		count += ft_putwidth(flags.width, 0, 0);
 		return (count);
 	}
-	nbstr = ft_printf_utoa(n);
+	nbstr = ft_utoa_h(n);
 	if (!nbstr)
 		return (0);
 	count += ft_putunumbr(nbstr, flags);

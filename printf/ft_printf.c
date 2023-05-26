@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 13:21:32 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/05/25 22:36:34 by emaydogd         ###   ########.fr       */
+/*   Created: 2023/05/12 11:46:24 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/26 12:41:31 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
 
 int	ft_putarg(char type, va_list args, t_flags flags)

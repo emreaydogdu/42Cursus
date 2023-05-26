@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 13:25:09 by mcombeau          #+#    #+#             */
-/*   Updated: 2023/05/26 12:24:02 by emaydogd         ###   ########.fr       */
+/*   Created: 2023/05/12 11:46:24 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/26 12:41:08 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
@@ -18,13 +17,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-# if defined (__linux__)
-#  define PTRNULL "(nil)"
-# elif defined (__APPLE__)
-#  define PTRNULL "0x0"
-# endif
-
-/* ---------- FLAGS --------------------- */
 typedef struct s_flags
 {
 	int	spec;
@@ -43,8 +35,7 @@ t_flags	ft_reset_flags(t_flags flags);
 t_flags	ft_flag_left(t_flags flags);
 t_flags	ft_flag_digit(char c, t_flags flags);
 t_flags	ft_flag_width(va_list args, t_flags flags);
-int		ft_flag_precision(const char *str, int pos,
-			va_list args, t_flags *flags);
+int		ft_flag_precision(const char *str, int pos, va_list args, t_flags *flags);
 
 /* ---------- LIBFT -------------------- */
 size_t	ft_strlen(const char *str);
@@ -55,13 +46,12 @@ int	ft_isdigit(int c);
 int		ft_printf(const char *format, ...);
 int		ft_putarg(char type, va_list args, t_flags flags);
 
-/* ---------- PRINT SPECIFIERS ---------- */
 // c
-int		ft_putchar_f(char c, t_flags flags);
 int		ft_putchar(char c);
+int		ft_putchar_f(char c, t_flags flags);
 // s
-int		ft_putstr_f(const char *str, t_flags flags);
 int		ft_print_s(const char *str);
+int		ft_putstr_f(const char *str, t_flags flags);
 int		ft_print_s_pre(const char *str, int precision);
 int		ft_print_sign_pre(int n, t_flags *flags);
 // i, d
@@ -85,8 +75,6 @@ void	ft_print_adr(unsigned long int n);
 char	*ft_printf_itoa(long nb);
 char	*ft_printf_utoa(unsigned int nb);
 char	*ft_printf_xtoa(unsigned long int nb, int is_upper);
-int		ft_unint_len(unsigned int n);
-int		ft_hex_len(unsigned int n);
 int		ft_ptr_len(unsigned long int n);
 int		ft_istype(int c);
 int		ft_isspec(int c);

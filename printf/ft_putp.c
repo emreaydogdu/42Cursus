@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:25:43 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/26 12:34:19 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:39:58 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_putptr(unsigned long int n)
 	count = 0;
 	if (n == 0)
 	{
-		count += ft_print_s(PTRNULL);
+		count += ft_print_s("(nil)");
 		return (count);
 	}
 	count += ft_print_s("0x");
@@ -77,7 +77,7 @@ int	ft_putptr_f(unsigned long int n, t_flags flags)
 
 	count = 0;
 	if (n == 0)
-		flags.width -= ft_strlen(PTRNULL) - 1;
+		flags.width -= ft_strlen("(nil)") - 1;
 	else
 		flags.width -= 2;
 	if (flags.minus == 1)

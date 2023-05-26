@@ -1,66 +1,90 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puts.c                                          :+:      :+:    :+:   */
+/*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/24 22:43:48 by emaydogd         ###   ########.fr       */
+/*   Created: 2022/10/04 11:25:43 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/25 19:15:08 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr_f.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/11 16:01:33 by mcombeau          #+#    #+#             */
+/*   Updated: 2023/05/25 18:38:36 by emaydogd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int	ft_strlen(const char *s)
+static int	ft_putstr(const char *str, t_flags flags)
 {
-	int	i;
+	int	count;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	count = 0;
+	if (flags.precision >= 0)
+	{
+		count += ft_putwidth(flags.precision, ft_strlen(str), 0);
+		count += ft_print_s_pre(str, flags.precision);
+	}
+	else
+		count += ft_print_s_pre(str, ft_strlen(str));
+	return (count);
 }
 
-int	ft_putchar(char c, t_print *p)
+int	ft_putstr_f(const char *str, t_flags flags)
 {
-	int	i;
+	int	count;
 
-	i = 0;
-	if (!p->minus && p->width)
-		i += ft_pwidth(1, p);
-	i += (int) write(1, &c, 1);
-	if (p->minus && p->width)
-		i += ft_pwidth(1, p);
-	return (i);
+	count = 0;
+	if (str == NULL && flags.precision >= 0 && flags.precision < 6)
+		return (count + ft_putwidth(flags.width, 0, 0));
+	if (str == NULL)
+		str = "(null)";
+	if (flags.precision >= 0 && (size_t)flags.precision > ft_strlen(str))
+		flags.precision = ft_strlen(str);
+	if (flags.minus == 1)
+		count += ft_putstr(str, flags);
+	if (flags.precision >= 0)
+		count += ft_putwidth(flags.width, flags.precision, 0);
+	else
+		count += ft_putwidth(flags.width, ft_strlen(str), 0);
+	if (flags.minus == 0)
+		count += ft_putstr(str, flags);
+	return (count);
 }
 
-int	ft_putstr(char *s, t_print *p)
+//TODO
+int	ft_print_s_pre(const char *str, int precision)
 {
-	int	i;
+	int	count;
+
+	count = 0;
+	while (str[count] && count < precision)
+		write(1, &str[count++], 1);
+	return (count);
+}
+
+//TODO
+int	ft_print_s(const char *str)
+{
 	int	len;
 
-	i = 0;
-	if (s == NULL)
+	if (str == NULL)
 	{
-		if (p->dot && p->precision < 6)
-			return (0);
-		p->precision = 0;
-		if (!p->minus)
-			i += ft_print_width(6, p);
-		i += (int) write(1, "(null)", 6);
-		if (p->minus)
-			i += ft_print_width(6, p);
-		return (i);
+		write(1, "(null)", 6);
+		return (6);
 	}
-	len = ft_strlen(s);
-	if (p->dot && p->precision < len)
-		len = p->precision;
-	if (!p->minus && p->width)
-		i += ft_pwidth(len, p);
-	if (p->dot && p->precision > len)
-		i += ft_pprecision(len, p);
-	i += (int)write(1, s, len);
-	if (p->minus && p->width)
-		i += ft_pwidth(i, p);
-	return (i);
+	len = 0;
+	while (str[len])
+		len++;
+	write(1, str, len);
+	return (len);
 }

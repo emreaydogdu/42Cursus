@@ -1,181 +1,103 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puts.c                                          :+:      :+:    :+:   */
+/*   ft_print_int.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/13 00:07:29 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/25 15:57:27 by emaydogd         ###   ########.fr       */
+/*   Created: 2023/10/04 11:25:43 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/25 22:31:17 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	ft_count_digits(long n, t_print *p)
+int	ft_print_i(char *nbstr, int n, t_flags flags)
 {
-	int	size;
+	int	count;
 
-	size = 0;
-	if (n == -2147483648)
-		return (11);
+	count = 0;
 	if (n < 0)
 	{
-		n *= -1;
-		p->sign = "-";
-		//size++;
+		if (flags.zero == 0 || flags.precision >= 0)
+			count += ft_putchar('-');
 	}
-	//else if (p->sign == " " || p->sign == "+")
-	//	size++;
-	while (n / 10)
-	{
-		n /= 10;
-		size++;
-	}
-	return (++size);
+	else if (flags.plus == 1 && flags.zero == 0)
+		count += ft_putchar('+');
+	else if (flags.space == 1 && flags.zero == 0)
+		count += ft_putchar(' ');
+	if (flags.precision >= 0)
+		count += ft_putwidth(flags.precision - 1,
+				ft_strlen(nbstr) - 1, 1);
+	count += ft_print_s(nbstr);
+	return (count);
 }
 
-int	ft_putnbr(int n, t_print *p)
+int	ft_print_sign_pre(int n, t_flags *flags)
 {
-	int	i;
-	int	size;
-	int	len;
-	int	width;
-	int precision;
+	int	count;
 
-	size = 0;
-	i = 0;
-	len = ft_count_digits(n, p);
-	width = ft_calc_width(len, p);
-	precision = ft_calc_precision(len, p);
-	//printf("[%d]->[%d][%d][%d]", ft_calc_precision(len, p), p->width, p->precision, ft_strlen(p->sign));
-	if (p->minus)
+	count = 0;
+	if (n < 0 && flags->precision == -1)
 	{
-		size += ft_psign(p);
-		if (p->dot && p->precision > len)
-			size += ft_pprecision(precision, p);
-		size += ft_putnbr_b(n, p);
-		if (p->minus && p->width)
-			size += ft_pwidth(width, p);
+		count += ft_putchar('-');
+		flags->width--;
 	}
-	else if (p->zero && p->dot && p->precision)
+	else if (flags->plus == 1)
+		count += ft_putchar('+');
+	else if (flags->space == 1)
 	{
-		p->pad = ' ';
-		if (!p->minus && p->width)
-			size += ft_pwidth(width, p);
-		size += ft_psign(p);
-		if (p->dot && p->precision)
-			size += ft_pprecision(precision, p);
-		size += ft_putnbr_b(n, p);
+		count += ft_putchar(' ');
+		flags->width--;
 	}
-	else if (p->zero)
-	{
-		p->pad = '0';
-		size += ft_psign(p);
-		if (!p->minus && p->width)
-			size += ft_pwidth(width, p);
-		if (p->dot && p->precision > len)
-			size += ft_pprecision(len - i, p);
-		size += ft_putnbr_b(n, p);
-	}
-	else if (!p->zero)
-	{
-		if (!p->minus && p->width)
-			size += ft_pwidth(width, p);
-		size += ft_psign(p);
-		if (p->dot && p->precision > len)
-			size += ft_pprecision(precision, p);
-		size += ft_putnbr_b(n, p);
-	}
-	/*
-	if (p->plus || p->space)
-		len++;
-	else if (p->plus)
-		i += ft_pplus(p);
-	else if (p->space)
-		i += ft_pspace(p);
-	size += ft_putnbr_b(n, p);
-	size += ft_putnbr_b(n, p);
-	if (p->minus && p->width > size)
-		size += ft_pwidth(size, p);
-	 */
-	return (size + i);
+	return (count);
 }
 
-int	ft_putnbr_b(int n, t_print *p)
+int	ft_putnumbr(char *nbstr, int n, t_flags flags)
 {
-	unsigned char	number;
-	int				size;
+	int	count;
 
-	size = 0;
-	if (n == 0 && p->dot && !p->precision && p->width)
-		return ((int) write(1, " ", 1));
-	if (n == 0 && p->dot && !p->precision)
-		return ((int) write(1, "", 0));
-	if (n == -2147483648)
+	count = 0;
+	if (flags.zero)
+		count += ft_print_sign_pre(n, &flags);
+	if (flags.minus)
+		count += ft_print_i(nbstr, n, flags);
+	if (flags.precision >= 0 && (size_t)flags.precision < ft_strlen(nbstr))
+		flags.precision = ft_strlen(nbstr);
+	if (flags.precision >= 0)
 	{
-		return (size + (int) write(1, "2147483648", 10));
+		flags.width -= flags.precision;
+		if (n < 0 && flags.minus == 0)
+			flags.width -= 1;
+		count += ft_putwidth(flags.width, 0, 0);
 	}
-	if (n < 0)
-	{
-		n *= -1;
-	}
-	if (n > 9)
-		size += ft_putnbr_b(n / 10, p);
-	number = (n % 10) + '0';
-	return (size + (int) write(1, &number, 1));
-}
-
-int	ft_putunbr(unsigned int n, t_print *p)
-{
-	int	size;
-	int	len;
-
-	size = 0;
-	len = ft_count_digits(n, p);
-	if (p->minus)
-		p->pad = ' ';
-	if (n == 0)
-	{
-	}
-	if (!p->minus && p->width)
-		size += ft_pwidth(len, p);
-	if (p->dot && p->precision > len)
-		size += ft_pprecision(len, p);
-	size += ft_putunbr_b(n, p);
-	if (p->minus && p->width)
-		size += ft_pwidth(size, p);
-	return (size);
-}
-
-int	ft_putunbr_b(unsigned int n, t_print *p)
-{
-	unsigned char	number;
-	int				size;
-
-	size = 0;
-	if (n == 0 && p->dot && !p->precision)
-		return ((int) write(1, "", 0));
-	if (n > 9)
-		size += ft_putunbr_b(n / 10, p);
-	number = (n % 10) + '0';
-	return (size + (int)write(1, &number, 1));
-}
-
-int	ft_calc_width(int len, t_print *p)
-{
-	if (p->width && p->dot && p->precision)
-		return (p->width - p->precision - ft_strlen(p->sign));
-	else if (p->width)
-		return (p->width - len - ft_strlen(p->sign));
 	else
-		return (0);
+		count += ft_putwidth(flags.width - flags.plus - flags.space,
+				ft_strlen(nbstr), flags.zero);
+	if (flags.minus == 0)
+		count += ft_print_i(nbstr, n, flags);
+	return (count);
 }
-int	ft_calc_precision(int len, t_print *p)
+
+int	ft_putnumbr_f(int n, t_flags flags)
 {
-	if (p->dot && !p->precision)
+	char	*nbstr;
+	long	nb;
+	int		count;
+
+	nb = n;
+	count = 0;
+	if (nb < 0)
+	{
+		nb *= -1;
+		if (flags.zero == 0)
+			flags.width--;
+	}
+	if (flags.precision == 0 && n == 0)
+		return (count + ft_putwidth(flags.width, 0, 0));
+	nbstr = ft_printf_itoa(nb);
+	if (!nbstr)
 		return (0);
-	else if (p->dot && p->precision && p->precision > len)
-		return (p->precision - len);
-	else
-		return (0);
+	count += ft_putnumbr(nbstr, n, flags);
+	free(nbstr);
+	return (count);
 }

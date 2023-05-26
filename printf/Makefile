@@ -1,26 +1,45 @@
-SRCS = ft_printf.c ft_puts.c ft_putx.c ft_putn.c ft_bonus.c
-B_SRCS = ft_printf.c ft_puts.c ft_putx.c ft_putn.c ft_bonus.c
-OBJS = ${SRCS:.c=.o}
-B_OBJS = ${B_SRCS:.c=.o}
-NAME  = libftprintf.a
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+NAME			=	libftprintf.a
 
-all: ${NAME}
+CC				=	gcc
+CFLAGS			=	-Wall -Wextra -Werror
+AR				=	ar
+ARFLAGS 		=	rcs
+RM				=	rm -rf
 
-%.o : %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+SRC				=	ft_printf ft_print_char ft_print_str ft_print_hex ft_print_int ft_print_ptr ft_print_unsigned ft_nbr_len ft_flags ft_flags_utils ft_print_flag ft_printf_itoa ft_printf_utoa ft_printf_xtoa
+SRCS 			=	$(addsuffix .c, $(SRC))
 
-${NAME} : ${OBJS}
-	ar rc ${NAME} ${OBJS}
+OBJ_DIR			=	obj
+OBJS			=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-bonus: ${NAME} ${B_OBJS}
-	ar rc ${NAME} ${B_OBJS}
+LIBFT_PATH		=	./libft
+LIBFT			=	$(LIBFT_PATH)/libft.a
+
+$(OBJ_DIR)/%.o:		%.c
+					$(CC) $(CFLAGS) -c $< -o $@
+
+all:				$(NAME)
+
+bonus:				all
+
+$(NAME):			$(LIBFT) $(OBJ_DIR) $(OBJS)
+				cp	$(LIBFT) $(NAME)
+					$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+
+$(LIBFT):
+					make -C $(LIBFT_PATH) all
+
+$(OBJ_DIR):
+					mkdir -p $(OBJ_DIR)
 
 clean:
-	rm -f ${OBJS}
+					make -C $(LIBFT_PATH) clean
+					$(RM) $(OBJ_DIR)
 
-fclean: clean
-	rm -f ${NAME}
+fclean:				clean
+					make -C $(LIBFT_PATH) fclean
+					$(RM) $(NAME)
 
-re: fclean all
+re:					fclean all
+
+.PHONY:				all bonus clean fclean re libft

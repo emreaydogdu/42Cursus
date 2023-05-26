@@ -33,7 +33,7 @@ static size_t	ft_itoa_len(long num)
 
 static char	*ft_itoa(long num, char *str, size_t len)
 {
-	str = ft_calloc(len + 1, sizeof(char));
+	str = ft_callocc(len + 1, sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	if (num < 0)

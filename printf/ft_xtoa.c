@@ -30,7 +30,7 @@ static char	*ft_xtoa(unsigned long int num, char *str, size_t len)
 {
 	int	mod;
 
-	str = ft_calloc(len + 1, sizeof(char));
+	str = ft_callocc(len + 1, sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	while (--len != (size_t)-1)

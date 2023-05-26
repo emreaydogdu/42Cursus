@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_callocc(size_t count, size_t size)
 {
 	void	*dst;
 	size_t	n;
@@ -32,6 +32,6 @@ void	*ft_calloc(size_t count, size_t size)
 	if (dst == NULL)
 		return (NULL);
 	while (n--)
-		((unsigned char *)dst)[n] = (unsigned char)'\0';
+		((unsigned char *)dst)[n] = (unsigned char)0;
 	return (dst);
 }

@@ -28,7 +28,7 @@ static size_t	ft_utoa_len(long num)
 
 static char	*ft_utoa(unsigned int num, char *str, size_t len)
 {
-	str = ft_calloc(len + 1, sizeof(char));
+	str = ft_callocc(len + 1, sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	while (--len)

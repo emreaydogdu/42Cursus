@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:57:47 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/26 13:29:08 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:13:09 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -16,7 +16,8 @@ int	main(void)
 {
 	int	i;
 
-	i = ft_printf("|%.*20d|", 20);
+	i = ft_printf("|%10.5i|", -216);
+	printf("\n|%10.5i|", -216);
 	printf("\n|%10d|\n", i);
 	return (0);
 }

@@ -14,22 +14,25 @@
 
 int	ft_putarg(char type, va_list args, t_flags flags)
 {
+	int		count;
+
+	count = 0;
 	if (type == 'c')
-		flags.size += ft_putchar_f(va_arg(args, int), flags);
+		count += ft_putchar_f(va_arg(args, int), flags);
 	else if (type == 's') //TODO
-		flags.size += ft_putstr_f(va_arg(args, const char *), flags);
+		count += ft_putstr_f(va_arg(args, const char *), flags);
 	else if (type == 'd' || type == 'i')
-		flags.size += ft_putnumbr_f(va_arg(args, int), flags);
+		count += ft_putnumbr_f(va_arg(args, int), flags);
 	else if (type == 'x' || type == 'X')
-		flags.size += ft_puthex_f(va_arg(args, unsigned int),
+		count += ft_puthex_f(va_arg(args, unsigned int),
 				type == 'X', flags);
 	else if (type == 'u')
-		flags.size += ft_putunumbr_f(va_arg(args, unsigned int), flags);
+		count += ft_putunumbr_f(va_arg(args, unsigned int), flags);
 	else if (type == 'p')
-		flags.size += ft_putptr_f((unsigned long int) va_arg(args, void *), flags);
+		count += ft_putptr_f((unsigned long int) va_arg(args, void *), flags);
 	else if (type == '%')
-		flags.size += ft_putchar_f('%', flags);
-	return (flags.size);
+		count += ft_putchar_f('%', flags);
+	return (count);
 }
 
 int	ft_parse_flags(const char *str, int i, va_list args, t_flags *flags)
@@ -72,7 +75,7 @@ int	ft_parse(char *str, va_list args)
 	count = 0;
 	while (str[++i])
 	{
-		ft_reset_flags(flags);
+		flags = ft_reset_flags(flags);
 		if (str[i] == '%' && str[i + 1])
 		{
 			x = ft_parse_flags(str, i, args, &flags);

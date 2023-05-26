@@ -40,7 +40,7 @@ typedef struct s_flags
 	int	size;
 }		t_flags;
 
-t_flags	*ft_reset_flags(t_flags flags);
+t_flags	ft_reset_flags(t_flags flags);
 t_flags	ft_flag_left(t_flags flags);
 t_flags	ft_flag_digit(char c, t_flags flags);
 t_flags	ft_flag_width(va_list args, t_flags flags);

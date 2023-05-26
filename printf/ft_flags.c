@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-t_flags	*ft_reset_flags(t_flags flags)
+t_flags	ft_reset_flags(t_flags flags)
 {
 	flags.spec = 0;
 	flags.width = 0;
@@ -23,6 +23,7 @@ t_flags	*ft_reset_flags(t_flags flags)
 	flags.hash = 0;
 	flags.space = 0;
 	flags.plus = 0;
+	return (flags);
 }
 
 t_flags	ft_flag_left(t_flags flags)

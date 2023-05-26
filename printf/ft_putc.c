@@ -31,10 +31,13 @@ int	ft_putchar(char c)
 
 int	ft_putchar_f(char c, t_flags flags)
 {
+	int		count;
+
+	count = 0;
 	if (flags.minus == 1)
-		flags.size += ft_putchar(c);
-	flags.size += ft_putwidth(flags.width, 1, flags.zero);
+		count += ft_putchar(c);
+	count += ft_putwidth(flags.width, 1, flags.zero);
 	if (flags.minus == 0)
-		flags.size += ft_putchar(c);
-	return (flags.size);
+		count += ft_putchar(c);
+	return (count);
 }

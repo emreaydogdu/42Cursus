@@ -7,12 +7,12 @@ AR = ar
 ARFLAGS = rc
 RM = rm
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -c -Wall -Wextra -Werror
 
 all: $(NAME)
 
 %.o : %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
@@ -20,9 +20,9 @@ $(NAME): $(OBJS)
 bonus: all
 
 clean:
-	rm -f ${OBJS}
+	$(RM) -f ${OBJS}
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) -f $(NAME)
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/28 21:55:53 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:20:50 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -43,5 +43,9 @@ void	init_stack(t_stack *stack);
 void	print_stack(t_stack stack);
 void	add_stack(t_stack *stack, int val);
 void	rm_stack(t_stack *stack);
+
+void	ft_sort(t_stack a, t_stack b);
+void	ft_sort3(t_stack *a);
+void	ft_sort_g(t_stack *a, t_stack *b);
 
 #endif //PUSH_SWAP_H

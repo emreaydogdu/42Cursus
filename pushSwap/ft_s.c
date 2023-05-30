@@ -21,6 +21,7 @@ void	sa(t_stack *a)
 		a->stack->val = a->stack->next->val;
 		a->stack->next->val = val;
 	}
+	printf("sa\n");
 }
 
 void	sb(t_stack *b)
@@ -33,10 +34,12 @@ void	sb(t_stack *b)
 		b->stack->val = b->stack->next->val;
 		b->stack->next->val = val;
 	}
+	printf("sb\n");
 }
 
 void	ss(t_stack *a, t_stack *b)
 {
 	sa(a);
 	sb(b);
+	//printf("ss\n");
 }

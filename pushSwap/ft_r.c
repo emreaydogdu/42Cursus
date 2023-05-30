@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:50:10 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/28 21:52:46 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:38:52 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -25,6 +25,7 @@ void	ra(t_stack a)
 		}
 		a.stack->val = val;
 	}
+	printf("ra\n");
 }
 
 void	rb(t_stack b)
@@ -41,10 +42,12 @@ void	rb(t_stack b)
 		}
 		b.stack->val = val;
 	}
+	printf("rb\n");
 }
 
 void	rr(t_stack a, t_stack b)
 {
 	ra(a);
 	rb(b);
+	//printf("rr\n");
 }

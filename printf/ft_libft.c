@@ -5,12 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 12:09:27 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/26 12:19:43 by emaydogd         ###   ########.fr       */
+/*   Created: 2023/05/12 12:09:27 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/26 15:41:10 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include "printf.h"
+#include "ft_printf.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -22,12 +21,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-int	ft_isdigit(int c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_callocc(size_t count, size_t size)
 {
 	void	*dst;
 	size_t	n;
@@ -37,6 +31,6 @@ void	*ft_calloc(size_t count, size_t size)
 	if (dst == NULL)
 		return (NULL);
 	while (n--)
-		((unsigned char *)dst)[n] = (unsigned char)'\0';
+		((unsigned char *)dst)[n] = (unsigned char)0;
 	return (dst);
 }

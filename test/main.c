@@ -268,7 +268,7 @@ void	t_strrchr(void)
 	ASSERT(ft_strrchr(s, 'z') == NULL)
 	ASSERT(ft_strrchr(s, 0) == s + strlen(s))
 	ASSERT(ft_strrchr(s, 't' + 256) == s)
-	char * empty = (char*)ft_calloc(1, 1);
+	char * empty = (char*) ft_callocc(1, 1);
 	ASSERT(ft_strrchr(empty, 'V') == NULL) free(empty); t_leak();
 	printf("\n");
 }
@@ -374,11 +374,11 @@ void	t_atoi(void)
 void	t_calloc(void)
 {
 	printf("\n%s\t\t: ", "calloc");
-	void * p = ft_calloc(2, 2);
+	void * p = ft_callocc(2, 2);
 	char e[] = {0, 0, 0, 0};
 	ASSERT(!memcmp(p, e, 4))
 	free(p); t_leak();
-	ASSERT(ft_calloc(SIZE_MAX, SIZE_MAX) == NULL)
+	ASSERT(ft_callocc(SIZE_MAX, SIZE_MAX) == NULL)
 	printf("\n");
 }
 

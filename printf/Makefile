@@ -1,41 +1,28 @@
-NAME			=	libftprintf.a
+.PHONY: all bonus clean fclean re
 
-CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror
-AR				=	ar
-ARFLAGS 		=	rcs
-RM				=	rm -rf
+NAME = libftprintf.a
+SRC = ft_printf.c ft_putc.c ft_puts.c ft_putx.c ft_putn.c ft_putp.c ft_putu.c ft_libft.c ft_conversions.c ft_conversions_h.c ft_itoa.c ft_utoa.c ft_xtoa.c
+OBJS = ${SRC:.c=.o}
+AR = ar
+ARFLAGS = rc
+RM = rm
+CC = cc
+CFLAGS = -c -Wall -Wextra -Werror
 
-SRC				=	ft_printf ft_putc ft_puts ft_putx ft_putn ft_putp ft_putu ft_nbr_len ft_flags ft_flags_utils ft_print_flag ft_printf_itoa ft_printf_utoa ft_printf_xtoa
-SRCS 			=	$(addsuffix .c, $(SRC))
+all: $(NAME)
 
-OBJS			=	$(SRCS:%.c=%.o)
+%.o : %.c
+	$(CC) $(CFLAGS) $< -o $@
 
-LIBFT_PATH		=	./libft
-LIBFT			=	$(LIBFT_PATH)/libft.a
+$(NAME): $(OBJS)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 
-%.o:		%.c
-					$(CC) $(CFLAGS) -c $< -o $@
-
-all:				$(NAME)
-
-bonus:				all
-
-$(NAME):			$(LIBFT) $(OBJS)
-				cp	$(LIBFT) $(NAME)
-					$(AR) $(ARFLAGS) $(NAME) $(OBJS)
-
-$(LIBFT):
-					make -C $(LIBFT_PATH) all
+bonus: all
 
 clean:
-					make -C $(LIBFT_PATH) clean
+	$(RM) -f ${OBJS}
 
-fclean:				clean
-					make -C $(LIBFT_PATH) fclean
-					rm -f ${OBJS}
-					$(RM) $(NAME)
+fclean: clean
+	$(RM) -f $(NAME)
 
-re:					fclean all
-
-.PHONY:				all bonus clean fclean re libft
+re: fclean all

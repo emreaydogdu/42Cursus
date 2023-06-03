@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/29 14:46:33 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/02 21:37:04 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -15,9 +15,7 @@ int	main(int argc, char **argv)
 {
 	t_stack	a;
 	t_stack	b;
-	int		i;
 
-	i = 0;
 	if (argc > 1)
 	{
 		init_stack(&a);
@@ -26,10 +24,4 @@ int	main(int argc, char **argv)
 			add_stack(&a, atoi(argv[--argc]));
 		ft_sort(a, b);
 	}
-	/*
-	int s = 3;
-	printf("%d\n", 1 >> s & 1);
-	printf("%d\n", 6 >> s & 1);
-	printf("%d\n", 3 >> s & 1);
-	 */
 }

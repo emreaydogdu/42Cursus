@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:17:45 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/01 23:26:00 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/03 11:58:41 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -72,7 +72,7 @@ t_node	*ft_find_prev(int val, t_stack a)
 	t_node	*prev;
 
 	prev = a.stack;
-	while (a.stack->next)
+	while (a.stack)
 	{
 		if (a.stack->val < val)
 		{

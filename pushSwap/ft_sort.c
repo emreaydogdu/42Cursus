@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 13:31:04 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/03 11:01:43 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/03 12:01:45 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <string.h>
@@ -255,6 +255,16 @@ int	ft_lstlen(const int *lst)
 	return (len);
 }
 
+void	ft_lstprint(const int *lst)
+{
+	int	len;
+
+	len = 0;
+	while (lst[len])
+		printf("[%d]", lst[len++]);
+	printf("\n");
+}
+
 void	ft_lstreset(int *lst)
 {
 	int i;
@@ -271,6 +281,13 @@ void	ft_lstcpy(const int *lst, int *best)
 	i = -1;
 	while (lst[i++])
 		best[i] = lst[i];
+}
+
+int		ft_getval(t_stack a, int i)
+{
+	while (i--)
+		a.stack = a.stack->next;
+	return (a.stack->val);
 }
 
 void	ft_place_new_min(t_stack a, t_stack b, int *lst, int j)
@@ -317,12 +334,12 @@ void	ft_place_new_max(t_stack a, t_stack b, int *lst, int j)
 	lst[j++] = PB;
 }
 
-void	ft_place_new_middle(t_stack a, t_stack b, int *lst, int j)
+void	ft_place_new_middle(t_stack a, t_stack b, int val, int *lst, int j)
 {
 	t_node	*prev;
 	int		k;
 
-	prev = ft_find_prev(a.stack->val, b);
+	prev = ft_find_prev(val, b);
 	if (ft_abs(b.size - 1 - prev->idx) <= prev->idx + 1)
 	{
 		k = prev->idx;
@@ -343,6 +360,7 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 {
 	int i;
 	int j;
+	int val;
 	int *lst;
 	int *best;
 	best = malloc(sizeof(int) * 100);
@@ -355,13 +373,13 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 	while (a->size)
 	{
 		i = 0;
-		while (i < a->size && i != -1)
+		while (i < a->size)
 		{
+			val = ft_getval(*a, i);
 			j = 0;
 			lst = malloc(sizeof(int) * 100);
 			if (!lst)
 				return;
-			/*
 			if (a->size - 1 - i >= a->size / 2)
 			{
 				while (j != i && i != a->size - 1)
@@ -373,17 +391,18 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 					lst[j++] = RRA;
 				lst[j++] = RRA;
 			}
-			*/
-			if (a->stack->val < ft_find_min(*b)->val)
+			if (val < ft_find_min(*b)->val)
 				ft_place_new_min(*a, *b, lst, j);
-			else if (a->stack->val > ft_find_max(*b)->val)
+			else if (val > ft_find_max(*b)->val)
 				ft_place_new_max(*a, *b, lst, j);
 			else
-				ft_place_new_middle(*a, *b, lst, j);
-			ft_exec(lst, a, b);
-			ft_lstreset(lst);
+				ft_place_new_middle(*a, *b, val, lst, j);
+			if (ft_lstlen(lst) < ft_lstlen(best) || !ft_lstlen(best))
+				best = lst;
 			i++;
 		}
+		ft_exec(best, a, b);
+		ft_lstreset(best);
 	}
 	ft_lstreset(lst);
 	ft_place_new_max(*a, *b, lst, j);

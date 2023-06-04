@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:17:45 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/03 11:58:41 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:05:12 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -50,36 +50,83 @@ t_node	*ft_find_max(t_stack a)
 	return (max_idx);
 }
 
-t_node	*ft_find_next(int val, t_stack a)
+t_node	*ft_find_next(int val, t_stack s)
 {
 	t_node	*next;
 
-	next = a.stack;
-	while (a.stack->next)
+	while (s.stack)
 	{
-		if (a.stack->val > val)
+		if (s.stack->val > val)
 		{
-			if (ft_abs(a.stack->val - val) < ft_abs(next->val - val))
-				next = a.stack;
+			if (!next || ft_abs(s.stack->val - val) < ft_abs(next->val - val))
+				next = s.stack;
 		}
-		a.stack = a.stack->next;
+		s.stack = s.stack->next;
 	}
 	return (next);
 }
 
-t_node	*ft_find_prev(int val, t_stack a)
+t_node	*ft_find_prev(int val, t_stack s)
 {
+	int		curr;
 	t_node	*prev;
 
-	prev = a.stack;
-	while (a.stack)
+	curr = INT_MIN;
+	while (s.stack)
 	{
-		if (a.stack->val < val)
+		if (s.stack->val < val)
 		{
-			if (ft_abs(a.stack->val - val) <= ft_abs(prev->val - val))
-				prev = a.stack;
+			if (ft_abs(val - s.stack->val) < ft_abs(val - curr))
+			{
+				prev = s.stack;
+				curr = s.stack->val;
+			}
 		}
-		a.stack = a.stack->next;
+		s.stack = s.stack->next;
 	}
 	return (prev);
+}
+
+void	ft_place_new_min(t_stack b, int *lst, int j)
+{
+	t_node	*min;
+	int		k;
+
+	min = ft_find_min(b);
+	if (ft_abs(b.size - 1 - min->idx) + 1 <= min->idx)
+	{
+		k = min->idx;
+		while (k++ < b.size - 1)
+			lst[j++] = RB;
+		lst[j++] = RB;
+	}
+	else
+	{
+		k = min->idx;
+		while (k-- > 0)
+			lst[j++] = RRB;
+	}
+	lst[j++] = PB;
+}
+
+void	ft_place_new_max(t_stack b, int *lst, int j)
+{
+	t_node	*max;
+	int		k;
+
+	max = ft_find_max(b);
+	if (ft_abs(b.size - 1 - max->idx) <= max->idx + 1)
+	{
+		k = max->idx;
+		while (k++ < b.size - 1)
+			lst[j++] = RB;
+	}
+	else
+	{
+		k = max->idx;
+		while (k-- > 0)
+			lst[j++] = RRB;
+		lst[j++] = RRB;
+	}
+	lst[j++] = PB;
 }

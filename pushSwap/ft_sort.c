@@ -6,10 +6,9 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 13:31:04 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/03 12:01:45 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:01:05 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <string.h>
 #include "push_swap.h"
 
 void	ft_sort(t_stack a, t_stack b)
@@ -139,206 +138,27 @@ void	ft_exec(int *lst, t_stack *a, t_stack *b)
 	}
 }
 
-int	ft_calc(t_stack a, t_stack b, int *lst)
+void	ft_place_new_middle(t_stack b, int val, int *lst, int j)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		minn;
-	int		maxx;
-	t_node	*min;
-	t_node	*max;
-	t_node	*use;
-
-	i = 0;
-	minn = 0;
-	maxx = 0;
-	while (i < a.size)
-	{
-		j = 0;
-		if (a.size - 1 - i >= a.size / 2)
-		{
-			while (j != i && i != a.size - 1)
-				lst[j++] = RA;
-		}
-		else
-		{
-			while (a.size - 1 - i - j != 0)
-				lst[j++] = RRA;
-			lst[j++] = RRA;
-		}
-
-		min = ft_find_min(b);
-		max = ft_find_max(b);
-		if (a.stack->val > min->val && a.stack->val < max->val)
-		{
-			max = ft_find_next(a.stack->val, b);
-			min = ft_find_prev(a.stack->val, b);
-			if (min->idx >= b.size / 2)
-				minn = b.size - 1 - min->idx;
-			else
-				minn = b.size - 1 - min->idx;
-			if (max->idx >= b.size / 2)
-				maxx = b.size - 1 - max->idx + 1;
-			else
-				maxx = max->idx;
-			use = min;
-			if (minn > maxx)
-				use = max;
-		}
-		if (a.stack->val > use->val && use->idx >= b.size / 2)
-		{
-			k = use->idx;
-			while (k++ != b.size - 1)
-				lst[j++] = RB;
-		}
-		else if (a.stack->val > use->val)
-		{
-			k = max->idx;
-			while (k-- != 0)
-				lst[j++] = RRB;
-			lst[j++] = RRB;
-		}
-		i++;
-		lst[j++] = PB;
-		/*
-		if (a->stack->val > max->val)
-		{
-			if (max->idx >= b->size / 2)
-			{
-				k = max->idx;
-				while (k-- != 0)
-					lst[j++] = RRB;
-				lst[j++] = RRB;
-			}
-			else
-			{
-				k = max->idx;
-				while (k++ != b->size - 1)
-					lst[j++] = RB;
-			}
-		}
-		else if (a->stack->val < min->val)
-		{
-			if (min->idx > b->size / 2)
-			{
-				k = min->idx;
-				while (k++ != b->size - 1)
-					lst[j++] = RB;
-				lst[j++] = RB;
-			}
-			else
-			{
-				k = min->idx;
-				while (k-- != 0)
-					lst[j++] = RRB;
-			}
-		}
-		lst[j++] = PA;
-		while (*lst)
-			printf("[%d]", *lst++);
-		printf("\n\n");
-		i++;
-		*/
-		a.stack = a.stack->next;
-	}
-	return (0);
-}
-
-int	ft_lstlen(const int *lst)
-{
-	int	len;
-
-	len = 0;
-	while (lst[len] && lst[len] != -1)
-		len++;
-	return (len);
-}
-
-void	ft_lstprint(const int *lst)
-{
-	int	len;
-
-	len = 0;
-	while (lst[len])
-		printf("[%d]", lst[len++]);
-	printf("\n");
-}
-
-void	ft_lstreset(int *lst)
-{
-	int i;
-
-	i = 0;
-	while (lst[i])
-		lst[i++] = -1;
-}
-
-void	ft_lstcpy(const int *lst, int *best)
-{
-	int i;
-
-	i = -1;
-	while (lst[i++])
-		best[i] = lst[i];
-}
-
-int		ft_getval(t_stack a, int i)
-{
-	while (i--)
-		a.stack = a.stack->next;
-	return (a.stack->val);
-}
-
-void	ft_place_new_min(t_stack a, t_stack b, int *lst, int j)
-{
-	t_node	*min;
-	int		k;
-
-	min = ft_find_min(b);
-	if (ft_abs(b.size - 1 - min->idx) + 1 <= min->idx)
-	{
-		k = min->idx;
-		while (k++ < b.size - 1)
-			lst[j++] = RB;
-		lst[j++] = RB;
-	}
-	else
-	{
-		k = min->idx;
-		while (k-- > 0)
-			lst[j++] = RRB;
-	}
-	lst[j++] = PB;
-}
-
-void	ft_place_new_max(t_stack a, t_stack b, int *lst, int j)
-{
-	t_node	*max;
-	int		k;
-
-	max = ft_find_max(b);
-	if (ft_abs(b.size - 1 - max->idx) <= max->idx + 1)
-	{
-		k = max->idx;
-		while (k++ < b.size - 1)
-			lst[j++] = RB;
-	}
-	else
-	{
-		k = max->idx;
-		while (k-- > 0)
-			lst[j++] = RRB;
-		lst[j++] = RRB;
-	}
-	lst[j++] = PB;
-}
-
-void	ft_place_new_middle(t_stack a, t_stack b, int val, int *lst, int j)
-{
+	t_node	*next;
 	t_node	*prev;
 	int		k;
+	int		ras;
+	int		rras;
+	int		rbs;
+	int		rrbs;
 
+	k = 0;
+	ras = 0;
+	rras = 0;
+	while (lst[k])
+	{
+		if (lst[k++] == RA)
+			ras += 1;
+		if (lst[k++] == RRA)
+			rras += 1;
+	}
+	next = ft_find_next(val, b);
 	prev = ft_find_prev(val, b);
 	if (ft_abs(b.size - 1 - prev->idx) <= prev->idx + 1)
 	{
@@ -353,6 +173,18 @@ void	ft_place_new_middle(t_stack a, t_stack b, int val, int *lst, int j)
 			lst[j++] = RRB;
 		lst[j++] = RRB;
 	}
+
+	k = 0;
+	rbs = 0;
+	rrbs = 0;
+	while (lst[k])
+	{
+		if (lst[k] == RB)
+			rbs += 1;
+		if (lst[k++] == RRB)
+			rrbs += 1;
+	}
+
 	lst[j++] = PB;
 }
 
@@ -363,13 +195,14 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 	int val;
 	int *lst;
 	int *best;
-	best = malloc(sizeof(int) * 100);
+	best = malloc(sizeof(int) * 1000);
 	if (!best)
 		return;
 
 	pb(a, b);
 	pb(a, b);
-	i = 0;
+	print_stack(*a);
+	print_stack(*b);
 	while (a->size)
 	{
 		i = 0;
@@ -377,7 +210,7 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 		{
 			val = ft_getval(*a, i);
 			j = 0;
-			lst = malloc(sizeof(int) * 100);
+			lst = malloc(sizeof(int) * 1000);
 			if (!lst)
 				return;
 			if (a->size - 1 - i >= a->size / 2)
@@ -392,23 +225,25 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 				lst[j++] = RRA;
 			}
 			if (val < ft_find_min(*b)->val)
-				ft_place_new_min(*a, *b, lst, j);
+				ft_place_new_min(*b, lst, j);
 			else if (val > ft_find_max(*b)->val)
-				ft_place_new_max(*a, *b, lst, j);
+				ft_place_new_max(*b, lst, j);
 			else
-				ft_place_new_middle(*a, *b, val, lst, j);
+				ft_place_new_middle(*b, val, lst, j);
 			if (ft_lstlen(lst) < ft_lstlen(best) || !ft_lstlen(best))
 				best = lst;
 			i++;
 		}
 		ft_exec(best, a, b);
+		print_stack(*a);
+		print_stack(*b);
 		ft_lstreset(best);
 	}
 	ft_lstreset(lst);
-	ft_place_new_max(*a, *b, lst, j);
+	ft_place_new_max(*b, lst, j);
 	ft_exec(lst, a, b);
 	while (b->size)
 		pa(a, b);
 	print_stack(*a);
-	print_stack(*b);
+	//print_stack(*b);
 }

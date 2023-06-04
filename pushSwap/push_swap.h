@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/02 20:29:58 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:11:01 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -14,6 +14,8 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
+# include <limits.h>
 
 # define SA   0
 # define SB   1
@@ -45,6 +47,7 @@ void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
 void	pa(t_stack *a, t_stack *b);
 void	pb(t_stack *a, t_stack *b);
+void	r(t_stack s);
 void	ra(t_stack a);
 void	rb(t_stack b);
 void	rr(t_stack a, t_stack b);
@@ -61,12 +64,19 @@ void	ft_sort(t_stack a, t_stack b);
 void	ft_sort3(t_stack *a);
 void	ft_sort4(t_stack *a, t_stack *b);
 void	ft_sort5(t_stack *a, t_stack *b);
-void	ft_sort_g(t_stack *a, t_stack *b);
 void	ft_sort_big(t_stack *a, t_stack *b);
 int		ft_abs(int val);
 t_node	*ft_find_min(t_stack a);
 t_node	*ft_find_max(t_stack a);
-t_node	*ft_find_next(int val, t_stack a);
-t_node	*ft_find_prev(int val, t_stack a);
+t_node	*ft_find_next(int val, t_stack s);
+t_node	*ft_find_prev(int val, t_stack s);
+
+void	ft_place_new_min(t_stack b, int *lst, int j);
+void	ft_place_new_max(t_stack b, int *lst, int j);
+
+int		ft_lstlen(const int *lst);
+void	ft_lstprint(const int *lst);
+void	ft_lstreset(int *lst);
+int		ft_getval(t_stack a, int i);
 
 #endif //PUSH_SWAP_H

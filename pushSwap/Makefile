@@ -3,8 +3,6 @@
 NAME = push_swap
 SRC = push_swap.c ft_find.c ft_lst.c ft_p.c ft_r.c ft_rr.c ft_s.c ft_sort.c ft_stack.c
 OBJS = ${SRC:.c=.o}
-AR = ar
-ARFLAGS = rc
 RM = rm
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -15,7 +13,7 @@ all: $(NAME)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(SRC) -o push_swap
 
 bonus: all
 

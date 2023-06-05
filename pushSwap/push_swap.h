@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/05 00:11:01 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/05 02:23:23 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -73,10 +73,12 @@ t_node	*ft_find_prev(int val, t_stack s);
 
 void	ft_place_new_min(t_stack b, int *lst, int j);
 void	ft_place_new_max(t_stack b, int *lst, int j);
+void	ft_rotate_end(t_stack b, int *lst, int j);
 
 int		ft_lstlen(const int *lst);
 void	ft_lstprint(const int *lst);
 void	ft_lstreset(int *lst);
+int		*ft_lstoptimize(int *lst);
 int		ft_getval(t_stack a, int i);
 
 #endif //PUSH_SWAP_H

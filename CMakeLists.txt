@@ -7,3 +7,5 @@ add_executable(42Cursus test/main.c libft/libft.h libft/ft_atoi.c libft/ft_bzero
 add_executable(printff printf/ft_printf.h printf/ft_printf.h printf/ft_conversions.c printf/ft_conversions_h.c printf/ft_putc.c printf/ft_putx.c printf/ft_putn.c printf/ft_putp.c printf/ft_puts.c printf/ft_putu.c printf/ft_printf.c printf/ft_itoa.c printf/ft_utoa.c printf/ft_xtoa.c printf/ft_libft.c)
 add_executable(getNextLine getNextLine/get_next_line.h getNextLine/get_next_line.c getNextLine/file getNextLine/get_next_line_utils.c)
 add_executable(getNextLine_bonus getNextLine/file getNextLine/file_bonus getNextLine/get_next_line_bonus.c getNextLine/get_next_line_utils_bonus.c getNextLine/get_next_line_bonus.h)
+add_executable(fdf fdf/main.c)
+#add_executable(fdf fdf/main.c fdf/mlx/mlx_xpm.c fdf/mlx/mlx_shaders.c fdf/mlx/mlx_rgb.c fdf/mlx/mlx_new_window.m fdf/mlx/mlx_new_window.h fdf/mlx/mlx_new_image.m fdf/mlx/mlx_int_str_to_wordtab.c fdf/mlx/mlx_int.h fdf/mlx/mlx_init_loop.m fdf/mlx/mlx.h fdf/mlx/font.c)

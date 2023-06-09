@@ -12,6 +12,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <printf.h>
+#include <stdio.h>
 
 void	decode(int signal, siginfo_t *info, void *context)
 {
@@ -41,7 +42,7 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (argc != 1)
 	{
-		printf("Error\n");
+		write(1, "Error\n", 6);
 		return (1);
 	}
 	pid = getpid();

@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 {
 	if (argc != 3)
 	{
-		printf("Error\n");
+		write(1, "Error\n", 6);
 		return (1);
 	}
 	signal(SIGUSR2, acknowledge);

@@ -6,13 +6,32 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 19:43:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/06 23:09:52 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/09 16:22:11 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <signal.h>
 #include <unistd.h>
-#include <printf.h>
-#include <stdio.h>
+#include <stdlib.h>
+
+int	ft_error(void)
+{
+	write(1, "Error\n", 6);
+	exit(1);
+}
+
+void	ft_putpid(int pid, int p)
+{
+	unsigned char	c;
+
+	if (p)
+		write(1, "PID: ", 5);
+	if (pid > 9)
+		ft_putpid(pid / 10, 0);
+	c = pid % 10 + '0';
+	write(1, &c, 1);
+	if (p)
+		write(1, "\n", 1);
+}
 
 void	decode(int signal, siginfo_t *info, void *context)
 {
@@ -26,7 +45,10 @@ void	decode(int signal, siginfo_t *info, void *context)
 	if (bit == 8)
 	{
 		if (c == 0)
-			kill(info->si_pid, SIGUSR1);
+		{
+			if (kill(info->si_pid, SIGUSR1) == -1)
+				ft_error();
+		}
 		else
 			write(1, &c, 1);
 		bit = 0;
@@ -36,24 +58,19 @@ void	decode(int signal, siginfo_t *info, void *context)
 
 int	main(int argc, char **argv)
 {
-	int					pid;
 	struct sigaction	sa;
 
 	(void)argv;
 	if (argc != 1)
-	{
-		write(1, "Error\n", 6);
-		return (1);
-	}
-	pid = getpid();
-	printf("PID: %d\n", pid);
+		ft_error();
+	ft_putpid(getpid(), 1);
+	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = decode;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
 	while (1)
 	{
 		sigaction(SIGUSR1, &sa, NULL);
 		sigaction(SIGUSR2, &sa, NULL);
 		pause();
 	}
+	return (0);
 }

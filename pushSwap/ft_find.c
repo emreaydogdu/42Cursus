@@ -6,17 +6,10 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:17:45 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/05 02:23:12 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:45:31 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-
-int	ft_abs(int val)
-{
-	if (val < 0)
-		return (val * -1);
-	return (val);
-}
 
 t_node	*ft_find_min(t_stack a)
 {
@@ -92,49 +85,6 @@ t_node	*ft_find_prev(int val, t_stack s)
 	return (prev);
 }
 
-void	ft_place_new_min(t_stack b, int *lst, int j)
-{
-	t_node	*min;
-	int		k;
-
-	min = ft_find_min(b);
-	if (ft_abs(b.size - 1 - min->idx) + 1 <= min->idx)
-	{
-		k = min->idx;
-		while (k++ < b.size - 1)
-			lst[j++] = RB;
-		lst[j++] = RB;
-	}
-	else
-	{
-		k = min->idx;
-		while (k-- > 0)
-			lst[j++] = RRB;
-	}
-	lst[j++] = PB;
-}
-
-void	ft_place_new_max(t_stack b, int *lst, int j)
-{
-	t_node	*max;
-	int		k;
-
-	max = ft_find_max(b);
-	if (ft_abs(b.size - 1 - max->idx) <= max->idx + 1)
-	{
-		k = max->idx;
-		while (k++ < b.size - 1)
-			lst[j++] = RB;
-	}
-	else
-	{
-		k = max->idx;
-		while (k-- > 0)
-			lst[j++] = RRB;
-		lst[j++] = RRB;
-	}
-	lst[j++] = PB;
-}
 void	ft_rotate_end(t_stack b, int *lst, int j)
 {
 	t_node	*max;

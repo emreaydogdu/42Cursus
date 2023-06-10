@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 13:31:04 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/05 15:10:02 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:12:18 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -108,100 +108,17 @@ void	ft_sort5(t_stack *a, t_stack *b)
 	pa(a, b);
 }
 
-void	ft_exec(int *lst, t_stack *a, t_stack *b)
-{
-	while(*lst)
-	{
-		if (*lst == SA)
-			sa(a);
-		if (*lst == SB)
-			sb(a);
-		if (*lst == SS)
-			ss(a, b);
-		if (*lst == PA)
-			pa(a, b);
-		if (*lst == PB)
-			pb(a, b);
-		if (*lst == RA)
-			ra(*a);
-		if (*lst == RB)
-			rb(*b);
-		if (*lst == RR)
-			rr(*a, *b);
-		if (*lst == RRA)
-			rra(*a);
-		if (*lst == RRB)
-			rrb(*b);
-		if (*lst == RRR)
-			rrr(*a, *b);
-		lst++;
-	}
-}
-
-void	ft_check_min(t_stack b, int val, int *lst, int j)
-{
-	t_node	*prev;
-	int		k;
-
-	prev = ft_find_prev(val, b);
-	if (ft_abs(b.size - 1 - prev->idx) <= prev->idx + 1)
-	{
-		k = prev->idx;
-		while (k++ < b.size - 1)
-			lst[j++] = RB;
-	}
-	else
-	{
-		k = prev->idx;
-		while (k-- > 0)
-			lst[j++] = RRB;
-		lst[j++] = RRB;
-	}
-	lst[j++] = PB;
-}
-void	ft_check_max(t_stack b, int val, int *lst, int j)
-{
-	t_node	*next;
-	int		k;
-
-	next = ft_find_next(val, b);
-	//printf("[%d]-[%d]\n", val, next->val);
-	if (ft_abs(b.size - 1 - next->idx) <= next->idx + 1)
-	{
-		k = next->idx;
-		while (k++ < b.size - 1)
-			lst[j++] = RB;
-		lst[j++] = RB;
-	}
-	else
-	{
-		k = next->idx;
-		while (k-- > 0)
-			lst[j++] = RRB;
-		//lst[j++] = RRB;
-	}
-	lst[j++] = PB;
-}
-
-int	*ft_place_new_middle(t_stack b, int val, int *lst, int j)
-{
-	ft_check_min(b, val, lst, j);
-	//ft_check_max(b, val, lst, j);
-	//ft_lstprint(lst);
-	return (lst);
-}
-
 void	ft_sort_big(t_stack *a, t_stack *b)
 {
-	int i;
-	int j;
-	int val;
-	int *lst;
-	int *best;
+	int	i;
+	int	j;
+	int	val;
+	int	*lst;
+	int	*best;
+
 	best = malloc(sizeof(int) * 1000);
 	if (!best)
-		return;
-
+		return ;
 	pb(a, b);
 	pb(a, b);
 	while (a->size)
@@ -213,7 +130,7 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 			j = 0;
 			lst = malloc(sizeof(int) * 1000);
 			if (!lst)
-				return;
+				return ;
 			if (a->size - 1 - i >= a->size / 2)
 			{
 				while (j != i && i != a->size - 1)
@@ -232,7 +149,6 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 			else
 				lst = ft_place_new_middle(*b, val, lst, j);
 			lst = ft_lstoptimize(lst);
-			//ft_lstprint(lst);
 			if (ft_lstlen(lst) < ft_lstlen(best) || !ft_lstlen(best))
 				best = lst;
 			i++;
@@ -246,6 +162,5 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 	ft_exec(lst, a, b);
 	while (b->size)
 		pa(a, b);
-	//print_stack(*a);
-	//print_stack(*b);
+	print_stack(*a);
 }

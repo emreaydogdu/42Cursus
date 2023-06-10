@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:02:50 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/05 02:09:41 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:14:43 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -33,75 +33,85 @@ void	ft_lstprint(const int *lst)
 
 void	ft_lstreset(int *lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lst[i])
 		lst[i++] = -1;
 }
 
-int		ft_getval(t_stack a, int i)
+int	ft_getval(t_stack a, int i)
 {
 	while (i--)
 		a.stack = a.stack->next;
 	return (a.stack->val);
 }
 
+void	ft_initopt(t_optimize	*opt)
+{
+	opt->ra = 0;
+	opt->rb = 0;
+	opt->rr = 0;
+	opt->rra = 0;
+	opt->rrb = 0;
+	opt->rrr = 0;
+}
+
 int	*ft_lstoptimize(int *lst)
 {
-	int *l;
-	int count = 0;
-	int	i = 0;
-	int	j;
-	int	ra = 0;
-	int	rb = 0;
-	int	rr = 0;
-	int	rra = 0;
-	int	rrb = 0;
-	int	rrr = 0;
+	int			*l;
+	int			count;
+	int			i;
+	int			j;
+	t_optimize	opt;
 
+	i = 0;
+	count = 0;
+	ft_initopt(&opt);
 	while (lst[i])
 	{
 		if (lst[i] == RA)
-			ra++;
+			opt.ra++;
 		if (lst[i] == RB)
-			rb++;
+			opt.rb++;
 		if (ra > 0 && rb > 0)
 		{
-			ra--;
-			rb--;
-			rr++;
+			opt.ra--;
+			opt.rb--;
+			opt.rr++;
 		}
 		if (lst[i] == RRA)
-			rra++;
+			opt.rra++;
 		if (lst[i++] == RRB)
-			rrb++;
+			opt.rrb++;
 		if (rra > 0 && rrb > 0)
 		{
-			rra--;
-			rrb--;
-			rrr++;
+			opt.rra--;
+			opt.rrb--;
+			opt.rrr++;
 		}
 		count++;
 	}
 	l = malloc(sizeof(int) * 10000);
 	if (!l)
-		return lst;
+		return (lst);
 	i = 0;
-	j = ra + rra + rrr * 2 + rr * 2 + rb + rrb;
-	while (ra--)
+	j = opt.ra + opt.rra + opt.rrr * 2 + opt.rr * 2 + opt.rb + opt.rrb;
+	while (opt.ra-- > 0)
 		l[i++] = RA;
-	while (rra--)
+	while (opt.ra-- > 0)
+		l[i++] = RA;
+	while (opt.rra-- > 0)
 		l[i++] = RRA;
-	while (rr--)
+	while (opt.rr-- > 0)
 		l[i++] = RR;
-	while (rrr--)
+	while (opt.rrr-- > 0)
 		l[i++] = RRR;
-	while (rb--)
+	while (opt.rb-- > 0)
 		l[i++] = RB;
-	while (rrb--)
+	while (opt.rrb-- > 0)
 		l[i++] = RRB;
 	while (lst[j])
 		l[i++] = lst[j++];
-	return (l);
+	return (lst);
 }

@@ -37,6 +37,25 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
+int	*ft_memset(int *b, int c, size_t len)
+{
+	while (len--)
+		((unsigned char *)b)[len] = (unsigned char)c;
+	return (b);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t	i;
+
+	i = n;
+	if (!(dst || src))
+		return (NULL);
+	while (n--)
+		*(char *)dst++ = *(char *)src++;
+	return (dst - i);
+}
+
 void	ft_exec(int *lst, t_stack *a, t_stack *b)
 {
 	while (*lst)

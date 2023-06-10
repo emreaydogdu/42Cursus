@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 13:31:04 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 17:37:24 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:51:37 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -114,7 +114,7 @@ void	ft_sort5(t_stack *a, t_stack *b)
 
 void	print_list(const int *lst)
 {
-	while (*lst)
+	while (*lst != '\0')
 		printf("[%d]", *lst++);
 	printf("\n");
 }
@@ -129,7 +129,7 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 
 	while (a->size)
 	{
-		best = malloc(sizeof(int) * 1000);
+		best = malloc(sizeof(int) * (a->size + b->size + 1));
 		if (!best)
 			return ;
 		i = 0;
@@ -137,7 +137,7 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 		{
 			val = ft_getval(*a, i);
 			j = 0;
-			lst = malloc(sizeof(int) * 1000);
+			lst = malloc(sizeof(int) * (a->size + b->size + 1));
 			if (!lst)
 				return ;
 			if (a->size - 1 - i >= a->size / 2)
@@ -157,22 +157,15 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 				ft_place_new_max(*b, lst, j);
 			else
 				lst = ft_place_new_middle(*b, val, lst, j);
-			lst = ft_lstoptimize(lst);
+			lst = ft_lstoptimize(lst, a->size + b->size + 1);
 			if (ft_lstlen(lst) < ft_lstlen(best) || !ft_lstlen(best))
-				best = lst;
+				ft_memcpy(best, lst, ft_lstlen(lst) * sizeof(int));
 			i++;
+			free(lst);
+			lst = NULL;
 		}
 		ft_exec(best, a, b);
-		print_list(best);
-		print_list(lst);
-		ft_lstreset(best);
 		free(best);
 	}
-	ft_lstreset(lst);
-	j = 0;
-	ft_rotate_end(*b, lst, j);
-	ft_exec(lst, a, b);
-	while (b->size)
-		pa(a, b);
-	print_stack(*a);
+	ft_rotate_end(*a, *b);
 }

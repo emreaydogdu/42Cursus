@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 16:49:26 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:11:52 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -55,6 +55,21 @@ int	main(int argc, char **argv)
 				add_stack(&a, ft_atoi(argv[--argc]));
 		ft_sort(a, b);
 		free_stack(a.stack);
-		//free_stack(b.stack);
 	}
+	/*
+	int *best;
+	int *lst;
+
+	lst = malloc(sizeof(int) * 10);
+	best = malloc(sizeof(int) * 10);
+	lst[0] = 1;
+	lst[1] = 2;
+	lst[2] = 3;
+	ft_memcpy(best, lst, 3 * sizeof(int));
+	lst[2] = 5;
+	best[2] = 8;
+	print_list(lst);
+	free(lst);
+	print_list(best);
+	 */
 }

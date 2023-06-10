@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:02:50 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 17:31:42 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:47:03 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -57,7 +57,7 @@ void	ft_initopt(t_optimize	*opt)
 	opt->rrr = 0;
 }
 
-int	*ft_lstoptimize(int *lst)
+int	*ft_lstoptimize(int *lst, int size)
 {
 	int			*l;
 	int			i;
@@ -89,7 +89,7 @@ int	*ft_lstoptimize(int *lst)
 			opt.rrr++;
 		}
 	}
-	l = malloc(sizeof(int) * 10000);
+	l = malloc(sizeof(int) * size);
 	if (!l)
 		return (lst);
 	i = 0;

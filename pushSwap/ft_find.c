@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:17:45 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/09 18:45:31 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:52:06 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -85,7 +85,7 @@ t_node	*ft_find_prev(int val, t_stack s)
 	return (prev);
 }
 
-void	ft_rotate_end(t_stack b, int *lst, int j)
+void	ft_rotate_end(t_stack a, t_stack b)
 {
 	t_node	*max;
 	int		k;
@@ -95,13 +95,16 @@ void	ft_rotate_end(t_stack b, int *lst, int j)
 	{
 		k = max->idx;
 		while (k++ < b.size - 1)
-			lst[j++] = RB;
+			rb(b);
 	}
 	else
 	{
 		k = max->idx;
 		while (k-- > 0)
-			lst[j++] = RRB;
-		lst[j++] = RRB;
+			rrb(b);
+		rrb(b);
 	}
+	while (b.size)
+		pa(&a, &b);
+	print_stack(a);
 }

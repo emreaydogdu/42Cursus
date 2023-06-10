@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 16:54:00 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:49:34 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -81,16 +81,19 @@ t_node	*ft_find_prev(int val, t_stack s);
 void	ft_check_max(t_stack b, int val, int *lst, int j);
 int		*ft_place_new_middle(t_stack b, int val, int *lst, int j);
 void	ft_exec(int *lst, t_stack *a, t_stack *b);
+int		*ft_memset(int *b, int c, size_t len);
+void	print_list(const int *lst);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 void	ft_place_new_min(t_stack b, int *lst, int j);
 void	ft_place_new_max(t_stack b, int *lst, int j);
-void	ft_rotate_end(t_stack b, int *lst, int j);
+void	ft_rotate_end(t_stack a, t_stack b);
 void	ft_initopt(t_optimize	*opt);
 
 int		ft_lstlen(const int *lst);
 void	ft_lstprint(const int *lst);
 void	ft_lstreset(int *lst);
-int		*ft_lstoptimize(int *lst);
+int		*ft_lstoptimize(int *lst, int size);
 int		ft_getval(t_stack a, int i);
 
 int		ft_atoi(const char *str);

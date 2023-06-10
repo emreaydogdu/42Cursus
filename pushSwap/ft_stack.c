@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 14:19:52 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 16:59:28 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 23:22:04 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -23,7 +23,7 @@ void	print_stack(t_stack stack)
 
 	size = stack.size;
 	printf("[Print Stack: %d]\n", size);
-	while (size--)
+	while (stack.stack->next)
 	{
 		printf("[%3d]\tidx[%3d]\n", stack.stack->val, stack.stack->idx);
 		stack.stack = stack.stack->next;

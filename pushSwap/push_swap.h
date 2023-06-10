@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 18:49:34 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 22:18:20 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -17,17 +17,17 @@
 # include <string.h>
 # include <limits.h>
 
-# define SA   0
-# define SB   1
-# define SS   2
-# define PA   3
-# define PB   4
-# define RA   5
-# define RB   6
-# define RR   7
-# define RRA  8
-# define RRB  9
-# define RRR 10
+# define SA   1
+# define SB   2
+# define SS   3
+# define PA   4
+# define PB   5
+# define RA   6
+# define RB   7
+# define RR   8
+# define RRA  9
+# define RRB 10
+# define RRR 11
 
 typedef struct s_node {
 	int				idx;
@@ -81,9 +81,6 @@ t_node	*ft_find_prev(int val, t_stack s);
 void	ft_check_max(t_stack b, int val, int *lst, int j);
 int		*ft_place_new_middle(t_stack b, int val, int *lst, int j);
 void	ft_exec(int *lst, t_stack *a, t_stack *b);
-int		*ft_memset(int *b, int c, size_t len);
-void	print_list(const int *lst);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 void	ft_place_new_min(t_stack b, int *lst, int j);
 void	ft_place_new_max(t_stack b, int *lst, int j);
@@ -97,6 +94,7 @@ int		*ft_lstoptimize(int *lst, int size);
 int		ft_getval(t_stack a, int i);
 
 int		ft_atoi(const char *str);
-void	free_stack(t_node *s);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	print_list(int *lst);
 
 #endif //PUSH_SWAP_H

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 13:31:04 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 18:51:37 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 23:46:12 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -112,10 +112,14 @@ void	ft_sort5(t_stack *a, t_stack *b)
 	pa(a, b);
 }
 
-void	print_list(const int *lst)
+void	print_list(int *lst)
 {
-	while (*lst != '\0')
-		printf("[%d]", *lst++);
+	int	size;
+
+	printf("List:	");
+	size = 0;
+	while (lst[size])
+		printf("[%d]", lst[size++]);
 	printf("\n");
 }
 
@@ -129,7 +133,7 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 
 	while (a->size)
 	{
-		best = malloc(sizeof(int) * (a->size + b->size + 1));
+		best = calloc(sizeof(int), a->size + b->size);
 		if (!best)
 			return ;
 		i = 0;
@@ -137,7 +141,7 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 		{
 			val = ft_getval(*a, i);
 			j = 0;
-			lst = malloc(sizeof(int) * (a->size + b->size + 1));
+			lst = calloc(sizeof(int), a->size + b->size);
 			if (!lst)
 				return ;
 			if (a->size - 1 - i >= a->size / 2)
@@ -157,12 +161,11 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 				ft_place_new_max(*b, lst, j);
 			else
 				lst = ft_place_new_middle(*b, val, lst, j);
-			lst = ft_lstoptimize(lst, a->size + b->size + 1);
+			//lst = ft_lstoptimize(lst, (a->size + b->size + 1));
 			if (ft_lstlen(lst) < ft_lstlen(best) || !ft_lstlen(best))
-				ft_memcpy(best, lst, ft_lstlen(lst) * sizeof(int));
+				ft_memcpy(best, lst, ft_lstlen(lst));
 			i++;
 			free(lst);
-			lst = NULL;
 		}
 		ft_exec(best, a, b);
 		free(best);

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:02:50 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 18:47:03 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 22:21:02 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -37,7 +37,7 @@ void	ft_lstreset(int *lst)
 
 	i = 0;
 	while (lst[i])
-		lst[i++] = -1;
+		lst[i++] = 0;
 }
 
 int	ft_getval(t_stack a, int i)
@@ -89,11 +89,11 @@ int	*ft_lstoptimize(int *lst, int size)
 			opt.rrr++;
 		}
 	}
+	i = 0;
+	j = opt.ra + opt.rra + opt.rrr * 2 + opt.rr * 2 + opt.rb + opt.rrb;
 	l = malloc(sizeof(int) * size);
 	if (!l)
 		return (lst);
-	i = 0;
-	j = opt.ra + opt.rra + opt.rrr * 2 + opt.rr * 2 + opt.rb + opt.rrb;
 	while (opt.ra-- > 0)
 		l[i++] = RA;
 	while (opt.ra-- > 0)

@@ -8,3 +8,5 @@ add_executable(printff printf/ft_printf.h printf/ft_printf.h printf/ft_conversio
 add_executable(getNextLine getNextLine/get_next_line.h getNextLine/get_next_line.c getNextLine/file getNextLine/get_next_line_utils.c)
 add_executable(getNextLine_bonus getNextLine/file getNextLine/file_bonus getNextLine/get_next_line_bonus.c getNextLine/get_next_line_utils_bonus.c getNextLine/get_next_line_bonus.h)
 add_executable(push_swap pushSwap/push_swap.h pushSwap/push_swap.c pushSwap/ft_s.c pushSwap/ft_p.c pushSwap/ft_rr.c pushSwap/ft_r.c pushSwap/ft_stack.c pushSwap/ft_sort.c pushSwap/ft_find.c pushSwap/ft_lst.c pushSwap/ft_libft.c pushSwap/ft_place.c)
+
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=adress -g")

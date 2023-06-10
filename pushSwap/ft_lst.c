@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:02:50 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 16:14:43 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 17:31:42 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -60,13 +60,11 @@ void	ft_initopt(t_optimize	*opt)
 int	*ft_lstoptimize(int *lst)
 {
 	int			*l;
-	int			count;
 	int			i;
 	int			j;
 	t_optimize	opt;
 
 	i = 0;
-	count = 0;
 	ft_initopt(&opt);
 	while (lst[i])
 	{
@@ -74,7 +72,7 @@ int	*ft_lstoptimize(int *lst)
 			opt.ra++;
 		if (lst[i] == RB)
 			opt.rb++;
-		if (ra > 0 && rb > 0)
+		if (opt.ra > 0 && opt.rb > 0)
 		{
 			opt.ra--;
 			opt.rb--;
@@ -84,13 +82,12 @@ int	*ft_lstoptimize(int *lst)
 			opt.rra++;
 		if (lst[i++] == RRB)
 			opt.rrb++;
-		if (rra > 0 && rrb > 0)
+		if (opt.rra > 0 && opt.rrb > 0)
 		{
 			opt.rra--;
 			opt.rrb--;
 			opt.rrr++;
 		}
-		count++;
 	}
 	l = malloc(sizeof(int) * 10000);
 	if (!l)
@@ -113,5 +110,6 @@ int	*ft_lstoptimize(int *lst)
 		l[i++] = RRB;
 	while (lst[j])
 		l[i++] = lst[j++];
-	return (lst);
+	free(lst);
+	return (l);
 }

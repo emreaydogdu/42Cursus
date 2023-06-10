@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 14:19:52 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/01 13:29:32 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:59:28 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -55,11 +55,15 @@ void	add_stack(t_stack *stack, int val)
 
 void	rm_stack(t_stack *stack)
 {
+	t_node	*next;
+
 	if (stack->size > 0)
 	{
 		if (stack->size == 1)
 			stack->empty = 1;
 		stack->size--;
-		stack->stack = stack->stack->next;
+		next = stack->stack->next;
+		free(stack->stack);
+		stack->stack = next;
 	}
 }

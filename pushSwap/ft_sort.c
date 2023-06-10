@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 13:31:04 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 16:12:18 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 17:37:24 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -23,7 +23,11 @@ void	ft_sort(t_stack a, t_stack b)
 	else if (a.size == 5)
 		ft_sort5(&a, &b);
 	else if (a.size > 5)
+	{
+		pb(&a, &b);
+		pb(&a, &b);
 		ft_sort_big(&a, &b);
+	}
 }
 
 void	ft_sort3(t_stack *a)
@@ -108,6 +112,13 @@ void	ft_sort5(t_stack *a, t_stack *b)
 	pa(a, b);
 }
 
+void	print_list(const int *lst)
+{
+	while (*lst)
+		printf("[%d]", *lst++);
+	printf("\n");
+}
+
 void	ft_sort_big(t_stack *a, t_stack *b)
 {
 	int	i;
@@ -116,13 +127,11 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 	int	*lst;
 	int	*best;
 
-	best = malloc(sizeof(int) * 1000);
-	if (!best)
-		return ;
-	pb(a, b);
-	pb(a, b);
 	while (a->size)
 	{
+		best = malloc(sizeof(int) * 1000);
+		if (!best)
+			return ;
 		i = 0;
 		while (i < a->size)
 		{
@@ -154,7 +163,10 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 			i++;
 		}
 		ft_exec(best, a, b);
+		print_list(best);
+		print_list(lst);
 		ft_lstreset(best);
+		free(best);
 	}
 	ft_lstreset(lst);
 	j = 0;

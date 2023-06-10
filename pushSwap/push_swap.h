@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 16:09:02 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:54:00 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -94,5 +94,6 @@ int		*ft_lstoptimize(int *lst);
 int		ft_getval(t_stack a, int i);
 
 int		ft_atoi(const char *str);
+void	free_stack(t_node *s);
 
 #endif //PUSH_SWAP_H

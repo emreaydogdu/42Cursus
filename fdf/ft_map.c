@@ -1,15 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_file.c                                          :+:      :+:    :+:   */
+/*   ft_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:15:43 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/11 16:25:00 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/11 22:41:06 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
+
+static t_persv	*ft_persv(void)
+{
+	t_persv	*persv;
+
+	persv = (t_persv *)malloc(sizeof(t_persv));
+	if (persv == NULL)
+		exit(0);
+	persv->a = 0;
+	persv->b = 0;
+	persv->c = 0;
+	return (persv);
+}
 
 static void	ft_fill_map(char *file, t_map *m)
 {
@@ -57,8 +70,9 @@ void	ft_parse_map(char *file, t_map *m)
 		m->height++;
 		line = get_next_line(fd);
 	}
-	printf("%d\n", m->width);
-	printf("%d\n", m->height);
+	m->zoom = 20;
+	m->angle = 0.523599f;
+	m->persv = ft_persv();
 	close(fd);
 	ft_fill_map(file, m);
 }
@@ -77,4 +91,6 @@ void	ft_print_map(t_map m)
 		printf("\n");
 		i++;
 	}
+	printf("%d\n", m.width);
+	printf("%d\n", m.height);
 }

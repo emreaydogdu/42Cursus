@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 00:49:53 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/11 16:24:51 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/11 22:35:13 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FDF_H
@@ -31,14 +31,33 @@
 
 # define MOD(a) ((a < 0) ? -a : a)
 
+typedef struct s_point
+{
+	float	x;
+	float	y;
+	float	z;
+	int		color;
+}	t_point;
+
+typedef struct s_persv
+{
+	float	a;
+	float	b;
+	float	c;
+}	t_persv;
+
 typedef struct s_map
 {
 	int			width;
 	int			height;
+	int			zoom;
+	float		angle;
 	int			**map;
+	t_persv		*persv;
 	mlx_t		*window;
 	mlx_image_t	*image;
 }	t_map;
+
 
 // FILE //
 void	ft_parse_map(char *file, t_map *m);
@@ -47,4 +66,8 @@ void	ft_print_map(t_map m);
 // DRAW //
 void	ft_draw(t_map m);
 
+// MENU //
+void	ft_draw_menu(t_map m);
+void	my_keyhook(mlx_key_data_t keydata, void* param);
+void	close_hook(void *param);
 #endif

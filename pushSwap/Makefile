@@ -2,6 +2,7 @@
 
 NAME = push_swap
 SRC = push_swap.c ft_find.c ft_lst.c ft_p.c ft_r.c ft_rr.c ft_s.c ft_sort.c ft_stack.c ft_place.c ft_libft.c
+SRC_B = checker.c ft_find.c ft_lst.c ft_p.c ft_r.c ft_rr.c ft_s.c ft_sort.c ft_stack.c ft_place.c ft_libft.c
 OBJS = ${SRC:.c=.o}
 RM = rm
 CC = cc
@@ -13,14 +14,15 @@ all: $(NAME)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(SRC) -o push_swap
+	$(CC) $(CFLAGS) lib/libft.a $(SRC) -o push_swap
 
 bonus: all
+	$(CC) $(CFLAGS) lib/libft.a $(SRC_B) -o checker
 
 clean:
 	rm -f ${OBJS}
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) checker
 
 re: fclean all

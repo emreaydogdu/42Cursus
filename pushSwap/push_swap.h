@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 22:18:20 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/12 21:19:49 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <limits.h>
+# include "lib/libft.h"
 
 # define SA   1
 # define SB   2
@@ -32,6 +33,7 @@
 typedef struct s_node {
 	int				idx;
 	int				val;
+	int				*lst;
 	struct s_node	*next;
 }	t_node;
 
@@ -63,7 +65,8 @@ void	rra(t_stack a);
 void	rrb(t_stack b);
 void	rrr(t_stack a, t_stack b);
 
-void	init_stack(t_stack *stack);
+void	free_stack(t_node *s);
+void	init_stack(t_stack *a, t_stack *b);
 void	print_stack(t_stack stack);
 void	add_stack(t_stack *stack, int val);
 void	rm_stack(t_stack *stack);
@@ -80,7 +83,9 @@ t_node	*ft_find_next(int val, t_stack s);
 t_node	*ft_find_prev(int val, t_stack s);
 void	ft_check_max(t_stack b, int val, int *lst, int j);
 int		*ft_place_new_middle(t_stack b, int val, int *lst, int j);
+void	ft_split_ps(char *args, t_stack *a);
 void	ft_exec(int *lst, t_stack *a, t_stack *b);
+void	ft_exec_b(const char *opt, t_stack *a, t_stack *b);
 
 void	ft_place_new_min(t_stack b, int *lst, int j);
 void	ft_place_new_max(t_stack b, int *lst, int j);
@@ -88,13 +93,8 @@ void	ft_rotate_end(t_stack a, t_stack b);
 void	ft_initopt(t_optimize	*opt);
 
 int		ft_lstlen(const int *lst);
-void	ft_lstprint(const int *lst);
 void	ft_lstreset(int *lst);
-int		*ft_lstoptimize(int *lst, int size);
-int		ft_getval(t_stack a, int i);
-
-int		ft_atoi(const char *str);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-void	print_list(int *lst);
+void	ft_lstoptimize(int *lst);
+t_node	*ft_getval(t_stack a, int i);
 
 #endif //PUSH_SWAP_H

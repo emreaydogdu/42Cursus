@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 13:31:04 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 23:46:12 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:02:48 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -112,63 +112,53 @@ void	ft_sort5(t_stack *a, t_stack *b)
 	pa(a, b);
 }
 
-void	print_list(int *lst)
-{
-	int	size;
-
-	printf("List:	");
-	size = 0;
-	while (lst[size])
-		printf("[%d]", lst[size++]);
-	printf("\n");
-}
-
 void	ft_sort_big(t_stack *a, t_stack *b)
 {
-	int	i;
-	int	j;
-	int	val;
-	int	*lst;
-	int	*best;
+	int		i;
+	int		j;
+	t_node	*val;
+	int		*best;
 
 	while (a->size)
 	{
-		best = calloc(sizeof(int), a->size + b->size);
+		best = calloc(sizeof(int), a->size + b->size + 1);
 		if (!best)
 			return ;
 		i = 0;
 		while (i < a->size)
 		{
 			val = ft_getval(*a, i);
-			j = 0;
-			lst = calloc(sizeof(int), a->size + b->size);
-			if (!lst)
+			val->lst = calloc(sizeof(int), a->size + b->size + 1);
+			if (!val->lst)
 				return ;
+			j = 0;
 			if (a->size - 1 - i >= a->size / 2)
 			{
 				while (j != i && i != a->size - 1)
-					lst[j++] = RA;
+					val->lst[j++] = RA;
 			}
 			else
 			{
 				while (a->size - 1 - i - j != 0)
-					lst[j++] = RRA;
-				lst[j++] = RRA;
+					val->lst[j++] = RRA;
+				val->lst[j++] = RRA;
 			}
-			if (val < ft_find_min(*b)->val)
-				ft_place_new_min(*b, lst, j);
-			else if (val > ft_find_max(*b)->val)
-				ft_place_new_max(*b, lst, j);
+			if (val->val < ft_find_min(*b)->val)
+				ft_place_new_min(*b, val->lst, j);
+			else if (val->val > ft_find_max(*b)->val)
+				ft_place_new_max(*b, val->lst, j);
 			else
-				lst = ft_place_new_middle(*b, val, lst, j);
-			//lst = ft_lstoptimize(lst, (a->size + b->size + 1));
-			if (ft_lstlen(lst) < ft_lstlen(best) || !ft_lstlen(best))
-				ft_memcpy(best, lst, ft_lstlen(lst));
+				val->lst = ft_place_new_middle(*b, val->val, val->lst, j);
+			ft_lstoptimize(val->lst);
+			if (ft_lstlen(val->lst) < ft_lstlen(best) || !ft_lstlen(best))
+				best = val->lst;
+				//ft_memcpy(best, val->lst, ft_lstlen(val->lst) + 1);
 			i++;
-			free(lst);
+			//free(val->lst);
 		}
 		ft_exec(best, a, b);
 		free(best);
+		best = NULL;
 	}
 	ft_rotate_end(*a, *b);
 }

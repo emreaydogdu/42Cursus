@@ -6,28 +6,41 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 14:19:52 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 23:22:04 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:36:39 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	init_stack(t_stack *stack)
+void	free_stack(t_node *s)
 {
-	stack->empty = 1;
-	stack->size = 0;
+	if (s->next)
+		free_stack(s->next);
+	free(s);
+}
+
+void	init_stack(t_stack *a, t_stack *b)
+{
+	a->empty = 1;
+	a->size = 0;
+	b->empty = 1;
+	b->size = 0;
 }
 
 void	print_stack(t_stack stack)
 {
 	int	size;
+	int	i;
 
+	i = 0;
 	size = stack.size;
 	printf("[Print Stack: %d]\n", size);
-	while (stack.stack->next)
+	while (i++ < size - 1)
 	{
 		printf("[%3d]\tidx[%3d]\n", stack.stack->val, stack.stack->idx);
 		stack.stack = stack.stack->next;
 	}
+	if (size)
+		printf("[%3d]\tidx[%3d]\n", stack.stack->val, stack.stack->idx);
 	printf("\n");
 }
 

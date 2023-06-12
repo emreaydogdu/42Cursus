@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:32:49 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/09 18:47:36 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:02:47 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -18,42 +18,25 @@ int	ft_abs(int val)
 	return (val);
 }
 
-int	ft_atoi(const char *str)
+void	ft_split_ps(char *args, t_stack *a)
 {
-	int	i;
-	int	sign;
-	int	res;
+	int	val;
 
-	i = 0;
-	sign = 1;
-	res = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-		if (str[i++] == '-')
-			sign *= -1;
-	while (str[i] >= '0' && str[i] <= '9')
-		res = res * 10 + (str[i++] - '0');
-	return (res * sign);
-}
-
-int	*ft_memset(int *b, int c, size_t len)
-{
-	while (len--)
-		((unsigned char *)b)[len] = (unsigned char)c;
-	return (b);
-}
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	size_t	i;
-
-	i = n;
-	if (!(dst || src))
-		return (NULL);
-	while (n--)
-		*(char *)dst++ = *(char *)src++;
-	return (dst - i);
+	val = 0;
+	while (*args)
+	{
+		if (*args != ' ')
+			val = val * 10 + *args - '0';
+		else
+		{
+			add_stack(a, val);
+			r(*a);
+			val = 0;
+		}
+		args++;
+	}
+	add_stack(a, val);
+	r(*a);
 }
 
 void	ft_exec(int *lst, t_stack *a, t_stack *b)
@@ -83,4 +66,30 @@ void	ft_exec(int *lst, t_stack *a, t_stack *b)
 		if (*lst++ == RRR)
 			rrr(*a, *b);
 	}
+}
+
+void	ft_exec_b(const char *opt, t_stack *a, t_stack *b)
+{
+	if (ft_strncmp(opt, "sa", 3) == 0)
+		sa(a);
+	if (ft_strncmp(opt, "sb", 3) == 0)
+		sb(a);
+	if (ft_strncmp(opt, "ss", 3) == 0)
+		ss(a, b);
+	if (ft_strncmp(opt, "pa", 3) == 0)
+		pa(a, b);
+	if (ft_strncmp(opt, "pb", 3) == 0)
+		pb(a, b);
+	if (ft_strncmp(opt, "ra", 3) == 0)
+		ra(*a);
+	if (ft_strncmp(opt, "rb", 3) == 0)
+		rb(*b);
+	if (ft_strncmp(opt, "rr", 3) == 0)
+		rr(*a, *b);
+	if (ft_strncmp(opt, "rra", 3) == 0)
+		rra(*a);
+	if (ft_strncmp(opt, "rrb", 3) == 0)
+		rrb(*b);
+	if (ft_strncmp(opt, "rrr", 3) == 0)
+		rrr(*a, *b);
 }

@@ -6,39 +6,10 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 22:18:58 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/12 21:20:49 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
 #include "push_swap.h"
-
-static void	ft_split(char *args, t_stack *a)
-{
-	int	val;
-
-	val = 0;
-	while (*args)
-	{
-		if (*args != ' ')
-			val = val * 10 + *args - '0';
-		else
-		{
-			add_stack(a, val);
-			r(*a);
-			val = 0;
-		}
-		args++;
-	}
-	add_stack(a, val);
-	r(*a);
-}
-
-void	free_stack(t_node *s)
-{
-	if (s->next)
-		free_stack(s->next);
-	free(s);
-}
 
 int	main(int argc, char **argv)
 {
@@ -47,10 +18,9 @@ int	main(int argc, char **argv)
 
 	if (argc > 1)
 	{
-		init_stack(&a);
-		init_stack(&b);
+		init_stack(&a, &b);
 		if (argc == 2)
-			ft_split(argv[1], &a);
+			ft_split_ps(argv[1], &a);
 		else
 			while (argc > 1)
 				add_stack(&a, ft_atoi(argv[--argc]));

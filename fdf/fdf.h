@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 00:49:53 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/11 22:35:13 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:17:47 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FDF_H
@@ -51,8 +51,10 @@ typedef struct s_map
 	int			width;
 	int			height;
 	int			zoom;
+	float		xoff;
+	float		yoff;
 	float		angle;
-	int			**map;
+	t_point		**map;
 	t_persv		*persv;
 	mlx_t		*window;
 	mlx_image_t	*image;
@@ -65,9 +67,12 @@ void	ft_print_map(t_map m);
 
 // DRAW //
 void	ft_draw(t_map m);
+t_point	*ft_point(int x, int y, int z, int color, t_map m);
 
 // MENU //
 void	ft_draw_menu(t_map m);
 void	my_keyhook(mlx_key_data_t keydata, void* param);
 void	close_hook(void *param);
+
+int	ft_atoi_base(const char *str, int str_base);
 #endif

@@ -20,9 +20,7 @@ void	free_stack(t_node *s)
 
 void	init_stack(t_stack *a, t_stack *b)
 {
-	a->empty = 1;
 	a->size = 0;
-	b->empty = 1;
 	b->size = 0;
 }
 
@@ -54,7 +52,7 @@ void	add_stack(t_stack *stack, int val)
 	node->idx = 0;
 	node->val = val;
 	node->next = NULL;
-	if (stack->empty)
+	if (!stack->size)
 		stack->stack = node;
 	else
 	{
@@ -62,7 +60,6 @@ void	add_stack(t_stack *stack, int val)
 		node->next = stack->stack;
 		stack->stack = node;
 	}
-	stack->empty = 0;
 	stack->size += 1;
 }
 
@@ -72,8 +69,6 @@ void	rm_stack(t_stack *stack)
 
 	if (stack->size > 0)
 	{
-		if (stack->size == 1)
-			stack->empty = 1;
 		stack->size--;
 		next = stack->stack->next;
 		free(stack->stack);

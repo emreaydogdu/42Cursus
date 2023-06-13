@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:17:45 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/10 23:46:57 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:55:19 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -106,6 +106,5 @@ void	ft_rotate_end(t_stack a, t_stack b)
 	}
 	while (b.size)
 		pa(&a, &b);
-
 	print_stack(a);
 }

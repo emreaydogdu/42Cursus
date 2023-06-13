@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/12 21:19:49 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:03:06 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -38,7 +38,6 @@ typedef struct s_node {
 }	t_node;
 
 typedef struct s_stack {
-	int		empty;
 	int		size;
 	t_node	*stack;
 }	t_stack;

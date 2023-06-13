@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/13 18:03:06 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:37:12 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -86,14 +86,14 @@ void	ft_split_ps(char *args, t_stack *a);
 void	ft_exec(int *lst, t_stack *a, t_stack *b);
 void	ft_exec_b(const char *opt, t_stack *a, t_stack *b);
 
-void	ft_place_new_min(t_stack b, int *lst, int j);
-void	ft_place_new_max(t_stack b, int *lst, int j);
+void	ft_calc_a(t_stack *a, t_node *val, int i, int *j);
+void	ft_calc_b(t_stack *b, int *best, t_node *val, int j);
 void	ft_rotate_end(t_stack a, t_stack b);
-void	ft_initopt(t_optimize	*opt);
 
 int		ft_lstlen(const int *lst);
 void	ft_lstreset(int *lst);
-void	ft_lstoptimize(int *lst);
-t_node	*ft_getval(t_stack a, int i);
+void	ft_lstbest(int *list, int *best);
+void	ft_optimize(int *lst);
+t_node	*get_stack(t_stack a, int i);
 
 #endif //PUSH_SWAP_H

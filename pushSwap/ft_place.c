@@ -6,12 +6,12 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 18:42:58 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/09 18:48:26 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:43:41 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	ft_place_new_min(t_stack b, int *lst, int j)
+static void	ft_place_new_min(t_stack b, int *lst, int j)
 {
 	t_node	*min;
 	int		k;
@@ -33,7 +33,7 @@ void	ft_place_new_min(t_stack b, int *lst, int j)
 	lst[j++] = PB;
 }
 
-void	ft_place_new_max(t_stack b, int *lst, int j)
+static void	ft_place_new_max(t_stack b, int *lst, int j)
 {
 	t_node	*max;
 	int		k;
@@ -55,7 +55,7 @@ void	ft_place_new_max(t_stack b, int *lst, int j)
 	lst[j++] = PB;
 }
 
-void	ft_check_min(t_stack b, int val, int *lst, int j)
+static void	ft_check_min(t_stack b, int val, int *lst, int j)
 {
 	t_node	*prev;
 	int		k;
@@ -77,31 +77,30 @@ void	ft_check_min(t_stack b, int val, int *lst, int j)
 	lst[j++] = PB;
 }
 
-void	ft_check_max(t_stack b, int val, int *lst, int j)
+void	ft_calc_a(t_stack *a, t_node *val, int i, int *j)
 {
-	t_node	*next;
-	int		k;
-
-	next = ft_find_next(val, b);
-	if (ft_abs(b.size - 1 - next->idx) <= next->idx + 1)
+	if (a->size - 1 - i >= a->size / 2)
 	{
-		k = next->idx;
-		while (k++ < b.size - 1)
-			lst[j++] = RB;
-		lst[j++] = RB;
+		while ((*j) != i && i != a->size - 1)
+			val->lst[(*j)++] = RA;
 	}
 	else
 	{
-		k = next->idx;
-		while (k-- > 0)
-			lst[j++] = RRB;
+		while (a->size - 1 - i - (*j) != 0)
+			val->lst[(*j)++] = RRA;
+		val->lst[(*j)++] = RRA;
 	}
-	lst[j++] = PB;
 }
 
-//ft_check_max(b, val, lst, j);
-int	*ft_place_new_middle(t_stack b, int val, int *lst, int j)
+void	ft_calc_b(t_stack *b, int *best, t_node *val, int j)
 {
-	ft_check_min(b, val, lst, j);
-	return (lst);
+	if (val->val < ft_find_min(*b)->val)
+		ft_place_new_min(*b, val->lst, j);
+	else if (val->val > ft_find_max(*b)->val)
+		ft_place_new_max(*b, val->lst, j);
+	else
+		ft_check_min(*b, val->val, val->lst, j);
+	ft_optimize(val->lst);
+	ft_lstbest(val->lst, best);
+	free(val->lst);
 }

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 14:19:52 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/12 16:36:39 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:44:40 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -22,24 +22,6 @@ void	init_stack(t_stack *a, t_stack *b)
 {
 	a->size = 0;
 	b->size = 0;
-}
-
-void	print_stack(t_stack stack)
-{
-	int	size;
-	int	i;
-
-	i = 0;
-	size = stack.size;
-	printf("[Print Stack: %d]\n", size);
-	while (i++ < size - 1)
-	{
-		printf("[%3d]\tidx[%3d]\n", stack.stack->val, stack.stack->idx);
-		stack.stack = stack.stack->next;
-	}
-	if (size)
-		printf("[%3d]\tidx[%3d]\n", stack.stack->val, stack.stack->idx);
-	printf("\n");
 }
 
 void	add_stack(t_stack *stack, int val)
@@ -63,15 +45,27 @@ void	add_stack(t_stack *stack, int val)
 	stack->size += 1;
 }
 
-void	rm_stack(t_stack *stack)
+t_node	*get_stack(t_stack a, int i)
 {
-	t_node	*next;
+	while (i--)
+		a.stack = a.stack->next;
+	return (a.stack);
+}
 
-	if (stack->size > 0)
+void	print_stack(t_stack stack)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = stack.size;
+	printf("[Print Stack: %d]\n", size);
+	while (i++ < size - 1)
 	{
-		stack->size--;
-		next = stack->stack->next;
-		free(stack->stack);
-		stack->stack = next;
+		printf("[%3d]\tidx[%3d]\n", stack.stack->val, stack.stack->idx);
+		stack.stack = stack.stack->next;
 	}
+	if (size)
+		printf("[%3d]\tidx[%3d]\n", stack.stack->val, stack.stack->idx);
+	printf("\n");
 }

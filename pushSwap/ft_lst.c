@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:02:50 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/12 17:22:19 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:11:14 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -35,66 +35,20 @@ void	ft_lstreset(int *lst)
 	}
 }
 
-t_node	*ft_getval(t_stack a, int i)
+void	ft_lstbest(int *list, int *best)
 {
-	while (i--)
-		a.stack = a.stack->next;
-	return (a.stack);
-}
+	int	len;
+	int	j;
 
-void	ft_initopt(t_optimize	*opt)
-{
-	opt->ra = 0;
-	opt->rb = 0;
-	opt->rr = 0;
-	opt->rra = 0;
-	opt->rrb = 0;
-	opt->rrr = 0;
-}
-
-void	ft_lstoptimize(int *lst)
-{
-	int			i;
-	t_optimize	opt;
-
-	i = 0;
-	ft_initopt(&opt);
-	while (lst[i])
+	len = ft_lstlen(list);
+	if (!ft_lstlen(best) || len < ft_lstlen(best))
 	{
-		if (lst[i] == RA)
-			opt.ra++;
-		if (lst[i] == RB)
-			opt.rb++;
-		if (opt.ra > 0 && opt.rb > 0)
+		ft_lstreset(best);
+		j = 0;
+		while (j < len)
 		{
-			opt.ra--;
-			opt.rb--;
-			opt.rr++;
-		}
-		if (lst[i] == RRA)
-			opt.rra++;
-		if (lst[i++] == RRB)
-			opt.rrb++;
-		if (opt.rra > 0 && opt.rrb > 0)
-		{
-			opt.rra--;
-			opt.rrb--;
-			opt.rrr++;
+			best[j] = list[j];
+			j++;
 		}
 	}
-	i = 0;
-	ft_lstreset(lst);
-	while (opt.ra-- > 0)
-		lst[i++] = RA;
-	while (opt.rra-- > 0)
-		lst[i++] = RRA;
-	while (opt.rr-- > 0)
-		lst[i++] = RR;
-	while (opt.rrr-- > 0)
-		lst[i++] = RRR;
-	while (opt.rb-- > 0)
-		lst[i++] = RB;
-	while (opt.rrb-- > 0)
-		lst[i++] = RRB;
-	lst[i++] = PB;
 }

@@ -14,10 +14,10 @@ all: $(NAME)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) lib/libft.a $(SRC) -o push_swap
+	$(CC) $(CFLAGS) $(SRC) lib/libft.a  -o push_swap
 
 bonus: all
-	$(CC) $(CFLAGS) lib/libft.a $(SRC_B) -o checker
+	$(CC) $(CFLAGS) $(SRC_B) lib/libft.a  -o checker
 
 clean:
 	rm -f ${OBJS}

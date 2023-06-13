@@ -86,8 +86,6 @@ void	ft_lstoptimize(int *lst)
 	ft_lstreset(lst);
 	while (opt.ra-- > 0)
 		lst[i++] = RA;
-	while (opt.ra-- > 0)
-		lst[i++] = RA;
 	while (opt.rra-- > 0)
 		lst[i++] = RRA;
 	while (opt.rr-- > 0)

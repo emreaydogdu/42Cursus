@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/13 21:37:12 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:53:14 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -50,7 +50,6 @@ typedef struct s_optimize {
 	int	rrb;
 	int	rrr;
 }	t_optimize;
-
 void	sa(t_stack *a);
 void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
@@ -63,6 +62,8 @@ void	rr(t_stack a, t_stack b);
 void	rra(t_stack a);
 void	rrb(t_stack b);
 void	rrr(t_stack a, t_stack b);
+
+void	ft_error(int argc, char **argv);
 
 void	free_stack(t_node *s);
 void	init_stack(t_stack *a, t_stack *b);

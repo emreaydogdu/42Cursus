@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:44:07 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/12 21:43:40 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:25:39 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -38,24 +38,22 @@ int	main(int argc, char **argv)
 	t_stack	a;
 	t_stack	b;
 
-	if (argc > 1)
+	ft_error(argc, argv);
+	init_stack(&a, &b);
+	if (argc == 2)
+		ft_split_ps(argv[1], &a);
+	else
+		while (argc > 1)
+			add_stack(&a, ft_atoi(argv[--argc]));
+	i = -1;
+	while (read(STDIN_FILENO, &c[++i], 1) > 0)
 	{
-		init_stack(&a, &b);
-		if (argc == 2)
-			ft_split_ps(argv[1], &a);
-		else
-			while (argc > 1)
-				add_stack(&a, ft_atoi(argv[--argc]));
-		i = -1;
-		while (read(STDIN_FILENO, &c[++i], 1) > 0)
+		if (c[i] == '\n')
 		{
-			if (c[i] == '\n')
-			{
-				c[i] = '\0';
-				ft_exec_b(c, &a, &b);
-				i = -1;
-			}
+			c[i] = '\0';
+			ft_exec_b(c, &a, &b);
+			i = -1;
 		}
-		ft_check_stack(a);
 	}
+	ft_check_stack(a);
 }

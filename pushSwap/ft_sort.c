@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 13:31:04 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/12 19:02:48 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:24:31 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -112,6 +112,24 @@ void	ft_sort5(t_stack *a, t_stack *b)
 	pa(a, b);
 }
 
+void	check_best(int *list, int *best)
+{
+	int	len;
+	int	j;
+
+	len = ft_lstlen(list);
+	if (!ft_lstlen(best) || len < ft_lstlen(best))
+	{
+		ft_lstreset(best);
+		j = 0;
+		while (j < len)
+		{
+			best[j] = list[j];
+			j++;
+		}
+	}
+}
+
 void	ft_sort_big(t_stack *a, t_stack *b)
 {
 	int		i;
@@ -150,15 +168,15 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 			else
 				val->lst = ft_place_new_middle(*b, val->val, val->lst, j);
 			ft_lstoptimize(val->lst);
-			if (ft_lstlen(val->lst) < ft_lstlen(best) || !ft_lstlen(best))
-				best = val->lst;
+			//if (ft_lstlen(val->lst) < ft_lstlen(best) || !ft_lstlen(best))
+			check_best(val->lst, best);
 				//ft_memcpy(best, val->lst, ft_lstlen(val->lst) + 1);
 			i++;
-			//free(val->lst);
+			free(val->lst);
 		}
 		ft_exec(best, a, b);
 		free(best);
-		best = NULL;
+		//best = NULL;
 	}
 	ft_rotate_end(*a, *b);
 }

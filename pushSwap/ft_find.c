@@ -106,4 +106,6 @@ void	ft_rotate_end(t_stack a, t_stack b)
 	}
 	while (b.size)
 		pa(&a, &b);
+
+	print_stack(a);
 }

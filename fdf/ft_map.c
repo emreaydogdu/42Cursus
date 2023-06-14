@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:15:43 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/12 13:20:45 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:42:46 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -27,31 +27,35 @@ static t_persv	*ft_persv(void)
 static void	ft_fill_map(char *file, t_map *m)
 {
 	int		fd;
-	int		i;
-	int		j;
+	int		y;
+	int		x;
 	char	**lines;
 	char	**values;
 
 	fd = open(file, O_RDONLY);
 	m->map = malloc(sizeof(t_point *) * m->height);
-	i = 0;
-	while (i < m->height)
-		m->map[i++] = malloc(sizeof(t_point) * m->width);
-	i = 0;
-	while (i < m->height)
+	y = 0;
+	while (y < m->height)
+		m->map[y++] = malloc(sizeof(t_point) * m->width);
+	y = 0;
+	while (y < m->height)
 	{
-		j = 0;
+		x = 0;
 		lines = ft_split(get_next_line(fd), ' ');
-		while (lines[j])
+		while (lines[x])
 		{
-			values = ft_split(lines[j], ',');
-			if (values[1])
-				printf("%d\n", ft_atoi_base(values[1], 16));
-			//m->map[i][j] = *ft_point(i, j, ft_atoi(values[0]), ft_atoi(values[1]), *m);
-			j++;
+			values = ft_split(lines[x], ',');
+			if (values[0])
+			{
+				if (values[1])
+					printf("%d\n", ft_atoi_base(values[1], 10));
+				//printf("y:%d : x:%d\n", y, x);
+				m->map[y][x] = *ft_point(x, y, ft_atoi(values[0]), 0, *m);
+			}
+			x++;
 		}
 		free(lines);
-		i++;
+		y++;
 	}
 	close(fd);
 }
@@ -74,7 +78,9 @@ void	ft_parse_map(char *file, t_map *m)
 		m->height++;
 		line = get_next_line(fd);
 	}
-	m->zoom = 20;
+	m->image = malloc(sizeof(mlx_image_t));
+	m->menu = malloc(sizeof(t_menu));
+	m->zoom = 40.0f;
 	m->angle = 0.523599f;
 	m->persv = ft_persv();
 	m->xoff = 0;
@@ -85,17 +91,17 @@ void	ft_parse_map(char *file, t_map *m)
 
 void	ft_print_map(t_map m)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (i < m.height)
+	y = 0;
+	while (y < m.height)
 	{
-		j = 0;
-		while (j < m.width)
-			printf("%3d ", (int)m.map[i][j++].z);
+		x = -1;
+		while (++x < m.width)
+			printf("(%d,%d,%d)", y, x, (int)m.map[y][x].z);
 		printf("\n");
-		i++;
+		y++;
 	}
 	printf("%d\n", m.width);
 	printf("%d\n", m.height);

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 23:53:45 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/14 19:46:53 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:17:23 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <memory.h>
@@ -22,11 +22,11 @@ int	main(int argc, char **argv)
 		ft_parse_map(argv[1], m);
 		m->window = mlx_init(1400, 1000, "fdf", false);
 		ft_draw_image(m);
-		//ft_draw_menu(m, m->xoff, m->yoff);
+		//ft_draw_menu(m);
 		mlx_key_hook(m->window, &keyhook, m);
 		mlx_scroll_hook(m->window, &scrollhook, m);
-		mlx_mouse_hook(m->window, &mousehook, m);
-		//mlx_cursor_hook(m->window, &cursorhook, m);
+		//mlx_mouse_hook(m->window, &mousehook, m);
+		mlx_cursor_hook(m->window, &cursorhook, m);
 		mlx_loop(m->window);
 	}
 	return (EXIT_SUCCESS);

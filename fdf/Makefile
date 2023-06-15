@@ -1,7 +1,7 @@
 .PHONY: all bonus clean fclean re
 
 NAME = fdf
-SRC = ft_fdf.c ft_map.c ft_draw.c ft_menu.c ft_atoi_base.c ft_hooks.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
+SRC = ft_fdf.c ft_map.c ft_draw.c ft_menu.c ft_atoi_base.c ft_hooks.c ft_color.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
 OBJS = ${SRC:.c=.o}
 RM = rm
 CC = cc

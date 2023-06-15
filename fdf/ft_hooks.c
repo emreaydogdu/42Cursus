@@ -6,13 +6,10 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:15:06 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/14 22:26:43 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:17:59 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
-
-int	xx;
-int	yy;
 
 void	keyhook(mlx_key_data_t key, void *param)
 {
@@ -24,6 +21,9 @@ void	keyhook(mlx_key_data_t key, void *param)
 		m->yoff = 0;
 		m->xoff = 0;
 		m->zoom = 40;
+		m->persv->a = 0;
+		m->persv->b = 0;
+		m->persv->c = 0;
 	}
 	if (mlx_is_key_down(m->window, MLX_KEY_RIGHT))
 		m->xoff += 10;
@@ -34,7 +34,7 @@ void	keyhook(mlx_key_data_t key, void *param)
 	if (mlx_is_key_down(m->window, MLX_KEY_DOWN))
 		m->yoff += 10;
 	ft_draw_image(m);
-	//ft_draw_menu(m, m->xoff, m->yoff);
+	ft_draw_menu(m);
 }
 
 void	close_hook(void *param)
@@ -59,9 +59,8 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 		m->persv->b -= 0.01f;
 	else if (xdelta > 0)
 		m->persv->b += 0.01f;
-
 	ft_draw_image(m);
-	//ft_draw_menu(m, m->xoff, m->yoff);
+	ft_draw_menu(m);
 }
 
 void	loophook(void *param)
@@ -81,7 +80,7 @@ void	mousehook(mouse_key_t k, action_t a, modifier_key_t mk, void *param)
 	m = param;
 	if (mlx_is_mouse_down(m->window, MLX_MOUSE_BUTTON_LEFT))
 		printf("%f:%f\n", 4.0, 5.0);
-	//ft_draw_menu(m, x, y);
+	ft_draw_menu(m);
 }
 
 void	cursorhook(double x, double y, void *param)
@@ -89,16 +88,21 @@ void	cursorhook(double x, double y, void *param)
 	t_map	*m;
 
 	m = param;
-	printf("xx: %d	yy: %d\n", xx, yy);
+	m->pmx = m->mx;
+	m->pmy = m->my;
+	m->mx = x;
+	m->my = y;
 	if (mlx_is_mouse_down(m->window, MLX_MOUSE_BUTTON_LEFT))
-		mlx_get_mouse_pos(m->window, &xx, &yy);
-	if (xx - x > 0)
-		m->xoff -= 10;
-	else
-		m->xoff += 10;
-	if (yy - y > 0)
-		m->yoff -= 10;
-	else
-		m->yoff += 10;
+	{
+		m->xoff += x - m->pmx;
+		m->yoff += y - m->pmy;
+		printf("m: %d	m: %d\n", (int)x - m->pmx, (int)y - m->pmy);
+	}
+	if (mlx_is_mouse_down(m->window, MLX_MOUSE_BUTTON_MIDDLE))
+	{
+		m->persv->b += (x - m->pmx)/1000;
+		m->persv->a += (y - m->pmy)/1000;
+	}
 	ft_draw_image(m);
+	ft_draw_menu(m);
 }

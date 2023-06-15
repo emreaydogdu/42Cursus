@@ -50,14 +50,12 @@ typedef struct s_map
 {
 	int			width;
 	int			height;
-	int			zoom;
 	float		xoff;
-	float		yoff;
-	float		angle;
 	t_point		**map;
 	t_persv		*persv;
 	mlx_t		*window;
 	mlx_image_t	*image;
+	mlx_image_t	*player;
 }	t_map;
 
 
@@ -71,7 +69,7 @@ t_point	*ft_point(int x, int y, char z, t_map m);
 
 // MENU //
 void	ft_draw_menu(t_map m);
-void	my_keyhook(mlx_key_data_t keydata, void* param);
+void	keyhook(mlx_key_data_t keydata, void* param);
 void	close_hook(void *param);
 
 int	ft_atoi_base(const char *str, int str_base);

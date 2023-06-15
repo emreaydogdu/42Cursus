@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:15:43 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/12 13:41:15 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:21:24 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -68,11 +68,7 @@ void	ft_parse_map(char *file, t_map *m)
 		m->height++;
 		line = get_next_line(fd);
 	}
-	m->zoom = 20;
-	m->angle = 0.523599f;
-	m->persv = ft_persv();
-	m->xoff = 0;
-	m->yoff = 0;
+	m->player = malloc(sizeof(mlx_image_t));
 	close(fd);
 	ft_fill_map(file, m);
 }

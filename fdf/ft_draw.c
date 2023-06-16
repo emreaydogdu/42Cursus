@@ -35,11 +35,10 @@ static t_point	ft_project(t_point p, t_map m)
 
 	p.x *= (float)m.zoom;
 	p.y *= (float)m.zoom;
-	p.z *= (float)m.zoom/5;
-	p.x -= 300;
-	p.y -= 200;
-	//p.x -= (float)(m.width * m.zoom) / 2;
-	//p.y -= (float)(m.height * m.zoom) / 2;
+	p.z *= (float)m.zoom;
+
+	p.x += 1144 / 2 - m.width * m. zoom /2;
+	p.y += 1000 / 2 - m.height * m. zoom /2;
 
 	prev_y = p.y;
 	p.y = prev_y * cos(m.persv->a) + (p.z) * sin(m.persv->a);
@@ -53,6 +52,9 @@ static t_point	ft_project(t_point p, t_map m)
 	prev_y = p.y;
 	p.x = prev_x * cos(m.persv->c) - prev_y * sin(m.persv->c);
 	p.y = prev_x * sin(m.persv->c) + prev_y * cos(m.persv->c);
+
+	p.x += m.xoff;
+	p.y += m.yoff;
 	return (p);
 }
 
@@ -62,10 +64,6 @@ static void	ft_draw_line(t_point p1, t_point p2, t_map m)
 	float	y_step;
 	int		max;
 
-	p1.x += 700;
-	p1.y += 550;
-	p2.x += 700;
-	p2.y += 550;
 	x_step = p2.x - p1.x;
 	y_step = p2.y - p1.y;
 	max = MAX(MOD(x_step), MOD(y_step));
@@ -73,7 +71,11 @@ static void	ft_draw_line(t_point p1, t_point p2, t_map m)
 	y_step /= max;
 	while ((int)(p1.x - p2.x) || (int)(p1.y - p2.y))
 	{
-		mlx_put_pixel(m.image, p1.x, p1.y, p1.color);
+		if (p1.x > 0 && p1.x < 1144 && p1.y > 0 & p1.y < 1000)
+		{
+			mlx_put_pixel(m.image, p1.x, p1.y, p1.color);
+		}
+		
 		p1.x += x_step;
 		p1.y += y_step;
 	}
@@ -86,7 +88,7 @@ void	ft_draw_image(t_map *m)
 
 	if (m->image->enabled == 0)
 		mlx_delete_image(m->window, m->image);
-	m->image = mlx_new_image(m->window, 1400, 1000);
+	m->image = mlx_new_image(m->window, 1144, 1000);
 	y = 0;
 	while (y < m->height)
 	{
@@ -101,5 +103,5 @@ void	ft_draw_image(t_map *m)
 		}
 		y++;
 	}
-	mlx_image_to_window(m->window, m->image, m->xoff, m->yoff);
+	mlx_image_to_window(m->window, m->image, 256, 0);
 }

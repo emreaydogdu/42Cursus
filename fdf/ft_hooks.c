@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
-
+int x = 500;
 void	keyhook(mlx_key_data_t key, void *param)
 {
 	t_map	*m;
@@ -24,6 +24,11 @@ void	keyhook(mlx_key_data_t key, void *param)
 		m->persv->a = 0;
 		m->persv->b = 0;
 		m->persv->c = 0;
+	}
+	if (mlx_is_key_down(m->window, MLX_KEY_W))
+	{
+		x += 50;
+		test(m, x, 600 + 100);
 	}
 	if (mlx_is_key_down(m->window, MLX_KEY_RIGHT))
 		m->xoff += 5;

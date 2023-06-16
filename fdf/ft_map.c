@@ -98,7 +98,7 @@ void	ft_parse_map(char *file, t_map *m)
 	m->menu = malloc(sizeof(t_menu));
 	m->projection = 0;
 	m->zoom = 40.0f;
-	m->persv = ft_persv(0);
+	m->persv = ft_persv(2);
 	m->xoff = 0;
 	m->yoff = 0;
 	close(fd);

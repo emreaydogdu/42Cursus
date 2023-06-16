@@ -11,16 +11,32 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-static t_persv	*ft_persv(void)
+t_persv	*ft_persv(int projection)
 {
 	t_persv	*persv;
 
 	persv = (t_persv *)malloc(sizeof(t_persv));
 	if (persv == NULL)
 		exit(0);
-	persv->a = 0;
-	persv->b = 0;
-	persv->c = 0;
+	if (projection == 1)
+	{
+		persv->a = -1.572;
+		persv->b = 0;
+		persv->c = 0;
+	}
+	else if (projection == 2)
+	{
+		persv->a = 0;
+		persv->b = 0;
+		persv->c = 0;
+	}
+	else
+	{
+		persv->a = -0.353599;
+		persv->b = -0.353599;
+		persv->c = 0.785398;
+	}
+	
 	return (persv);
 }
 
@@ -80,9 +96,9 @@ void	ft_parse_map(char *file, t_map *m)
 	}
 	m->image = malloc(sizeof(mlx_image_t));
 	m->menu = malloc(sizeof(t_menu));
+	m->projection = 0;
 	m->zoom = 40.0f;
-	m->angle = 0.523599f;
-	m->persv = ft_persv();
+	m->persv = ft_persv(0);
 	m->xoff = 0;
 	m->yoff = 0;
 	close(fd);

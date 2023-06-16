@@ -26,13 +26,19 @@ void	keyhook(mlx_key_data_t key, void *param)
 		m->persv->c = 0;
 	}
 	if (mlx_is_key_down(m->window, MLX_KEY_RIGHT))
-		m->xoff += 10;
+		m->xoff += 5;
 	if (mlx_is_key_down(m->window, MLX_KEY_LEFT))
-		m->xoff -= 10;
+		m->xoff -= 5;
 	if (mlx_is_key_down(m->window, MLX_KEY_UP))
-		m->yoff -= 10;
+		m->yoff -= 5;
 	if (mlx_is_key_down(m->window, MLX_KEY_DOWN))
-		m->yoff += 10;
+		m->yoff += 5;	
+	if (mlx_is_key_down(m->window, MLX_KEY_Z))
+		m->persv = ft_persv(0);
+	if (mlx_is_key_down(m->window, MLX_KEY_X))
+		m->persv = ft_persv(1);
+	if (mlx_is_key_down(m->window, MLX_KEY_C))
+		m->persv = ft_persv(2);
 	ft_draw_image(m);
 	ft_draw_menu(m);
 }
@@ -52,13 +58,9 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 
 	m = param;
 	if (ydelta > 0)
-		m->persv->a += 0.01f;
+		m->zoom += 1.0f;
 	else if (ydelta < 0)
-		m->persv->a -= 0.01f;
-	if (xdelta < 0)
-		m->persv->b -= 0.01f;
-	else if (xdelta > 0)
-		m->persv->b += 0.01f;
+		m->zoom -= 1.0f;
 	ft_draw_image(m);
 	ft_draw_menu(m);
 }

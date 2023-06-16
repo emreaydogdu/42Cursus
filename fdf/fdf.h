@@ -76,7 +76,7 @@ typedef struct s_map
 	float		zoom;
 	float		xoff;
 	float		yoff;
-	float		angle;
+	int			projection;
 	int32_t		mx;
 	int32_t		my;
 	int32_t		pmx;
@@ -94,6 +94,7 @@ void	ft_parse_map(char *file, t_map *m);
 void	ft_print_map(t_map m);
 
 // DRAW //
+t_persv	*ft_persv(int projection);
 void	ft_draw_image(t_map *m);
 t_point	*ft_point(int x, int y, int z, int color, t_map m);
 // HOOKS //

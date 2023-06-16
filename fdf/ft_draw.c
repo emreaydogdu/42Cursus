@@ -35,8 +35,8 @@ static t_point	ft_project(t_point p, t_map m)
 
 	p.x *= (float)m.zoom;
 	p.y *= (float)m.zoom;
-	p.z *= (float)m.zoom/2;
-	p.x -= 350;
+	p.z *= (float)m.zoom/5;
+	p.x -= 300;
 	p.y -= 200;
 	//p.x -= (float)(m.width * m.zoom) / 2;
 	//p.y -= (float)(m.height * m.zoom) / 2;
@@ -84,7 +84,7 @@ void	ft_draw_image(t_map *m)
 	int	y;
 	int	x;
 
-	if (m->image->enabled == 1)
+	if (m->image->enabled == 0)
 		mlx_delete_image(m->window, m->image);
 	m->image = mlx_new_image(m->window, 1400, 1000);
 	y = 0;

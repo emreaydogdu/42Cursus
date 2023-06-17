@@ -6,29 +6,37 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:15:06 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/15 16:17:59 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/17 13:56:46 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
-int x = 500;
+
 void	keyhook(mlx_key_data_t key, void *param)
 {
 	t_map	*m;
 
 	m = param;
+	if (mlx_is_key_down(m->window, (MLX_KEY_Q)))
+		mlx_close_window(m->window);
+	if (mlx_is_key_down(m->window, MLX_KEY_A))
+		m->persv->a += 0.1f;
+	if (mlx_is_key_down(m->window, MLX_KEY_S))
+		m->persv->a -= 0.1f;
+	if (mlx_is_key_down(m->window, MLX_KEY_D))
+		m->persv->b += 0.1f;
+	if (mlx_is_key_down(m->window, MLX_KEY_F))
+		m->persv->b -= 0.1f;
+	if (mlx_is_key_down(m->window, MLX_KEY_G))
+		m->persv->c += 0.1f;
+	if (mlx_is_key_down(m->window, MLX_KEY_H))
+		m->persv->c -= 0.1f;
 	if (mlx_is_key_down(m->window, MLX_KEY_R))
 	{
 		m->yoff = 0;
 		m->xoff = 0;
 		m->zoom = 40;
-		m->persv->a = 0;
-		m->persv->b = 0;
-		m->persv->c = 0;
-	}
-	if (mlx_is_key_down(m->window, MLX_KEY_W))
-	{
-		x += 50;
-		test(m, x, 600 + 100);
+		free(m->persv);
+		m->persv = ft_persv(m->projection);
 	}
 	if (mlx_is_key_down(m->window, MLX_KEY_RIGHT))
 		m->xoff += 5;
@@ -37,24 +45,35 @@ void	keyhook(mlx_key_data_t key, void *param)
 	if (mlx_is_key_down(m->window, MLX_KEY_UP))
 		m->yoff -= 5;
 	if (mlx_is_key_down(m->window, MLX_KEY_DOWN))
-		m->yoff += 5;	
+		m->yoff += 5;
 	if (mlx_is_key_down(m->window, MLX_KEY_Z))
-		m->persv = ft_persv(0);
+	{
+		free(m->persv);
+		m->projection = 0;
+		m->persv = ft_persv(m->projection);
+	}
 	if (mlx_is_key_down(m->window, MLX_KEY_X))
-		m->persv = ft_persv(1);
+	{
+		free(m->persv);
+		m->projection = 1;
+		m->persv = ft_persv(m->projection);
+	}
 	if (mlx_is_key_down(m->window, MLX_KEY_C))
-		m->persv = ft_persv(2);
+	{
+		free(m->persv);
+		m->projection = 2;
+		m->persv = ft_persv(m->projection);
+	}
 	ft_draw_image(m);
 	ft_draw_menu(m);
 }
 
-void	close_hook(void *param)
+void	closehook(void *param)
 {
 	t_map	*fdf;
 
 	fdf = param;
-	if (mlx_is_key_down(fdf->window, MLX_KEY_ESCAPE))
-		mlx_close_window(fdf->window);
+	puts("Closed Window");
 }
 
 void	scrollhook(double xdelta, double ydelta, void *param)
@@ -64,7 +83,7 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 	m = param;
 	if (ydelta > 0)
 		m->zoom += 1.0f;
-	else if (ydelta < 0)
+	else if (ydelta < 0 && m->zoom > 1)
 		m->zoom -= 1.0f;
 	ft_draw_image(m);
 	ft_draw_menu(m);
@@ -96,8 +115,8 @@ void	cursorhook(double x, double y, void *param)
 	}
 	if (mlx_is_mouse_down(m->window, MLX_MOUSE_BUTTON_MIDDLE))
 	{
+		m->persv->a -= (y - m->pmy)/1000;
 		m->persv->b += (x - m->pmx)/1000;
-		m->persv->a += (y - m->pmy)/1000;
 	}
 	ft_draw_image(m);
 	ft_draw_menu(m);

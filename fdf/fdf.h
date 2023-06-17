@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 00:49:53 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/15 16:09:37 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/17 13:40:58 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FDF_H
@@ -91,18 +91,17 @@ typedef struct s_map
 
 // FILE //
 void	ft_parse_map(char *file, t_map *m);
-void	ft_print_map(t_map m);
 
 // DRAW //
 t_persv	*ft_persv(int projection);
 void	ft_draw_image(t_map *m);
-t_point	*ft_point(int x, int y, int z, int color, t_map m);
+
 // HOOKS //
 void	keyhook(mlx_key_data_t key, void *param);
 void	scrollhook(double xdelta, double ydelta, void *param);
 void	mousehook(mouse_key_t k, action_t a, modifier_key_t mk, void *param);
 void	cursorhook(double xdelta, double ydelta, void *param);
-void	close_hook(void *param);
+void	closehook(void *param);
 
 // MENU //
 void	ft_draw_menu(t_map *m);

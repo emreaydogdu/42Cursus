@@ -13,8 +13,8 @@ all: $(NAME)
 	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) MLXL/libmlx42.a libft/libft.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
-
+	#$(CC) $(OBJS) MLXL/libmlx42.a libft/libft.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
+	$(CC) $(OBJS) MLX/libmlx42.a libft/libftm.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -o $(NAME)
 bonus: all
 
 clean:

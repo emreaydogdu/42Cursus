@@ -6,10 +6,9 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 23:53:45 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/15 13:17:23 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:25:38 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <memory.h>
 #include "fdf.h"
 
 void	test(t_map *m, int x, int y)
@@ -23,7 +22,7 @@ void	test(t_map *m, int x, int y)
 
 int	main(int argc, char **argv)
 {
-	t_map		*m;
+	t_map	*m;
 
 	m = malloc(sizeof(t_map));
 	if (argc == 2)
@@ -35,7 +34,6 @@ int	main(int argc, char **argv)
 		ft_draw_menu(m);
 		mlx_key_hook(m->window, &keyhook, m);
 		mlx_scroll_hook(m->window, &scrollhook, m);
-		//mlx_mouse_hook(m->window, &mousehook, m);
 		mlx_cursor_hook(m->window, &cursorhook, m);
 		mlx_loop(m->window);
 	}

@@ -6,25 +6,15 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:17:10 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/12 13:17:57 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:39:52 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
 
-int	is_blank(char c)
-{
-	if (c <= 32)
-		return (1);
-	return (0);
-}
-
 int	isvalid(char c, int base)
 {
-	char digits[17] = "0123456789abcdef";
-	char digits2[17] = "0123456789ABCDEF";
-
 	while (base--)
-		if (digits[base] == c || digits2[base] == c)
+		if ("0123456789abcdef"[base] == c || "0123456789ABCDEF"[base] == c)
 			return (1);
 	return (0);
 }
@@ -46,10 +36,13 @@ int	ft_atoi_base(const char *str, int str_base)
 	int	sign;
 
 	result = 0;
-	while (is_blank(*str))
+	while (*str <= 32)
 		str++;
-	sign = (*str == '-') ? -1 : 1;
-	(*str == '-' || *str == '+') ? ++str : 0;
+	sign = 1;
+	if ((*str == '-'))
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		++str;
 	while (isvalid(*str, str_base))
 		result = result * str_base + value_of(*str++);
 	return (result * sign);

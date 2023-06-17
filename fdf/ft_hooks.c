@@ -70,16 +70,6 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 	ft_draw_menu(m);
 }
 
-void	loophook(void *param)
-{
-	t_map	*m;
-
-	m = param;
-	if (m->menu->mouse_pos)
-		mlx_delete_image(m->window, m->menu->mouse_pos);
-	m->menu->mouse_pos = mlx_put_string(m->window, "Hello", 0, 0);
-}
-
 void	mousehook(mouse_key_t k, action_t a, modifier_key_t mk, void *param)
 {
 	t_map	*m;
@@ -103,7 +93,6 @@ void	cursorhook(double x, double y, void *param)
 	{
 		m->xoff += x - m->pmx;
 		m->yoff += y - m->pmy;
-		printf("m: %d	m: %d\n", (int)x - m->pmx, (int)y - m->pmy);
 	}
 	if (mlx_is_mouse_down(m->window, MLX_MOUSE_BUTTON_MIDDLE))
 	{

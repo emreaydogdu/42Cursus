@@ -65,7 +65,6 @@ static void	ft_fill_map(char *file, t_map *m)
 			{
 				if (values[1])
 					printf("%d\n", ft_atoi_base(values[1], 10));
-				//printf("y:%d : x:%d\n", y, x);
 				m->map[y][x] = *ft_point(x, y, ft_atoi(values[0]), 0, *m);
 			}
 			x++;

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 00:49:53 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/17 13:40:58 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:16:03 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FDF_H
@@ -35,11 +35,12 @@
 # define BACKGROUND			0x222222
 # define MENU_BACKGROUND	0x1E1E1E
 
-# define COLOR_DISCO		0x9B835D40
-# define COLOR_BRICK_RED	0xC2294E
-# define COLOR_FLAMINGO		0x9B835DFF
-# define COLOR_JAFFA		0x9B835DFF
-# define COLOR_SAFFRON		0x9B835DFF
+# define COLOR_DISCO		0x9A1F6AFF
+# define COLOR_BRICK_RED	0xC2294EFF
+# define COLOR_FLAMINGO		0xEC4B27FF
+# define COLOR_JAFFA		0xEF8633FF
+# define COLOR_SAFFRON		0xF3AF3DFF
+
 
 typedef struct s_point
 {
@@ -106,7 +107,10 @@ void	closehook(void *param);
 // MENU //
 void	ft_draw_menu(t_map *m);
 
-int	ft_atoi_base(const char *str, int str_base);
-int	get_color(t_point current, t_point start, t_point end);
-int	get_default_color(int z, t_map *map);
+// COLORS //
+float	percent(float start, float end, float current);
+int		get_color(t_point current, t_point start, t_point end, int delta);
+int		get_default_color(int z, t_map *map);
+
+int		ft_atoi_base(const char *str, int str_base);
 #endif

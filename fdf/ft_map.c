@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:15:43 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/17 13:41:20 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:04:00 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -50,10 +50,8 @@ static t_point	*ft_point(int x, int y, int z, int color, t_map m)
 	point->y = (float)y;
 	point->z = (float)z;
 	point->color = color;
-	if (!point->color && point->z)
-		point->color = 0xFFFFFF;
-	else if (!point->color)
-		point->color = 0xFF1B30;
+	if (color == -1)
+		point->color = get_default_color(point->z, &m);
 	return (point);
 }
 
@@ -64,6 +62,7 @@ static void	ft_fill_map(char *file, t_map *m)
 	int		x;
 	char	**lines;
 	char	**values;
+	int		color;
 
 	fd = open(file, O_RDONLY);
 	m->map = malloc(sizeof(t_point *) * m->height);
@@ -80,9 +79,10 @@ static void	ft_fill_map(char *file, t_map *m)
 			values = ft_split(lines[x], ',');
 			if (values[0])
 			{
+				color = -1;
 				if (values[1])
-					printf("%d\n", ft_atoi_base(values[1], 10));
-				m->map[y][x] = *ft_point(x, y, ft_atoi(values[0]) / 10, 0, *m);
+					color = strtol(values[1], NULL, 16) << 8 | 0xFF;
+				m->map[y][x] = *ft_point(x, y, ft_atoi(values[0]), color, *m);
 			}
 			x++;
 		}

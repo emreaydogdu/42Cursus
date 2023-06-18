@@ -24,7 +24,7 @@ float	percent(float start, float end, float current)
 		return (placement / distance);
 }
 
-int	get_default_color(int z, t_map *map)
+int	get_default_color(int z)
 {
 	double	percentage;
 
@@ -52,17 +52,17 @@ int	get_color(t_point current, t_point start, t_point end, int delta)
 	int		green;
 	int		blue;
 	int		white;
-	double	percentage;
+	double	p;
 
 	if (current.color == end.color)
 		return (current.color);
 	if (delta)
-		percentage = percent(start.x, end.x, current.x);
+		p = percent(start.x, end.x, current.x);
 	else
-		percentage = percent(start.y, end.y, current.y);
-	red = get_light((start.color >> 24) & 0xFF, (end.color >> 24) & 0xFF, percentage);
-	green = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
-	blue = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
-	white = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
+		p = percent(start.y, end.y, current.y);
+	red = get_light((start.color >> 24) & 0xFF, (end.color >> 24) & 0xFF, p);
+	green = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, p);
+	blue = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, p);
+	white = get_light(start.color & 0xFF, end.color & 0xFF, p);
 	return ((red << 24) | (green << 16) | (blue << 8) | white);
 }

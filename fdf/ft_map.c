@@ -15,9 +15,6 @@ t_persv	ft_persv(int projection)
 {
 	t_persv	persv;
 
-	//persv = (t_persv *)malloc(sizeof(t_persv));
-	//if (persv == NULL)
-	//	exit(0);
 	if (projection == 1)
 	{
 		persv.a = 1.572f;
@@ -39,16 +36,28 @@ t_persv	ft_persv(int projection)
 	return (persv);
 }
 
-static t_point	ft_point(int x, int y, int z, int color, t_map m)
+static t_point	ft_point(char **values, int x, int y, t_map m)
 {
 	t_point	point;
+	int		color;
 
 	point.x = (float)x;
 	point.y = (float)y;
-	point.z = (float)z;
-	point.color = color;
-	if (color == -1)
-		point.color = get_default_color(point.z, &m);
+	point.z = (float)ft_atoi(values[0]);
+	if (values[0])
+	{
+		color = -1;
+		if (values[1])
+		{
+			color = strtol(values[1], NULL, 16) << 8 | 0xFF;
+			free(values[1]);
+		}
+		point.color = color;
+		if (color == -1)
+			point.color = get_default_color((int)point.z, &m);
+		free(values[0]);
+	}
+	free(values);
 	return (point);
 }
 
@@ -59,52 +68,32 @@ static void	ft_fill_map(char *file, t_map *m)
 	int		x;
 	char	*line;
 	char	**lines;
-	char	**values;
-	int		color;
 
 	fd = open(file, O_RDONLY);
 	m->map = malloc(sizeof(t_point *) * m->height);
-	y = 0;
-	while (y < m->height)
-		m->map[y++] = malloc(sizeof(t_point) * m->width);
-	y = 0;
-	while (y < m->height)
+	y = -1;
+	while (++y < m->height)
 	{
+		m->map[y] = malloc(sizeof(t_point) * m->width);
 		x = 0;
 		line = get_next_line(fd);
 		lines = ft_split(line, ' ');
 		free(line);
 		while (lines[x])
 		{
-			values = ft_split(lines[x], ',');
-			if (values[0])
-			{
-				color = -1;
-				if (values[1])
-				{
-					color = strtol(values[1], NULL, 16) << 8 | 0xFF;
-					free(values[1]);
-				}
-				m->map[y][x] = ft_point(x, y, ft_atoi(values[0]), color, *m);
-				free(values[0]);
-			}
-			free(values);
-			free(lines[x]);
-			x++;
+			m->map[y][x] = ft_point(ft_split(lines[x], ','), x, y, *m);
+			free(lines[x++]);
 		}
 		free(lines);
-		y++;
 	}
 	close(fd);
 }
 
-void	ft_parse_map(char *file, t_map *m)
+static void	ft_get_wh(int fd, t_map *m)
 {
-	int		fd;
 	char	*line;
 	char	**lines;
 
-	fd = open(file, O_RDONLY);
 	m->height = 0;
 	m->width = 0;
 	line = get_next_line(fd);
@@ -121,6 +110,14 @@ void	ft_parse_map(char *file, t_map *m)
 		free(line);
 		line = get_next_line(fd);
 	}
+}
+
+void	ft_parse_map(char *file, t_map *m)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	ft_get_wh(fd, m);
 	m->image = NULL;
 	m->menu = malloc(sizeof(t_menu));
 	m->xoff = 0;

@@ -29,7 +29,7 @@
 # include "libft/libft.h"
 # include "getNextLine/get_next_line.h"
 
-# define MOD(a) ((a < 0) ? -a : a)
+# define ABS(a) ((a < 0) ? -a : a)
 
 # define TEXT_COLOR			0xEAEAEA
 # define BACKGROUND			0x222222

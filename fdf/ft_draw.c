@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:05:31 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/17 17:53:13 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/18 18:08:29 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fdf.h"
@@ -47,23 +47,23 @@ static t_point	ft_project(t_point p, t_map m)
 
 static void	ft_draw_line(t_point p1, t_point p2, t_map m)
 {
+	t_point	ps;
 	float	x_step;
 	float	y_step;
-	int		max;
-	t_point	xxx;
+	float	max;
 
 	p1 = ft_project(p1, m);
 	p2 = ft_project(p2, m);
-	xxx = p1;
+	ps = p1;
 	x_step = p2.x - p1.x;
 	y_step = p2.y - p1.y;
-	max = MAX(MOD(x_step), MOD(y_step));
+	max = MAX(ABS(x_step), ABS(y_step));
 	x_step /= max;
 	y_step /= max;
 	while ((int)(p1.x - p2.x) || (int)(p1.y - p2.y))
 	{
 		if (p1.x > 0 && p1.x < 1144 && p1.y > 0 & p1.y < 1000)
-			mlx_put_pixel(m.image, p1.x, p1.y, get_color(p1, xxx, p2, x_step > y_step));
+			mlx_put_pixel(m.image, (int)p1.x, (int)p1.y, get_color(p1, ps, p2, x_step > y_step));
 		p1.x += x_step;
 		p1.y += y_step;
 	}

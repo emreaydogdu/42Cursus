@@ -36,7 +36,7 @@ t_persv	ft_persv(int projection)
 	return (persv);
 }
 
-static t_point	ft_point(char **values, int x, int y, t_map m)
+static t_point	ft_point(char **values, int x, int y)
 {
 	t_point	point;
 	int		color;
@@ -54,7 +54,7 @@ static t_point	ft_point(char **values, int x, int y, t_map m)
 		}
 		point.color = color;
 		if (color == -1)
-			point.color = get_default_color((int)point.z, &m);
+			point.color = get_default_color((int)point.z);
 		free(values[0]);
 	}
 	free(values);
@@ -81,7 +81,7 @@ static void	ft_fill_map(char *file, t_map *m)
 		free(line);
 		while (lines[x])
 		{
-			m->map[y][x] = ft_point(ft_split(lines[x], ','), x, y, *m);
+			m->map[y][x] = ft_point(ft_split(lines[x], ','), x, y);
 			free(lines[x++]);
 		}
 		free(lines);
@@ -122,9 +122,10 @@ void	ft_parse_map(char *file, t_map *m)
 	m->menu = malloc(sizeof(t_menu));
 	m->xoff = 0;
 	m->yoff = 0;
+	m->yoff = 2.0f;
 	m->zoom = 20.0f;
-	m->projection = 2;
-	m->persv = ft_persv(2);
+	m->proj = 2;
+	m->persv = ft_persv(m->proj);
 	close(fd);
 	ft_fill_map(file, m);
 }

@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 00:49:53 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/17 18:16:03 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/18 19:31:54 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FDF_H
@@ -25,16 +25,13 @@
 # include <sys/fcntl.h>
 # include <stdbool.h>
 # include <math.h>
+# include <sys/param.h>
+# include <memory.h>
 # include "MLX/MLX42.h"
 # include "libft/libft.h"
 # include "getNextLine/get_next_line.h"
 
-# define ABS(a) ((a < 0) ? -a : a)
-
-# define TEXT_COLOR			0xEAEAEA
-# define BACKGROUND			0x222222
-# define MENU_BACKGROUND	0x1E1E1E
-
+# define MENU_BACKGROUND	0x05050555
 # define COLOR_DISCO		0x9A1F6AFF
 # define COLOR_BRICK_RED	0xC2294EFF
 # define COLOR_FLAMINGO		0xEC4B27FF
@@ -51,15 +48,13 @@ typedef struct s_point
 
 typedef struct s_persv
 {
-	float	a;
-	float	b;
-	float	c;
+	double	a;
+	double	b;
+	double	c;
 }	t_persv;
 
 typedef struct s_menu {
 	mlx_image_t	*bg;
-	mlx_image_t	*bgm;
-	mlx_image_t	*mouse_pos;
 	mlx_image_t	*xoff;
 	mlx_image_t	*yoff;
 	mlx_image_t	*zoff;
@@ -76,7 +71,8 @@ typedef struct s_map
 	float		zoom;
 	float		xoff;
 	float		yoff;
-	int			projection;
+	float		zoff;
+	int			proj;
 	int32_t		mx;
 	int32_t		my;
 	int32_t		pmx;
@@ -88,29 +84,22 @@ typedef struct s_map
 	mlx_t		*window;
 }	t_map;
 
-
 // FILE //
 void	ft_parse_map(char *file, t_map *m);
-
 // DRAW //
 t_persv	ft_persv(int projection);
 void	ft_draw_image(t_map *m);
-
 // HOOKS //
 void	keyhook(mlx_key_data_t key, void *param);
 void	scrollhook(double xdelta, double ydelta, void *param);
 void	mousehook(mouse_key_t k, action_t a, modifier_key_t mk, void *param);
 void	cursorhook(double xdelta, double ydelta, void *param);
-void	closehook(void *param);
-
 // MENU //
 void	ft_draw_menu(t_map *m);
 void	ft_free_map(t_map *m);
-
 // COLORS //
 float	percent(float start, float end, float current);
 int		get_color(t_point current, t_point start, t_point end, int delta);
-int		get_default_color(int z, t_map *map);
-
+int		get_default_color(int z);
 int		ft_atoi_base(const char *str, int str_base);
 #endif

@@ -25,7 +25,6 @@ int	main(int argc, char **argv)
 		mlx_key_hook(m->window, &keyhook, m);
 		mlx_scroll_hook(m->window, &scrollhook, m);
 		mlx_cursor_hook(m->window, &cursorhook, m);
-		mlx_close_hook(m->window, &closehook, m);
 		mlx_loop(m->window);
 	}
 	return (EXIT_SUCCESS);

@@ -15,9 +15,9 @@ int	main(int argc, char **argv)
 {
 	t_map	*m;
 
-	m = malloc(sizeof(t_map));
 	if (argc == 2)
 	{
+		m = malloc(sizeof(t_map));
 		ft_parse_map(argv[1], m);
 		m->window = mlx_init(1400, 1000, "fdf", false);
 		ft_draw_image(m);
@@ -30,16 +30,3 @@ int	main(int argc, char **argv)
 	}
 	return (EXIT_SUCCESS);
 }
-/*
-Usage:		FDF		fdf_file
-
-Controls:
-
-	[Esc]        -> Exit the program.
-	[R]          -> Reset the map.
-	[M]          -> Colorize this shit!.
-	[B][N]       -> Zoom in and zoom out.
-	[J][K]       -> Spiky time!
-	[Space]      -> Change the camera(isometric <-> plain).
-	[W][A][S][D] -> Move the map.
-*/

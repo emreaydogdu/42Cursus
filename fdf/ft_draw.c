@@ -24,17 +24,17 @@ static t_point	ft_project(t_point p, t_map m)
 	p.x -= (float)m.width * m.zoom / 2;
 	p.y -= (float)m.height * m.zoom / 2;
 	prev_y = p.y;
-	p.y = prev_y * cos(m.persv->a) - (p.z) * sin(m.persv->a);
-	p.z = prev_y * sin(m.persv->a) + (p.z) * cos(m.persv->a);
+	p.y = prev_y * cos(m.persv.a) - (p.z) * sin(m.persv.a);
+	p.z = prev_y * sin(m.persv.a) + (p.z) * cos(m.persv.a);
 
 	prev_x = p.x;
-	p.x = prev_x * cos(m.persv->b) + (p.z) * sin(m.persv->b);
-	p.z = prev_x * cos(m.persv->b) - (p.z) * sin(m.persv->b);
+	p.x = prev_x * cos(m.persv.b) + (p.z) * sin(m.persv.b);
+	p.z = prev_x * cos(m.persv.b) - (p.z) * sin(m.persv.b);
 
 	prev_x = p.x;
 	prev_y = p.y;
-	p.x = prev_x * cos(m.persv->c) - prev_y * sin(m.persv->c);
-	p.y = prev_x * sin(m.persv->c) + prev_y * cos(m.persv->c);
+	p.x = prev_x * cos(m.persv.c) - prev_y * sin(m.persv.c);
+	p.y = prev_x * sin(m.persv.c) + prev_y * cos(m.persv.c);
 
 	p.x += m.xoff;
 	p.y += m.yoff;
@@ -74,7 +74,7 @@ void	ft_draw_image(t_map *m)
 	int	y;
 	int	x;
 
-	if (m->image->enabled == 1)
+	if (m->image != NULL)
 		mlx_delete_image(m->window, m->image);
 	m->image = mlx_new_image(m->window, 1144, 1000);
 	y = -1;

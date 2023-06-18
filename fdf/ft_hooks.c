@@ -19,23 +19,23 @@ void	keyhook(mlx_key_data_t key, void *param)
 	if (mlx_is_key_down(m->window, (MLX_KEY_Q)))
 		mlx_close_window(m->window);
 	if (mlx_is_key_down(m->window, MLX_KEY_A))
-		m->persv->a += 0.1f;
+		m->persv.a += 0.1f;
 	if (mlx_is_key_down(m->window, MLX_KEY_S))
-		m->persv->a -= 0.1f;
+		m->persv.a -= 0.1f;
 	if (mlx_is_key_down(m->window, MLX_KEY_D))
-		m->persv->b += 0.1f;
+		m->persv.b += 0.1f;
 	if (mlx_is_key_down(m->window, MLX_KEY_F))
-		m->persv->b -= 0.1f;
+		m->persv.b -= 0.1f;
 	if (mlx_is_key_down(m->window, MLX_KEY_G))
-		m->persv->c += 0.1f;
+		m->persv.c += 0.1f;
 	if (mlx_is_key_down(m->window, MLX_KEY_H))
-		m->persv->c -= 0.1f;
+		m->persv.c -= 0.1f;
 	if (mlx_is_key_down(m->window, MLX_KEY_R))
 	{
 		m->yoff = 0;
 		m->xoff = 0;
 		m->zoom = 40;
-		free(m->persv);
+		//free(m->persv);
 		m->persv = ft_persv(m->projection);
 	}
 	if (mlx_is_key_down(m->window, MLX_KEY_RIGHT))
@@ -48,19 +48,19 @@ void	keyhook(mlx_key_data_t key, void *param)
 		m->yoff += 5;
 	if (mlx_is_key_down(m->window, MLX_KEY_Z))
 	{
-		free(m->persv);
+		//free(m->persv);
 		m->projection = 0;
 		m->persv = ft_persv(m->projection);
 	}
 	if (mlx_is_key_down(m->window, MLX_KEY_X))
 	{
-		free(m->persv);
+		//free(m->persv);
 		m->projection = 1;
 		m->persv = ft_persv(m->projection);
 	}
 	if (mlx_is_key_down(m->window, MLX_KEY_C))
 	{
-		free(m->persv);
+		//free(m->persv);
 		m->projection = 2;
 		m->persv = ft_persv(m->projection);
 	}
@@ -115,8 +115,8 @@ void	cursorhook(double x, double y, void *param)
 	}
 	if (mlx_is_mouse_down(m->window, MLX_MOUSE_BUTTON_MIDDLE))
 	{
-		m->persv->a -= (y - m->pmy)/1000;
-		m->persv->b += (x - m->pmx)/1000;
+		m->persv.a -= (y - m->pmy)/1000;
+		m->persv.b += (x - m->pmx)/1000;
 	}
 	ft_draw_image(m);
 	ft_draw_menu(m);

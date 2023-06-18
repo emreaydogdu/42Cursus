@@ -43,11 +43,11 @@ void	ft_draw_menu(t_map *m)
 	m->menu->xoff = mlx_put_string(m->window, s, 10, 80);
 	sprintf(s, "y-Offset:	%f", m->yoff);
 	m->menu->yoff = mlx_put_string(m->window, s, 10, 110);
-	sprintf(s, "yaw:	%f", m->persv->a);
+	sprintf(s, "yaw:	%f", m->persv.a);
 	m->menu->yaw = mlx_put_string(m->window, s, 10, 140);
-	sprintf(s, "pitch:	%f", m->persv->b);
+	sprintf(s, "pitch:	%f", m->persv.b);
 	m->menu->pitch = mlx_put_string(m->window, s, 10, 170);
-	sprintf(s, "roll:	%f", m->persv->c);
+	sprintf(s, "roll:	%f", m->persv.c);
 	m->menu->roll = mlx_put_string(m->window, s, 10, 200);
 	sprintf(s, "zoom:	%d", (int)m->zoom);
 	m->menu->zoom = mlx_put_string(m->window, s, 10, 230);

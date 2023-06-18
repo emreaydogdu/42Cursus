@@ -41,7 +41,6 @@
 # define COLOR_JAFFA		0xEF8633FF
 # define COLOR_SAFFRON		0xF3AF3DFF
 
-
 typedef struct s_point
 {
 	float	x;
@@ -84,7 +83,7 @@ typedef struct s_map
 	int32_t		pmy;
 	t_menu		*menu;
 	t_point		**map;
-	t_persv		*persv;
+	t_persv		persv;
 	mlx_image_t	*image;
 	mlx_t		*window;
 }	t_map;
@@ -94,7 +93,7 @@ typedef struct s_map
 void	ft_parse_map(char *file, t_map *m);
 
 // DRAW //
-t_persv	*ft_persv(int projection);
+t_persv	ft_persv(int projection);
 void	ft_draw_image(t_map *m);
 
 // HOOKS //
@@ -106,6 +105,7 @@ void	closehook(void *param);
 
 // MENU //
 void	ft_draw_menu(t_map *m);
+void	ft_free_map(t_map *m);
 
 // COLORS //
 float	percent(float start, float end, float current);

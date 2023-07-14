@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 19:23:09 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/06/09 16:24:27 by emaydogd         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:59:10 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <signal.h>
@@ -41,8 +41,12 @@ int	ft_error(void)
 void	acknowledge(int signal)
 {
 	if (signal == SIGUSR1)
+	{
 		write(1, "Message acknowledged\n", 21);
-	exit(0);
+		exit(0);
+	}
+	if (signal == SIGUSR2)
+		write(1, "Server is busy\n", 15);
 }
 
 void	send(int pid, char *msg)
@@ -61,7 +65,7 @@ void	send(int pid, char *msg)
 			}
 			else if (kill(pid, SIGUSR2) == -1)
 				ft_error();
-			usleep(100);
+			usleep(200);
 		}
 		msg++;
 	}
@@ -69,7 +73,7 @@ void	send(int pid, char *msg)
 	{
 		if (kill(pid, SIGUSR2) == -1)
 			ft_error();
-		usleep(100);
+		usleep(200);
 	}
 }
 
@@ -82,6 +86,7 @@ int	main(int argc, char **argv)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_handler = acknowledge;
 	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	send(ft_atoi(argv[1]), argv[2]);
 	pause();
 }

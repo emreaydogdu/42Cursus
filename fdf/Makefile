@@ -6,22 +6,31 @@ OBJS = ${SRC:.c=.o}
 RM = rm
 CC = cc
 CFLAGS = -c -Wall -Wextra -Werror
+LIBFT = libft/libft.a
 
 all: $(NAME)
 
 %.o : %.c
-	$(CC) -c $< -o $@
+	@$(CC) -c $< -o $@
 
-$(NAME): $(OBJS)
-	#$(CC) $(OBJS) MLXL/libmlx42.a libft/libft.a -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
-	$(CC) $(OBJS) MLX/libmlx42.a libft/libftm.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -o $(NAME)
+$(LIBFT):
+	@make -C libft
+
+$(NAME): $(LIBFT) $(OBJS)
+	@echo "Make FDF"
+	@$(CC) $(OBJS) MLX/libmlx42.a $(LIBFT) -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
+	@#$(CC) $(OBJS) MLX/libmlx42.a $(LIBFT) -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -o $(NAME)
 bonus: all
 
 clean:
-	$(RM) -f ${OBJS}
+	@echo "Clean .o"
+	@make clean -C libft
+	@$(RM) -f ${OBJS}
 
 fclean: clean
-	$(RM) -f $(NAME)
+	@echo "Clean everything"
+	@make fclean -C libft
+	@$(RM) -f $(NAME)
 
 re: fclean all
 

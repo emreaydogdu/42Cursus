@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <limits.h>
-# include "lib/libft.h"
+# include "libft/libft.h"
 
 # define SA   1
 # define SB   2

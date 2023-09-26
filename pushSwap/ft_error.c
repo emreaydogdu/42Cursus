@@ -52,8 +52,7 @@ static int	ft_check_dig(char **v)
 
 void	ft_error(int ac, char **av)
 {
-	printf("%d\n", ft_check_dup(ac - 1, av));
-	if (ac == 1 || ft_check_dig(av) || ft_check_dup(ac - 1, av))
+	if (ac == 1 || ft_check_dig(av) || !ft_check_dup(ac - 1, av))
 	{
 		write(2, "Error\n", 6);
 		exit(EXIT_FAILURE);

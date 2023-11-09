@@ -13,8 +13,8 @@
 
 void	ft_check_stack(t_stack	s)
 {
-	int	val;
-	t_stack tmp;
+	int		val;
+	t_stack	tmp;
 
 	tmp = s;
 	val = s.stack->val;

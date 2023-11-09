@@ -14,23 +14,18 @@
 static int	ft_check_dup(int ac, char **av)
 {
 	int	i;
-	int	*lst;
+	int	j;
 
-	lst = calloc(ac, sizeof(int));
-	i = 0;
-	while (++i < ac)
-		lst[i] = ft_atoi(av[i]);
-	i = 0;
-	while (++i < ac)
-		lst[ft_atoi(av[i]) % ac] = lst[ft_atoi(av[i]) % ac] + ac;
-	i = 0;
+	i = 1;
 	while (i < ac)
 	{
-		if (lst[i] >= ac * 2)
-			return (1);
-		i++;
+		j = ++i;
+		while (j < ac)
+		{
+			if (ft_atoi(av[i - 1]) == ft_atoi(av[j++]))
+				return (1);
+		}
 	}
-	free(lst);
 	return (0);
 }
 
@@ -43,16 +38,20 @@ static int	ft_check_dig(char **v)
 	while (v[++i])
 	{
 		j = -1;
+		if (ft_strlen(v[i]) == 0)
+			return (1);
 		while (v[i][++j])
+		{
 			if (!ft_isdigit(v[i][j]) && v[i][j] != '-')
 				return (1);
+		}
 	}
 	return (0);
 }
 
 void	ft_error(int ac, char **av)
 {
-	if (ac == 1 || ft_check_dig(av) || !ft_check_dup(ac - 1, av))
+	if (ac == 1 || ft_check_dig(av) || ft_check_dup(ac, av))
 	{
 		write(2, "Error\n", 6);
 		exit(EXIT_FAILURE);

@@ -14,7 +14,9 @@
 void	ft_check_stack(t_stack	s)
 {
 	int	val;
+	t_stack tmp;
 
+	tmp = s;
 	val = s.stack->val;
 	while (s.stack->next)
 	{
@@ -24,11 +26,14 @@ void	ft_check_stack(t_stack	s)
 		else
 		{
 			write(1, "KO\n", 3);
+			if (tmp.size != 0)
+				free_stack(tmp.stack);
 			return ;
 		}
 	}
 	write(1, "OK\n", 3);
-	free_stack(s.stack);
+	if (tmp.size != 0)
+		free_stack(tmp.stack);
 }
 
 int	main(int argc, char **argv)
@@ -55,5 +60,7 @@ int	main(int argc, char **argv)
 			i = -1;
 		}
 	}
+	if (b.size != 0)
+		free_stack(b.stack);
 	ft_check_stack(a);
 }

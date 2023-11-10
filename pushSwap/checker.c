@@ -17,23 +17,26 @@ void	ft_check_stack(t_stack	s)
 	t_stack	tmp;
 
 	tmp = s;
-	val = s.stack->val;
-	while (s.stack->next)
+	if (s.size)
 	{
-		s.stack = s.stack->next;
-		if (s.stack->val > val)
-			val = s.stack->val;
-		else
+		val = s.stack->val;
+		while (s.stack->next)
 		{
-			write(1, "KO\n", 3);
-			if (tmp.size != 0)
+			s.stack = s.stack->next;
+			if (s.stack->val > val)
+				val = s.stack->val;
+			else
+			{
+				write(1, "KO\n", 3);
 				free_stack(tmp.stack);
-			return ;
+				return ;
+			}
 		}
-	}
-	write(1, "OK\n", 3);
-	if (tmp.size != 0)
+		write(1, "OK\n", 3);
 		free_stack(tmp.stack);
+	}
+	else
+		write(1, "KO\n", 3);
 }
 
 int	main(int argc, char **argv)

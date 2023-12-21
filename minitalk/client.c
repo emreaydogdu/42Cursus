@@ -41,12 +41,10 @@ int	ft_error(void)
 void	acknowledge(int signal)
 {
 	if (signal == SIGUSR1)
-	{
 		write(1, "Message acknowledged\n", 21);
-		exit(0);
-	}
-	if (signal == SIGUSR2)
+	else if (signal == SIGUSR2)
 		write(1, "Server is busy\n", 15);
+    exit(0);
 }
 
 void	send(int pid, char *msg)
@@ -65,7 +63,7 @@ void	send(int pid, char *msg)
 			}
 			else if (kill(pid, SIGUSR2) == -1)
 				ft_error();
-			usleep(200);
+			usleep(150);
 		}
 		msg++;
 	}
@@ -73,7 +71,7 @@ void	send(int pid, char *msg)
 	{
 		if (kill(pid, SIGUSR2) == -1)
 			ft_error();
-		usleep(200);
+		usleep(50);
 	}
 }
 

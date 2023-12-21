@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <printf.h>
 
+static int	g_busy = 0;
+
 int	ft_error(void)
 {
 	write(1, "Error\n", 6);
@@ -41,22 +43,25 @@ void	decode(int signal, siginfo_t *info, void *context)
 	static int	cpid;
 
 	(void)context;
-	if (cpid == 0)
-		cpid = info->si_pid;
-	if (signal == SIGUSR1 && cpid == info->si_pid)
+	if (cpid == 0 && !g_busy)
+    {
+        cpid = info->si_pid;
+        g_busy = 1;
+    }
+    if (g_busy && cpid != info->si_pid) {
+        if (kill(info->si_pid, SIGUSR2) == -1)
+            ft_error();
+        return;
+    }
+    else if (signal == SIGUSR1 && cpid == info->si_pid)
 		c |= 1 << bit;
-	else if (cpid != info->si_pid)
-		if (kill(info->si_pid, SIGUSR2) == -1)
-		{
-			ft_error();
-			return;
-		}
 	bit++;
 	if (bit == 8)
 	{
 		if (c == 0)
 		{
 			cpid = 0;
+            g_busy = 0;
 			if (kill(info->si_pid, SIGUSR1) == -1)
 				ft_error();
 		}

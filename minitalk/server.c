@@ -14,22 +14,17 @@
 #include <stdlib.h>
 #include <printf.h>
 
-static int	g_busy = 0;
-
-int	ft_error(void)
+void	ft_output(int *c, int *bit, int *cpid, siginfo_t *info)
 {
-	write(1, "Error\n", 6);
-	exit(1);
-}
-
-int	ft_cpid(int cpid, siginfo_t *info)
-{
-	if (cpid == 0 && !g_busy)
+	if (*c == 0)
 	{
-		cpid = info->si_pid;
-		g_busy = 1;
+		*cpid = 0;
+		kill(info->si_pid, SIGUSR1);
 	}
-	return (cpid);
+	else
+		write(1, c, 1);
+	*bit = 0;
+	*c = 0;
 }
 
 void	ft_putpid(int pid, int p)
@@ -53,25 +48,17 @@ void	decode(int signal, siginfo_t *info, void *context)
 	static int	cpid;
 
 	(void)context;
-	cpid = ft_cpid(cpid, info);
-	if (g_busy && cpid != info->si_pid)
-		return ((void)kill(info->si_pid, SIGUSR2));
-	else if (signal == SIGUSR1 && cpid == info->si_pid)
-		c |= 1 << bit;
-	bit++;
-	if (bit == 8)
+	if (cpid == 0)
+		cpid = info->si_pid;
+	if (cpid == info->si_pid)
 	{
-		if (c == 0)
-		{
-			cpid = 0;
-			g_busy = 0;
-			kill(info->si_pid, SIGUSR1);
-		}
-		else
-			write(1, &c, 1);
-		bit = 0;
-		c = 0;
+		if (signal == SIGUSR1)
+			c |= 1 << bit;
+		if (++bit == 8)
+			ft_output(&c, &bit, &cpid, info);
 	}
+	else
+		kill(info->si_pid, SIGUSR2);
 }
 
 int	main(int argc, char **argv)
@@ -80,15 +67,16 @@ int	main(int argc, char **argv)
 
 	(void)argv;
 	if (argc != 1)
-		ft_error();
+	{
+		write(1, "Error\n", 6);
+		exit(1);
+	}
 	ft_putpid(getpid(), 1);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = decode;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
-	{
-		sigaction(SIGUSR1, &sa, NULL);
-		sigaction(SIGUSR2, &sa, NULL);
 		pause();
-	}
 	return (0);
 }

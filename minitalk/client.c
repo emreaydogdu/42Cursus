@@ -44,7 +44,7 @@ void	acknowledge(int signal)
 		write(1, "Message acknowledged\n", 21);
 	else if (signal == SIGUSR2)
 		write(1, "Server is busy\n", 15);
-    exit(0);
+	exit(0);
 }
 
 void	send(int pid, char *msg)

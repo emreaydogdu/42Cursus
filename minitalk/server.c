@@ -22,6 +22,16 @@ int	ft_error(void)
 	exit(1);
 }
 
+int	ft_cpid(int cpid, siginfo_t *info)
+{
+	if (cpid == 0 && !g_busy)
+	{
+		cpid = info->si_pid;
+		g_busy = 1;
+	}
+	return (cpid);
+}
+
 void	ft_putpid(int pid, int p)
 {
 	unsigned char	c;
@@ -43,17 +53,10 @@ void	decode(int signal, siginfo_t *info, void *context)
 	static int	cpid;
 
 	(void)context;
-	if (cpid == 0 && !g_busy)
-    {
-        cpid = info->si_pid;
-        g_busy = 1;
-    }
-    if (g_busy && cpid != info->si_pid) {
-        if (kill(info->si_pid, SIGUSR2) == -1)
-            ft_error();
-        return;
-    }
-    else if (signal == SIGUSR1 && cpid == info->si_pid)
+	cpid = ft_cpid(cpid, info);
+	if (g_busy && cpid != info->si_pid)
+		return ((void)kill(info->si_pid, SIGUSR2));
+	else if (signal == SIGUSR1 && cpid == info->si_pid)
 		c |= 1 << bit;
 	bit++;
 	if (bit == 8)
@@ -61,9 +64,8 @@ void	decode(int signal, siginfo_t *info, void *context)
 		if (c == 0)
 		{
 			cpid = 0;
-            g_busy = 0;
-			if (kill(info->si_pid, SIGUSR1) == -1)
-				ft_error();
+			g_busy = 0;
+			kill(info->si_pid, SIGUSR1);
 		}
 		else
 			write(1, &c, 1);

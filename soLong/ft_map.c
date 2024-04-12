@@ -11,19 +11,6 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-static t_persv	*ft_persv(void)
-{
-	t_persv	*persv;
-
-	persv = (t_persv *)malloc(sizeof(t_persv));
-	if (persv == NULL)
-		exit(0);
-	persv->a = 0;
-	persv->b = 0;
-	persv->c = 0;
-	return (persv);
-}
-
 static void	ft_fill_map(char *file, t_map *m)
 {
 	int		fd;
@@ -32,10 +19,10 @@ static void	ft_fill_map(char *file, t_map *m)
 	char	*lines;
 
 	fd = open(file, O_RDONLY);
-	m->map = malloc(sizeof(t_point *) * m->height);
+	m->map = malloc(sizeof(char*) * m->height);
 	i = 0;
 	while (i < m->height)
-		m->map[i++] = malloc(sizeof(t_point) * m->width);
+		m->map[i++] = malloc(sizeof(char) * m->width);
 	i = 0;
 	while (i < m->height)
 	{
@@ -43,7 +30,7 @@ static void	ft_fill_map(char *file, t_map *m)
 		lines = get_next_line(fd);
 		while (lines[j])
 		{
-			m->map[i][j] = *ft_point(i, j, lines[j], *m);
+			m->map[i][j] = lines[j];
 			j++;
 		}
 		free(lines);
@@ -73,7 +60,8 @@ void	ft_parse_map(char *file, t_map *m)
 	ft_fill_map(file, m);
 }
 
-void	ft_print_map(t_map m)
+
+void	ft_print_map(t_map m) // optional
 {
 	int	i;
 	int	j;
@@ -83,7 +71,7 @@ void	ft_print_map(t_map m)
 	{
 		j = 0;
 		while (j < m.width)
-			printf("%3c ", (int)m.map[i][j++].z);
+			printf("%3c ", (int)m.map[i][j++]);
 		printf("\n");
 		i++;
 	}

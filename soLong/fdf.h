@@ -42,8 +42,9 @@ typedef struct s_map
 	int			height;
 	char		**map;
 	mlx_t		*window;
-	mlx_image_t	*image;
-	mlx_image_t	*player;
+	mlx_image_t *player;
+    mlx_image_t *end;
+    mlx_image_t *end2;
 }	t_map;
 
 
@@ -52,8 +53,17 @@ void	ft_parse_map(char *file, t_map *m);
 void	ft_print_map(t_map m);
 
 // MENU //
-void	keyhook(mlx_key_data_t keydata, void* param);
-void	close_hook(void *param);
+void	keyhook(mlx_key_data_t keydata, void *param);
+
+// DRAW //
+void    draw_water(t_map m);
+void    draw_land(t_map m);
+void    draw_obstacle(t_map m);
+void	draw_end(t_map m);
+void	draw_collect(t_map m);
+void	draw_place(t_map m, int x, int y, char* path);
+void	draw_line(t_map m, int y, char* path, char* path2, char* path3);
+void	draw_img(t_map m, int x, int y, char* path, mlx_image_t *img);
 
 int	ft_atoi_base(const char *str, int str_base);
 #endif

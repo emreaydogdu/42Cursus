@@ -11,19 +11,6 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-void	p_player(t_map *m, int x, int y)
-{
-	mlx_texture_t	*texture;
-
-	texture = mlx_load_png("./src/p2.png");
-	if (m->player->enabled == 1)
-		mlx_delete_image(m->window, m->player);
-	m->player = mlx_texture_to_image(m->window, texture);
-	mlx_resize_image(m->player, m->player->width * 2, m->player->height * 2);
-	mlx_image_to_window(m->window, m->player, x * 32, y * 32);
-    //mlx_key_hook(m->window, &keyhook, m);
-}
-
 void	p_playerfirst(t_map m)
 {
 	int	x;
@@ -36,7 +23,12 @@ void	p_playerfirst(t_map m)
 		while (x < m.width - 1)
 		{
             if (m.map[y][x] == 'P'){
-                p_player(&m, x, y);
+                m.player = mlx_texture_to_image(m.window, mlx_load_png("./src/p2.png"));
+                mlx_resize_image(m.player, m.player->width * 2, m.player->height * 2);
+                mlx_image_to_window(m.window, m.player, (x+1) * 32, (y+1) * 32);
+                mlx_key_hook(m.window, &keyhook, &m);
+                m.pos.x = x;
+                m.pos.y = y;
                 return;
             }
 			x++;
@@ -60,8 +52,7 @@ int	main(int argc, char **argv)
         draw_obstacle(*m);
         draw_end(*m);
         draw_collect(*m);
-        //p_playerfirst(*m);
-        mlx_key_hook(m->window, &keyhook, &m);
+        p_playerfirst(*m);
 
         mlx_loop(m->window);
 	}

@@ -19,7 +19,7 @@ static void	ft_fill_map(char *file, t_map *m)
 	char	*lines;
 
 	fd = open(file, O_RDONLY);
-	m->map = malloc(sizeof(char*) * m->height);
+	m->map = malloc(sizeof(char *) * m->height);
 	i = 0;
 	while (i < m->height)
 		m->map[i++] = malloc(sizeof(char) * m->width);
@@ -30,8 +30,8 @@ static void	ft_fill_map(char *file, t_map *m)
 		lines = get_next_line(fd);
 		while (lines[j])
 		{
-            if (lines[j] == 'C')
-                m->colcount += 1;
+			if (lines[j] == 'C')
+				m->colcount += 1;
 			m->map[i][j] = lines[j];
 			j++;
 		}
@@ -62,8 +62,7 @@ void	ft_parse_map(char *file, t_map *m)
 	ft_fill_map(file, m);
 }
 
-
-void	ft_print_map(t_map m) // optional
+void	ft_print_map(t_map m)
 {
 	int	i;
 	int	j;

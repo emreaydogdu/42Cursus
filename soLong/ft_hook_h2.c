@@ -11,19 +11,30 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-void	keyhook(mlx_key_data_t keydata, void *param)
+void	check_end(t_map *m)
 {
-	t_map	*m;
-
-	m = param;
-	if (mlx_is_key_down(m->window, (MLX_KEY_ESCAPE)))
-		mlx_close_window(m->window);
-	if (mlx_is_key_down(m->window, MLX_KEY_R))
+	if (m->colcount == 0)
 	{
-		printf("coun %d\n", m->colcount);
+		m->end->enabled = false;
+		m->end2->enabled = true;
 	}
-	hook_up_h(m);
-	hook_down_h(m);
-	hook_left_h(m);
-	hook_right_h(m);
+}
+
+void	find_collectibles(int x, int y, t_map *m)
+{
+	int	i;
+
+	i = 0;
+	while (m->collections[i])
+	{
+		if (m->collections[i]->x == x && m->collections[i]->y == y \
+			&& m->collections[i]->col->enabled)
+		{
+			m->collections[i]->col->enabled = false;
+			m->map[y][x] = '0';
+			m->colcount--;
+			check_end(m);
+		}
+		i++;
+	}
 }

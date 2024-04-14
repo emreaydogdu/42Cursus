@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fdf.c                                           :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,26 +11,8 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-int	main(int argc, char **argv)
+void	ft_error(char *msg, t_map *m)
 {
-	t_map		*m;
-
-	if (argc != 2)
-		ft_error(ERR_ARGUMENTS, NULL);
-	m = malloc(sizeof(t_map));
-	if (!m)
-		exit(EXIT_FAILURE);
-	ft_parse_map(argv[1], m);
-	m->window = mlx_init(m->width * 32 + 64, m->height * 32 + 64, \
-		"so_long", false);
-	draw_water(m);
-	draw_land(m);
-	draw_obstacle(m);
-	draw_end(m);
-	draw_collect(m);
-	draw_player(m);
-	mlx_key_hook(m->window, &keyhook, m);
-	mlx_loop(m->window);
-	mlx_terminate(m->window);
-	return (EXIT_SUCCESS);
+	printf("%s\n", msg);
+	exit(EXIT_FAILURE);
 }

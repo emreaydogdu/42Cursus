@@ -12,10 +12,6 @@
 #ifndef FDF_H
 # define FDF_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	10
-# endif
-
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -29,27 +25,32 @@
 # include "libft/libft.h"
 # include "getNextLine/get_next_line.h"
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE	10
+# endif
+# define ERR_ARGS	"Wrong number of arguments. Only the map path is required."
+
 typedef struct s_game
 {
-    int     moves;
-    int     failes;
+	int	moves;
+	int	failes;
 
-}   t_game;
+}	t_game;
 
 typedef struct s_pos
 {
-    int     x;
-    int     y;
+	int	x;
+	int	y;
 
-}   t_pos;
+}	t_pos;
 
 typedef struct s_col
 {
-    int     x;
-    int     y;
-    mlx_image_t *col;
+	int			x;
+	int			y;
+	mlx_image_t	*col;
 
-}   t_col;
+}	t_col;
 
 typedef struct s_map
 {
@@ -57,31 +58,33 @@ typedef struct s_map
 	int			height;
 	char		**map;
 	mlx_t		*window;
-    t_pos       pos;
-	mlx_image_t *player;
-    t_col       **collections;
-    int         colcount;
-    mlx_image_t *end;
-    mlx_image_t *end2;
+	t_pos		pos;
+	mlx_image_t	*player;
+	t_col		**collections;
+	int			colcount;
+	mlx_image_t *end;
+	mlx_image_t *end2;
 }	t_map;
 
-
-// FILE //
 void	ft_parse_map(char *file, t_map *m);
 void	ft_print_map(t_map m);
 
-// MENU //
 void	keyhook(mlx_key_data_t keydata, void *param);
+void	hook_up_h(t_map *m);
+void	hook_down_h(t_map *m);
+void	hook_left_h(t_map *m);
+void	hook_right_h(t_map *m);
+void	find_collectibles(int x, int y, t_map *m);
 
-// DRAW //
-void    draw_water(t_map *m);
-void    draw_land(t_map *m);
-void    draw_obstacle(t_map *m);
+void	draw_water(t_map *m);
+void	draw_land(t_map *m);
+void	draw_obstacle(t_map *m);
 void	draw_end(t_map *m);
 void	draw_collect(t_map *m);
-void	draw_place(t_map *m, int x, int y, char* path);
-void	draw_line(t_map *m, int y, char* path, char* path2, char* path3);
-void	draw_img(t_map *m, int x, int y, char* path, mlx_image_t *img);
+void	draw_player(t_map *m);
+void	draw_place(t_map *m, int x, int y, char *path);
+void	draw_line(t_map *m, int y, char *path, char *path2, char *path3);
+void	draw_img(t_map *m, int x, int y, char *path, mlx_image_t *img);
 
-int	ft_atoi_base(const char *str, int str_base);
+void	ft_error(char *msg, t_map *m);
 #endif

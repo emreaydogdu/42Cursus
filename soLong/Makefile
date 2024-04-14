@@ -1,7 +1,7 @@
 .PHONY: all bonus clean fclean re
 
 NAME = solong
-SRC = ft_solong.c ft_parse_map.c  ft_draw_map.c ft_draw.c ft_hook.c ft_atoi_base.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
+SRC = ft_solong.c ft_parse_map.c ft_draw_map.c ft_draw.c ft_hook.c ft_hook_h1.c ft_hook_h2.c ft_error.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
 OBJS = ${SRC:.c=.o}
 RM = rm
 CC = cc

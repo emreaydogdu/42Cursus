@@ -18,7 +18,7 @@ $(LIBFT):
 
 $(NAME): $(LIBFT) $(OBJS)
 	@echo "Make so_long"
-	@$(CC) $(OBJS) $(LIBFT) MLX/libmlx42.a -Iinclude -lglfw -o $(NAME)
+	$(CC) $(OBJS) $(LIBFT) MLX/libmlx42.a -Iinclude -lglfw -o $(NAME)
 	@#$(CC) $(OBJS) MLX/libmlx42.a libft/libft.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -o $(NAME)
 
 bonus: all

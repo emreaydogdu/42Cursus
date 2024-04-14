@@ -20,7 +20,9 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		mlx_close_window(m->window);
 	if (mlx_is_key_down(m->window, MLX_KEY_R))
 	{
-		printf("coun %d\n", m->colcount);
+		printf("count c %d\n", m->ccount);
+		printf("count p %d\n", m->pcount);
+		printf("count e %d\n", m->ecount);
 	}
 	hook_up_h(m);
 	hook_down_h(m);

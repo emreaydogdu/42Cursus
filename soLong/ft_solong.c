@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	m = malloc(sizeof(t_map));
 	if (!m)
 		exit(EXIT_FAILURE);
-	ft_parse_map(argv[1], m);
+	ft_map_check(argv[1], m);
 	m->window = mlx_init(m->width * 32 + 64, m->height * 32 + 64, \
 		"so_long", false);
 	draw_water(m);

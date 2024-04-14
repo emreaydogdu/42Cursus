@@ -13,7 +13,7 @@
 
 void	check_end(t_map *m)
 {
-	if (m->colcount == 0)
+	if (m->ccount == 0)
 	{
 		m->end->enabled = false;
 		m->end2->enabled = true;
@@ -32,7 +32,7 @@ void	find_collectibles(int x, int y, t_map *m)
 		{
 			m->collections[i]->col->enabled = false;
 			m->map[y][x] = '0';
-			m->colcount--;
+			m->ccount--;
 			check_end(m);
 		}
 		i++;

@@ -57,16 +57,20 @@ typedef struct s_map
 	int			width;
 	int			height;
 	char		**map;
+	char		**mapcpy;
 	mlx_t		*window;
 	t_pos		pos;
 	mlx_image_t	*player;
 	t_col		**collections;
-	int			colcount;
 	mlx_image_t *end;
 	mlx_image_t *end2;
+	int			pcount;
+	int			ccount;
+	int			ecount;
 }	t_map;
 
-void	ft_parse_map(char *file, t_map *m);
+void	ft_map_check(char *file, t_map *m);
+void	ft_map_parse(char *file, t_map *m);
 void	ft_print_map(t_map m);
 
 void	keyhook(mlx_key_data_t keydata, void *param);

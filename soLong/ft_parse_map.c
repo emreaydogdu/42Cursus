@@ -30,6 +30,8 @@ static void	ft_fill_map(char *file, t_map *m)
 		lines = get_next_line(fd);
 		while (lines[j])
 		{
+            if (lines[j] == 'C')
+                m->colcount += 1;
 			m->map[i][j] = lines[j];
 			j++;
 		}

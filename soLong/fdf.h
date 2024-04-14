@@ -43,6 +43,14 @@ typedef struct s_pos
 
 }   t_pos;
 
+typedef struct s_col
+{
+    int     x;
+    int     y;
+    mlx_image_t *col;
+
+}   t_col;
+
 typedef struct s_map
 {
 	int			width;
@@ -51,6 +59,8 @@ typedef struct s_map
 	mlx_t		*window;
     t_pos       pos;
 	mlx_image_t *player;
+    t_col       **collections;
+    int         colcount;
     mlx_image_t *end;
     mlx_image_t *end2;
 }	t_map;
@@ -64,14 +74,14 @@ void	ft_print_map(t_map m);
 void	keyhook(mlx_key_data_t keydata, void *param);
 
 // DRAW //
-void    draw_water(t_map m);
-void    draw_land(t_map m);
-void    draw_obstacle(t_map m);
-void	draw_end(t_map m);
-void	draw_collect(t_map m);
-void	draw_place(t_map m, int x, int y, char* path);
-void	draw_line(t_map m, int y, char* path, char* path2, char* path3);
-void	draw_img(t_map m, int x, int y, char* path, mlx_image_t *img);
+void    draw_water(t_map *m);
+void    draw_land(t_map *m);
+void    draw_obstacle(t_map *m);
+void	draw_end(t_map *m);
+void	draw_collect(t_map *m);
+void	draw_place(t_map *m, int x, int y, char* path);
+void	draw_line(t_map *m, int y, char* path, char* path2, char* path3);
+void	draw_img(t_map *m, int x, int y, char* path, mlx_image_t *img);
 
 int	ft_atoi_base(const char *str, int str_base);
 #endif

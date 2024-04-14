@@ -16,7 +16,6 @@ void	keyhook(mlx_key_data_t keydata, void *param)
     t_map	*m;
 
     m = param;
-    (void) keydata;
 
     if (mlx_is_key_down(m->window, (MLX_KEY_A)))
     {
@@ -34,6 +33,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
     {
         if (m->map[m->pos.y-1][m->pos.x] == 'C' || m->map[m->pos.y-1][m->pos.x] == '0')
         {
+           mlx_delete_image(m->window, m->collections[0]->col);
             m->pos.y -= 1;
             m->player->instances[0].y -= 32;
         }
@@ -58,11 +58,14 @@ void	keyhook(mlx_key_data_t keydata, void *param)
     {
         if (m->map[m->pos.y][m->pos.x-1] == 'C' || m->map[m->pos.y][m->pos.x-1] == '0')
         {
+            //mlx_delete_image(m->window, m->collections[0]->col);
             m->pos.x -= 1;
             m->player->instances[0].x -= 32;
         }
     }
     if (mlx_is_key_down(m->window, MLX_KEY_R))
     {
+        printf("Poistion: %d : %d\n", m->pos.x, m->pos.y);
+        printf("%d\n", m->colcount);
     }
 }

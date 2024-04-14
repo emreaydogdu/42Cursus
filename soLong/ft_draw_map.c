@@ -11,16 +11,16 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-void    draw_water(t_map m)
+void    draw_water(t_map *m)
 {
     int	y;
     int	x;
 
     y = 0;
-    while (y <= m.height+1)
+    while (y <= m->height+1)
     {
         x = 0;
-        while (x <= m.width+1)
+        while (x <= m->width+1)
         {
             draw_place(m, x * 32, y * 32, "./src/water.png");
             x++;
@@ -29,23 +29,23 @@ void    draw_water(t_map m)
     }
 }
 
-void    draw_land(t_map m)
+void    draw_land(t_map *m)
 {
     int	y;
 
     y = 1;
-    while (y <= m.height)
+    while (y <= m->height)
     {
         if (y == 1)
             draw_line(m, y, "./src/ltl.png", "./src/lt.png", "./src/ltr.png");
-        else if (y == m.height)
+        else if (y == m->height)
             draw_line(m, y, "./src/lbl.png", "./src/lb.png", "./src/lbr.png");
         else
             draw_line(m, y, "./src/ll.png", "./src/lm.png", "./src/lr.png");
 
         if (y == 1)
             draw_line(m, y, "./src/w1.png", "./src/w2.png", "./src/w3.png");
-        else if (y == m.height)
+        else if (y == m->height)
             draw_line(m, y, "./src/w5.png", "./src/w2.png", "./src/w6.png");
         else
             draw_line(m, y, "./src/w4.png", "./src/lm.png", "./src/w4.png");
@@ -53,18 +53,18 @@ void    draw_land(t_map m)
     }
 }
 
-void    draw_obstacle(t_map m)
+void    draw_obstacle(t_map *m)
 {
     int	x;
     int	y;
 
     y = 1;
-    while (y < m.height - 1)
+    while (y < m->height - 1)
     {
         x = 1;
-        while (x < m.width - 1)
+        while (x < m->width - 1)
         {
-            if (m.map[y][x] == '1'){
+            if (m->map[y][x] == '1'){
                 if (x % 2 == 0 && y % 2 == 0)
                     draw_place(m, (x+1) * 32, (y+1) * 32, "./src/o2.png");
                 else if (x % 2 == 0 && y % 2 == 1)

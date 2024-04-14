@@ -11,21 +11,20 @@
 /* ************************************************************************** */
 #include "fdf.h"
 
-static void	ft_fill_map(char *file, t_map *m)
+static void	ft_fill_map(char *file, t_map *m, int fd)
 {
-	int		fd;
 	int		i;
 	int		j;
 	char	*lines;
 
 	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return ;
 	m->map = malloc(sizeof(char *) * m->height);
 	i = 0;
 	while (i < m->height)
-		m->map[i++] = malloc(sizeof(char) * m->width);
-	i = 0;
-	while (i < m->height)
 	{
+		m->map[i] = malloc(sizeof(char) * m->width);
 		j = 0;
 		lines = get_next_line(fd);
 		while (lines[j])
@@ -46,9 +45,11 @@ void	ft_parse_map(char *file, t_map *m)
 	int		fd;
 	char	*line;
 
-	fd = open(file, O_RDONLY);
 	m->height = 0;
 	m->width = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return ;
 	line = get_next_line(fd);
 	while (line[m->width] != '\n')
 		m->width++;
@@ -57,9 +58,7 @@ void	ft_parse_map(char *file, t_map *m)
 		m->height++;
 		line = get_next_line(fd);
 	}
-	m->player = malloc(sizeof(mlx_image_t));
-	close(fd);
-	ft_fill_map(file, m);
+	ft_fill_map(file, m, fd);
 }
 
 void	ft_print_map(t_map m)

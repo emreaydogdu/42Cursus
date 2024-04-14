@@ -103,6 +103,7 @@ void	draw_player(t_map *m)
 		{
 			if (m->map[y][x] == 'P')
 			{
+				m->player = malloc(sizeof(mlx_image_t));
 				m->player = mlx_texture_to_image(m->window, \
 				mlx_load_png("./src/p2.png"));
 				mlx_resize_image(m->player, \

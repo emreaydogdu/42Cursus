@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 	t_map		*m;
 
 	if (argc != 2)
-		ft_error(ERR_ARGUMENTS, NULL);
+		ft_error(ERR_ARGS, NULL);
 	m = malloc(sizeof(t_map));
 	if (!m)
 		exit(EXIT_FAILURE);

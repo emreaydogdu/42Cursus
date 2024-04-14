@@ -30,13 +30,6 @@
 # endif
 # define ERR_ARGS	"Wrong number of arguments. Only the map path is required."
 
-typedef struct s_game
-{
-	int	moves;
-	int	failes;
-
-}	t_game;
-
 typedef struct s_pos
 {
 	int	x;
@@ -61,6 +54,7 @@ typedef struct s_end
 
 typedef struct s_map
 {
+	int			moves;
 	int			width;
 	int			height;
 	char		**map;

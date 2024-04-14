@@ -63,19 +63,23 @@ void	draw_end(t_map *m)
 		{
 			if (m->map[y][x] == 'E')
 			{
-				m->end = mlx_texture_to_image(m->window, \
+				m->end = malloc(sizeof(t_end));
+				m->end2 = malloc(sizeof(t_end));
+				m->end->img = mlx_texture_to_image(m->window, \
 				mlx_load_png("./src/end1.png"));
-				mlx_resize_image(m->end, m->end->width * 2, \
-				m->end->height * 2);
-				mlx_image_to_window(m->window, m->end, \
+				mlx_resize_image(m->end->img, m->end->img->width * 2, \
+				m->end->img->height * 2);
+				mlx_image_to_window(m->window, m->end->img, \
 				(x + 1) * 32, (y + 1) * 32);
-				m->end2 = mlx_texture_to_image(m->window, \
+				m->end2->img = mlx_texture_to_image(m->window, \
 				mlx_load_png("./src/end2.png"));
-				mlx_resize_image(m->end2, m->end2->width * 2, \
-				m->end2->height * 2);
-				mlx_image_to_window(m->window, m->end2, \
+				mlx_resize_image(m->end2->img, m->end2->img->width * 2, \
+				m->end2->img->height * 2);
+				mlx_image_to_window(m->window, m->end2->img, \
 				(x + 1) * 32, (y + 1) * 32);
-				m->end2->enabled = false;
+				m->end->pos = (t_pos){x, y};
+				m->end2->pos = (t_pos){x, y};
+				m->end2->img->enabled = false;
 			}
 			x++;
 		}

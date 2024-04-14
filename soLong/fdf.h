@@ -52,6 +52,13 @@ typedef struct s_col
 
 }	t_col;
 
+typedef struct s_end
+{
+	t_pos		pos;
+	mlx_image_t	*img;
+
+}	t_end;
+
 typedef struct s_map
 {
 	int			width;
@@ -62,8 +69,8 @@ typedef struct s_map
 	t_pos		pos;
 	mlx_image_t	*player;
 	t_col		**collections;
-	mlx_image_t *end;
-	mlx_image_t *end2;
+	t_end 		*end;
+	t_end 		*end2;
 	int			pcount;
 	int			ccount;
 	int			ecount;

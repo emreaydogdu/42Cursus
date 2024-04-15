@@ -97,7 +97,7 @@ void	draw_collect(t_map *m)
 
 	y = 1;
 	i = 0;
-	m->collections = malloc(sizeof(t_col *) * m->ccount);
+	m->collections = malloc(sizeof(t_col *) * m->ccount + 1);
 	while (y < m->height - 1)
 	{
 		x = 1;

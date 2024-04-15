@@ -21,7 +21,7 @@
 # include <sys/fcntl.h>
 # include <stdbool.h>
 # include <math.h>
-# include "MLX/MLX42.h"
+# include "MLX42/include/MLX42/MLX42.h"
 # include "libft/libft.h"
 # include "getNextLine/get_next_line.h"
 

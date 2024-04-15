@@ -16,6 +16,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	t_map	*m;
 
 	m = param;
+	(void) keydata;
 	if (mlx_is_key_down(m->window, (MLX_KEY_ESCAPE)))
 		mlx_close_window(m->window);
 	hook_up_h(m);

@@ -28,7 +28,7 @@ static void	ft_map_check_path(t_map *m)
 	int	y;
 
 	y = -1;
-	while (m->mapcpy[++y])
+	while (++y < m->height)
 	{
 		x = -1;
 		while (m->mapcpy[y][++x])
@@ -36,8 +36,9 @@ static void	ft_map_check_path(t_map *m)
 				m->pos = (t_pos){x, y};
 	}
 	ft_map_path_fill(m->mapcpy, m, m->pos.x, m->pos.y);
+	ft_print_map(*m);
 	y = -1;
-	while (m->mapcpy[++y])
+	while (++y < m->height)
 	{
 		x = -1;
 		while (m->mapcpy[y][++x])
@@ -101,13 +102,13 @@ static void	ft_map_fill(char *file, t_map *m, int fd)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return ;
-	m->map = malloc(sizeof(char *) * m->height);
-	m->mapcpy = malloc(sizeof(char *) * m->height);
+	m->map = malloc(sizeof(char *) * m->height + 1);
+	m->mapcpy = malloc(sizeof(char *) * m->height + 1);
 	i = 0;
 	while (i < m->height)
 	{
-		m->map[i] = malloc(sizeof(char) * m->width);
-		m->mapcpy[i] = malloc(sizeof(char) * m->width);
+		m->map[i] = malloc(sizeof(char) * m->width + 1);
+		m->mapcpy[i] = malloc(sizeof(char) * m->width + 1);
 		j = 0;
 		lines = get_next_line(fd);
 		while (lines[j])
@@ -161,7 +162,7 @@ void	ft_print_map(t_map m)
 	{
 		j = 0;
 		while (j < m.width)
-			printf("%3c ", (int)m.map[i][j++]);
+			printf("%3c ", (int)m.mapcpy[i][j++]);
 		printf("\n");
 		i++;
 	}

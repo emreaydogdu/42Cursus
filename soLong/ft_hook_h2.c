@@ -27,7 +27,7 @@ void	find_collectibles(int x, int y, t_map *m)
 	int	i;
 
 	i = 0;
-	while (m->collections[i])
+	while (i < m->ccount)
 	{
 		if (m->collections[i]->x == x && m->collections[i]->y == y \
 			&& m->collections[i]->col->enabled)

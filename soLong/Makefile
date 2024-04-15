@@ -1,37 +1,31 @@
-.PHONY: all bonus clean fclean re
-
 NAME = solong
-SRC = ft_solong.c ft_parse_map.c ft_draw_map.c ft_draw.c ft_hook.c ft_hook_h1.c ft_hook_h2.c ft_error.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
-OBJS = ${SRC:.c=.o}
-RM = rm
-CC = cc
-LIBFT = libft/libft.a
-CFLAGS = -c -Wall -Wextra -Werror
+SRC = so_long.c ft_parse_map.c ft_draw_map.c ft_draw.c ft_hook.c ft_hook_h1.c ft_hook_h2.c ft_error.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
+NAME	=	so_long
 
-all: $(NAME)
+CC		=	cc
+CFLAGS	=	-Wall -Werror -Wextra
 
-%.o : %.c
-	@$(CC) -c $< -o $@
+MLXFLAGS=	./MLX42/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
-$(LIBFT):
-	@make -C libft
+LIBS	=	 ./libft/libft.a
 
-$(NAME): $(LIBFT) $(OBJS)
-	@echo "Make so_long"
-	$(CC) $(OBJS) $(LIBFT) MLX/libmlx42.a -Iinclude -lglfw -o $(NAME)
-	@#$(CC) $(OBJS) MLX/libmlx42.a libft/libft.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -o $(NAME)
+OBJS	=	$(SRC:.c=.o)
 
-bonus: all
+all:		$(NAME)
+
+$(NAME): $(OBJS)
+			make -C  ./MLX42
+			make -C  ./libft
+			$(CC)  $(OBJS) $(LIBS) $(MLXFLAGS) -o $(NAME)
 
 clean:
-	@echo "Clean .o"
-	@make clean -C libft
-	@$(RM) -f ${OBJS}
+			make clean -C  ./MLX42
+			make clean -C  ./libft
+			rm -rf $(OBJS)
+			
+fclean:		clean
+			rm -rf $(NAME)
 
-fclean: clean
-	@echo "Clean everything"
-	@make fclean -C libft
-	@$(RM) -f $(NAME)
+re:			fclean all
 
-re: fclean all
-
+.PHONY: clean fclean re

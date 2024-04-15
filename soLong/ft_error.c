@@ -13,6 +13,7 @@
 
 void	ft_error(char *msg, t_map *m)
 {
+	(void) m;
 	printf("%s\n", msg);
 	exit(EXIT_FAILURE);
 }

@@ -9,7 +9,7 @@
 /*   Updated: 2023/06/14 23:21:24 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "fdf.h"
+#include "so_long.h"
 
 void	draw_place(t_map *m, int x, int y, char *path)
 {

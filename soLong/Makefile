@@ -1,30 +1,37 @@
-NAME = solong
-SRC = so_long.c ft_parse_map.c ft_draw_map.c ft_draw.c ft_hook.c ft_hook_h1.c ft_hook_h2.c ft_error.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
-NAME	=	so_long
+NAME = so_long
+SRC = ft_so_long.c ft_parse_map.c ft_draw_map.c ft_draw.c ft_hook.c ft_hook_h1.c ft_hook_h2.c ft_error.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
+OBJS = ${SRC:.c=.o}
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
+MLXFLAGS = -Iinclude -ldl -lglfw -pthread -lm
+LIBFT = ./libft/libft.a
+MLX = ./MLX42/build/libmlx42.a
 
-CC		=	cc
-CFLAGS	=	-Wall -Werror -Wextra
+all: $(NAME)
 
-MLXFLAGS=	./MLX42/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+%.o : %.c
+	@$(CC) -c $< -o $@
 
-LIBS	=	 ./libft/libft.a
+$(LIBFT):
+	@make -C ./libft
 
-OBJS	=	$(SRC:.c=.o)
+$(MLX):
+	@echo "Make MLX Library"
+	@make -C ./MLX42/build
 
-all:		$(NAME)
-
-$(NAME): $(OBJS)
-			make -C  ./MLX42
-			make -C  ./libft
-			$(CC)  $(OBJS) $(LIBS) $(MLXFLAGS) -o $(NAME)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+	@echo "Make so_long"
+	@$(CC) $(OBJS) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
 
 clean:
-			make clean -C  ./MLX42
-			make clean -C  ./libft
-			rm -rf $(OBJS)
-			
-fclean:		clean
-			rm -rf $(NAME)
+	@echo "Clear"
+	@make clean -C ./libft
+	@$(RM) -rf ${OBJS}
+
+fclean: clean
+	@make clean -C ./MLX42/build
+	@make fclean -C libft
+	@$(RM) -rf $(NAME)
 
 re:			fclean all
 

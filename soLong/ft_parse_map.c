@@ -9,7 +9,7 @@
 /*   Updated: 2023/06/14 23:21:24 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "fdf.h"
+#include "so_long.h"
 
 static void	ft_map_path_fill(char **grid, t_map *m, int x, int y)
 {

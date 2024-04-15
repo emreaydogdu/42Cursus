@@ -30,7 +30,6 @@ void	free_mem(t_map *m){
 	}
 	free(m->map);
 	free(m->mapcpy);
-	free(m);
 }
 
 int	main(int argc, char **argv)

@@ -89,7 +89,7 @@ void	draw_collect(t_map *m);
 void	draw_player(t_map *m);
 void	draw_place(t_map *m, int x, int y, char *path);
 void	draw_line(t_map *m, int y, char *path, char *path2, char *path3);
-void	draw_img(t_map *m, int x, int y, char *path, mlx_image_t *img);
 
 void	ft_error(char *msg, t_map *m);
+void	free_mem(t_map *m);
 #endif

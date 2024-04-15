@@ -19,7 +19,10 @@ void	check_end(t_map *m)
 		m->end2->img->enabled = true;
 	}
 	if (m->pos.x == m->end2->pos.x && m->pos.y == m->end2->pos.y)
+	{
+		free_mem(m);
 		mlx_close_window(m->window);
+	}
 }
 
 void	find_collectibles(int x, int y, t_map *m)

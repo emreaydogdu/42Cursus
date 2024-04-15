@@ -92,8 +92,9 @@ void	draw_obstacle(t_map *m)
 
 void	draw_player(t_map *m)
 {
-	int	x;
-	int	y;
+	int				x;
+	int				y;
+	mlx_texture_t	*texture;
 
 	y = 1;
 	while (y < m->height - 1)
@@ -103,9 +104,8 @@ void	draw_player(t_map *m)
 		{
 			if (m->map[y][x] == 'P')
 			{
-				m->player = malloc(sizeof(mlx_image_t));
-				m->player = mlx_texture_to_image(m->window, \
-				mlx_load_png("./src/p2.png"));
+				texture = mlx_load_png("./src/p2.png");
+				m->player = mlx_texture_to_image(m->window, texture);
 				mlx_resize_image(m->player, \
 				m->player->width * 2, m->player->height * 2);
 				mlx_image_to_window(m->window, \
@@ -113,6 +113,7 @@ void	draw_player(t_map *m)
 				m->pos.x = x;
 				m->pos.y = y;
 				m->map[y][x] = '0';
+				mlx_delete_texture(texture);
 				return ;
 			}
 			x++;

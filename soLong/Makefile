@@ -10,7 +10,7 @@ MLX = ./MLX42/build/libmlx42.a
 all: $(NAME)
 
 %.o : %.c
-	@$(CC) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
 	@make -C ./libft
@@ -21,7 +21,7 @@ $(MLX):
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@echo "Make so_long"
-	@$(CC) $(OBJS) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
 
 clean:
 	@echo "Clear"

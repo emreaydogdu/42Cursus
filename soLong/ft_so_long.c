@@ -11,6 +11,28 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
+void	free_mem(t_map *m){
+	int		i;
+
+	free(m->end);
+	free(m->end2);
+	i = -1;
+	while (m->collections[++i])
+	{
+		free(m->collections[i]);
+	}
+	free(m->collections);
+	i = m->height - 1;
+	while (i-- >= 0)
+	{
+		free(m->map[i]);
+		free(m->mapcpy[i]);
+	}
+	free(m->map);
+	free(m->mapcpy);
+	free(m);
+}
+
 int	main(int argc, char **argv)
 {
 	t_map		*m;

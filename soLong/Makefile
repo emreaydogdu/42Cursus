@@ -13,11 +13,11 @@ all: $(NAME)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-	@make -C ./libft
+	@make -s -C ./libft
 
 $(MLX):
 	@echo "Make MLX Library"
-	@make -C ./MLX42/build
+	@make -s -C ./MLX42/build
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@echo "Make so_long"
@@ -25,12 +25,12 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS)
 
 clean:
 	@echo "Clear"
-	@make clean -C ./libft
+	@make -s clean -C ./libft
 	@$(RM) -rf ${OBJS}
 
 fclean: clean
-	@make clean -C ./MLX42/build
-	@make fclean -C libft
+	@make -s clean -C ./MLX42/build
+	@make -s fclean -C ./libft
 	@$(RM) -rf $(NAME)
 
 re:	fclean all

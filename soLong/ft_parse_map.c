@@ -142,7 +142,6 @@ void	ft_map_parse(char *file, t_map *m)
 		m->height++;
 		line = get_next_line(fd);
 	}
-	free(line);
 	ft_map_fill(file, m, fd);
 }
 
@@ -150,7 +149,7 @@ void	ft_map_check(char *file, t_map *m)
 {
 	ft_map_parse(file, m);
 	ft_map_check_chars(m);
-	ft_map_check_path(m);
+	//ft_map_check_path(m);
 }
 
 void	ft_print_map(t_map m)

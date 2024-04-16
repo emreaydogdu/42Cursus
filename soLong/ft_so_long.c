@@ -17,11 +17,11 @@ void	free_mem(t_map *m)
 
 	free(m->end);
 	free(m->end2);
-	i = -1;
-	while (m->collections[++i])
-		if(m->collections[i]->col->enabled)
-			free(m->collections[i]);
+	i = 0;
+	while (i < m->collected)
+		free(m->collections[i++]);
 	free(m->collections);
+
 	i = m->height - 1;
 	while (i-- > 0)
 	{
@@ -39,6 +39,21 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		ft_error(ERR_ARGS, NULL);
 	m = malloc(sizeof(t_map));
+	m->ccount = 0;
+	m->pcount = 0;
+	m->ecount = 0;
+	m->moves = 0;
+	m->width = 0;
+	m->height = 0;
+	m->map = NULL;
+	m->mapcpy = NULL;
+	m->end = NULL;
+	m->end2 = NULL;
+	m->window = NULL;
+	//m->collections = NULL;
+	m->player = NULL;
+	m->collected = 0;
+	//m->pos = NULL;
 	if (!m)
 		exit(EXIT_FAILURE);
 	ft_map_check(argv[1], m);

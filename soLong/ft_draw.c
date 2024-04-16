@@ -114,5 +114,4 @@ void	draw_collect(t_map *m)
 			}
 		}
 	}
-	m->collections[i] = NULL;
 }

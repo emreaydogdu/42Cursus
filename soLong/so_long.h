@@ -68,6 +68,7 @@ typedef struct s_map
 	int			pcount;
 	int			ccount;
 	int			ecount;
+	int			collected;
 }	t_map;
 
 void	ft_map_check(char *file, t_map *m);

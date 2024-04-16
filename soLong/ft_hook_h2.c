@@ -30,6 +30,9 @@ void	find_collectibles(int x, int y, t_map *m)
 	int	i;
 
 	i = -1;
+	m->ccount = 0;
+	
+	/*
 	while (m->collections[++i])
 	{
 		if (m->collections[i]->x == x && m->collections[i]->y == y \
@@ -38,7 +41,8 @@ void	find_collectibles(int x, int y, t_map *m)
 			m->collections[i]->col->enabled = false;
 			m->map[y][x] = '0';
 			m->ccount--;
+			m->collected++;
 		}
-	}
+	}*/
 	check_end(m);
 }

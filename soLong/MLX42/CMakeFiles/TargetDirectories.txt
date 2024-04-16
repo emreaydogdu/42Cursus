@@ -1,0 +1,7 @@
+/home/emaydogd/42Cursus/soLong/MLX42/CMakeFiles/mlx42.dir
+/home/emaydogd/42Cursus/soLong/MLX42/CMakeFiles/edit_cache.dir
+/home/emaydogd/42Cursus/soLong/MLX42/CMakeFiles/rebuild_cache.dir
+/home/emaydogd/42Cursus/soLong/MLX42/CMakeFiles/list_install_components.dir
+/home/emaydogd/42Cursus/soLong/MLX42/CMakeFiles/install.dir
+/home/emaydogd/42Cursus/soLong/MLX42/CMakeFiles/install/local.dir
+/home/emaydogd/42Cursus/soLong/MLX42/CMakeFiles/install/strip.dir

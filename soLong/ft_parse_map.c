@@ -13,7 +13,8 @@
 
 static void	ft_map_path_fill(char **grid, t_map *m, int x, int y)
 {
-	if (x < 0 || y < 0 || y >= m->height || x >= m->width || (grid[y][x] != '0' && grid[y][x] != 'P' && grid[y][x] != 'C' && grid[y][x] != 'E'))
+	if (x < 0 || y < 0 || y >= m->height || x >= m->width || (grid[y][x] != '0'\
+		&& grid[y][x] != 'P' && grid[y][x] != 'C' && grid[y][x] != 'E'))
 		return ;
 	grid[y][x] = 'X';
 	ft_map_path_fill(grid, m, x + 1, y);
@@ -77,7 +78,8 @@ static void	ft_map_check_chars(t_map *m)
 		j = -1;
 		while (j++ < m->width - 1)
 		{
-			if ((i == 0 || i == m->height - 1 || j == 0 || j == m->width - 1) && m->map[i][j] != '1')
+			if ((i == 0 || i == m->height - 1 || j == 0 || j == m->width - 1) \
+				&& m->map[i][j] != '1')
 				ft_error("ERR_WALL", m);
 			else if (m->map[i][j] == 'C')
 				m->ccount++;
@@ -104,22 +106,20 @@ static void	ft_map_fill(char *file, t_map *m, int fd)
 	m->map = malloc(sizeof(char *) * m->height);
 	m->mapcpy = malloc(sizeof(char *) * m->height);
 	if (m->map == NULL || m->mapcpy == NULL)
-		return;
-	i = 0;
+		return ;
+	i = -1;
 	lines = get_next_line(fd);
 	while (lines)
 	{
-		m->map[i] = malloc(sizeof(char) * (m->width));
+		m->map[++i] = malloc(sizeof(char) * (m->width));
 		m->mapcpy[i] = malloc(sizeof(char) * (m->width));
 		if (m->map[i] == NULL || m->mapcpy[i] == NULL)
-			return;
+			return ;
 		ft_memcpy(m->map[i], lines, m->width);
 		ft_memcpy(m->mapcpy[i], lines, m->width);
 		free(lines);
 		lines = get_next_line(fd);
-		i++;
 	}
-	free(lines);
 	close(fd);
 }
 
@@ -152,7 +152,6 @@ void	ft_map_check(char *file, t_map *m)
 	ft_map_check_chars(m);
 	ft_map_check_path(m);
 }
-
 
 void	ft_print_map(t_map m)
 {

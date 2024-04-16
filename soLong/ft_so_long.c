@@ -11,16 +11,15 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-void	free_mem(t_map *m){
-	int		i;
+void	free_mem(t_map *m)
+{
+	int	i;
 
 	free(m->end);
 	free(m->end2);
 	i = -1;
 	while (m->collections[++i])
-	{
 		free(m->collections[i]);
-	}
 	free(m->collections);
 	i = m->height - 1;
 	while (i-- >= 0)

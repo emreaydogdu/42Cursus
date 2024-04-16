@@ -63,30 +63,24 @@ void	draw_obstacle(t_map *m)
 	int	x;
 	int	y;
 
-	y = 1;
-	while (y < m->height - 1)
+	y = 0;
+	while (++y < m->height - 1)
 	{
-		x = 1;
-		while (x < m->width - 1)
+		x = 0;
+		while (++x < m->width - 1)
 		{
 			if (m->map[y][x] == '1')
 			{
 				if (x % 2 == 0 && y % 2 == 0)
-					draw_place(m, (x + 1) * 32, (y + 1) * 32, \
-					"./src/o2.png");
+					draw_place(m, (x + 1) * 32, (y + 1) * 32, "./src/o2.png");
 				else if (x % 2 == 0 && y % 2 == 1)
-					draw_place(m, (x + 1) * 32, (y + 1) * 32, \
-					"./src/o1.png");
+					draw_place(m, (x + 1) * 32, (y + 1) * 32, "./src/o1.png");
 				else if (x % 2 == 1 && y % 2 == 1)
-					draw_place(m, (x + 1) * 32, (y + 1) * 32, \
-					"./src/o4.png");
+					draw_place(m, (x + 1) * 32, (y + 1) * 32, "./src/o4.png");
 				else
-					draw_place(m, (x + 1) * 32, (y + 1) * 32, \
-					"./src/o3.png");
+					draw_place(m, (x + 1) * 32, (y + 1) * 32, "./src/o3.png");
 			}
-			x++;
 		}
-		y++;
 	}
 }
 
@@ -96,11 +90,11 @@ void	draw_player(t_map *m)
 	int				y;
 	mlx_texture_t	*texture;
 
-	y = 1;
-	while (y < m->height - 1)
+	y = 0;
+	while (++y < m->height - 1)
 	{
-		x = 1;
-		while (x < m->width - 1)
+		x = 0;
+		while (++x < m->width - 1)
 		{
 			if (m->map[y][x] == 'P')
 			{
@@ -110,14 +104,11 @@ void	draw_player(t_map *m)
 				m->player->width * 2, m->player->height * 2);
 				mlx_image_to_window(m->window, \
 				m->player, (x + 1) * 32, (y + 1) * 32);
-				m->pos.x = x;
-				m->pos.y = y;
+				m->pos = (t_pos){x, y};
 				m->map[y][x] = '0';
 				mlx_delete_texture(texture);
 				return ;
 			}
-			x++;
 		}
-		y++;
 	}
 }

@@ -19,10 +19,11 @@ void	free_mem(t_map *m)
 	free(m->end2);
 	i = -1;
 	while (m->collections[++i])
-		free(m->collections[i]);
+		if(m->collections[i]->col->enabled)
+			free(m->collections[i]);
 	free(m->collections);
 	i = m->height - 1;
-	while (i-- >= 0)
+	while (i-- > 0)
 	{
 		free(m->map[i]);
 		free(m->mapcpy[i]);

@@ -2,7 +2,7 @@ NAME = so_long
 SRC = ft_so_long.c ft_parse_map.c ft_draw_map.c ft_hook.c ft_error.c
 OBJS = ${SRC:.c=.o}
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -g #m-Werror -Wextra
 MLXFLAGS = -Iinclude -ldl -lglfw -pthread -lm
 LIBFT = ./libft/libft.a
 MLX = ./MLX42/build/libmlx42.a

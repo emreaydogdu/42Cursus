@@ -70,6 +70,7 @@ void	ft_map_parse(char *file, t_map *m);
 void	ft_print_map(t_map m);
 
 void	keyhook(mlx_key_data_t keydata, void *param);
+void	ft_close_hook(void *param);
 
 void	draw_water(t_map *m);
 void	draw_land(t_map *m);

@@ -20,8 +20,8 @@ static void	check_end(t_map *m)
 		if (m->player->instances[0].x == m->end1->instances[0].x && \
 			m->player->instances[0].y == m->end1->instances[0].y)
 		{
-			free_mem(m);
-			mlx_close_window(m->window);
+			mlx_terminate(m->window);
+			exit(EXIT_SUCCESS);
 		}
 	}
 }
@@ -66,8 +66,10 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	player = m->player->instances[0];
 	if (mlx_is_key_down(m->window, (MLX_KEY_ESCAPE)))
 	{
-		free_mem(m);
-		mlx_close_window(m->window);
+		
+		mlx_terminate(m->window);
+		exit(EXIT_SUCCESS);
+		return ;
 	}
 	if (mlx_is_key_down(m->window, MLX_KEY_UP))
 		hook_move(player.x, player.y - 32, m);
@@ -77,4 +79,12 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		hook_move(player.x + 32, player.y, m);
 	else if (mlx_is_key_down(m->window, MLX_KEY_LEFT))
 		hook_move(player.x - 32, player.y, m);
+}
+
+void	ft_close_hook(void *param)
+{
+	t_map	*m;
+
+	m = param;
+	free_mem(m);
 }

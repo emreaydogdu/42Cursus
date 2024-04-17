@@ -15,8 +15,8 @@ void	free_mem(t_map *m)
 {
 	int	i;
 
-	i = m->height - 1;
-	while (i-- >= 0)
+	i = - 1;
+	while (++i < m->height)
 	{
 		free(m->map[i]);
 		free(m->mapcpy[i]);
@@ -79,13 +79,8 @@ void	draw_game(t_map *m)
 	mlx_image_to_window(m->window, m->player, pos_p.x, pos_p.y);
 }
 
-t_map	*init_map(void)
+t_map	*init_map(t_map *m)
 {
-	t_map	*m;
-
-	m = malloc(sizeof(t_map));
-	if (!m)
-		exit(EXIT_FAILURE);
 	m->map = NULL;
 	m->mapcpy = NULL;
 	m->window = NULL;
@@ -109,19 +104,20 @@ t_map	*init_map(void)
 
 int	main(int argc, char **argv)
 {
-	t_map	*m;
+	t_map	m;
 
 	if (argc != 2)
 		ft_error(ERR_ARGS);
-	m = init_map();
-	ft_map_parse(argv[1], m);
-	m->window = mlx_init(m->width * 32 + 64, m->height * 32 + 64, \
+	init_map(&m);
+	ft_map_parse(argv[1], &m);
+	m.window = mlx_init(m.width * 32 + 64, m.height * 32 + 64, \
 		"so_long", false);
-	draw_water(m);
-	draw_land(m);
-	parse_textures(m);
-	draw_game(m);
-	mlx_key_hook(m->window, &keyhook, m);
-	mlx_loop(m->window);
+	draw_water(&m);
+	draw_land(&m);
+	parse_textures(&m);
+	draw_game(&m);
+	mlx_key_hook(m.window, &keyhook, &m);
+	mlx_close_hook(m.window, &ft_close_hook, &m);
+	mlx_loop(m.window);
 	return (EXIT_SUCCESS);
 }

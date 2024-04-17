@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
+#include "stdio.h"
 
 static int	file_len(const char *filename)
 {
@@ -43,7 +44,7 @@ char	*ft_file_read(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	ret = malloc((file_len(filename) + 1) * sizeof(char));
+	ret = (char *)malloc((file_len(filename) + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
 	idx = 0;

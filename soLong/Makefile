@@ -17,7 +17,7 @@ $(LIBFT):
 
 $(MLX):
 	@echo "Make MLX Library"
-	@make -s -C ./MLX42/build
+	@cd MLX42 && cmake -B build && make -s -C build
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@echo "Make so_long"

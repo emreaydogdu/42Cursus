@@ -11,21 +11,52 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
+void	draw_place(t_map *m, int x, int y, char *path)
+{
+	mlx_texture_t	*texture;
+	mlx_image_t		*img;
+
+	texture = mlx_load_png(path);
+	img = mlx_texture_to_image(m->window, texture);
+	mlx_resize_image(img, img->width * 2, img->height * 2);
+	mlx_image_to_window(m->window, img, x, y);
+	mlx_delete_texture(texture);
+}
+
+void	draw_line(t_map *m, int y, char *path, char *path2, char *path3)
+{
+	mlx_texture_t	*texture;
+	mlx_image_t		*img;
+	int				x;
+
+	x = 1;
+	while (x <= m->width)
+	{
+		if (x == 1)
+			texture = mlx_load_png(path);
+		else if (x == m->width)
+			texture = mlx_load_png(path3);
+		else
+			texture = mlx_load_png(path2);
+		img = mlx_texture_to_image(m->window, texture);
+		mlx_resize_image(img, img->width * 2, img->height * 2);
+		mlx_image_to_window(m->window, img, x * 32, y * 32);
+		mlx_delete_texture(texture);
+		x++;
+	}
+}
+
 void	draw_water(t_map *m)
 {
 	int	y;
 	int	x;
 
-	y = 0;
-	while (y <= m->height + 1)
+	y = -1;
+	while (++y <= m->height + 1)
 	{
-		x = 0;
-		while (x <= m->width + 1)
-		{
+		x = -1;
+		while (++x <= m->width + 1)
 			draw_place(m, x * 32, y * 32, "./src/water.png");
-			x++;
-		}
-		y++;
 	}
 }
 
@@ -58,57 +89,28 @@ void	draw_land(t_map *m)
 	}
 }
 
-void	draw_obstacle(t_map *m)
+void	draw_wall(int x, int y, t_map *m)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	while (++y < m->height - 1)
-	{
-		x = 0;
-		while (++x < m->width - 1)
-		{
-			if (m->map[y][x] == '1')
-			{
-				if (x % 2 == 0 && y % 2 == 0)
-					draw_place(m, (x + 1) * 32, (y + 1) * 32, "./src/o2.png");
-				else if (x % 2 == 0 && y % 2 == 1)
-					draw_place(m, (x + 1) * 32, (y + 1) * 32, "./src/o1.png");
-				else if (x % 2 == 1 && y % 2 == 1)
-					draw_place(m, (x + 1) * 32, (y + 1) * 32, "./src/o4.png");
-				else
-					draw_place(m, (x + 1) * 32, (y + 1) * 32, "./src/o3.png");
-			}
-		}
-	}
-}
-
-void	draw_player(t_map *m)
-{
-	int				x;
-	int				y;
 	mlx_texture_t	*texture;
 
-	y = 0;
-	while (++y < m->height - 1)
-	{
-		x = 0;
-		while (++x < m->width - 1)
-		{
-			if (m->map[y][x] == 'P')
-			{
-				texture = mlx_load_png("./src/p2.png");
-				m->player = mlx_texture_to_image(m->window, texture);
-				mlx_resize_image(m->player, \
-				m->player->width * 2, m->player->height * 2);
-				mlx_image_to_window(m->window, \
-				m->player, (x + 1) * 32, (y + 1) * 32);
-				m->pos = (t_pos){x, y};
-				m->map[y][x] = '0';
-				mlx_delete_texture(texture);
-				return ;
-			}
-		}
-	}
+	texture = mlx_load_png("./src/o1.png");
+	m->wall1 = mlx_texture_to_image(m->window, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./src/o2.png");
+	m->wall2 = mlx_texture_to_image(m->window, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./src/o3.png");
+	m->wall3 = mlx_texture_to_image(m->window, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./src/o4.png");
+	m->wall4 = mlx_texture_to_image(m->window, texture);
+	mlx_delete_texture(texture);
+	if (x / 32 % 2 == 0 && y / 32 % 2 == 0)
+		mlx_image_to_window(m->window, m->wall1, x, y);
+	else if (x / 32 % 2 == 0 && y / 32 % 2 == 1)
+		mlx_image_to_window(m->window, m->wall2, x, y);
+	else if (x / 32 % 2 == 1 && y / 32 % 2 == 1)
+		mlx_image_to_window(m->window, m->wall3, x, y);
+	else
+		mlx_image_to_window(m->window, m->wall4, x, y);
 }

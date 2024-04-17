@@ -12,23 +12,30 @@
 #ifndef FDF_H
 # define FDF_H
 
+# include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
-# include <unistd.h>
 # include <sys/fcntl.h>
 # include <stdbool.h>
 # include <math.h>
 # include "MLX42/include/MLX42/MLX42.h"
 # include "libft/libft.h"
-# include "getNextLine/get_next_line.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	10
-# endif
 # define ERR_ARGS	"Wrong number of arguments. Only the map path is required."
+# define ERR_FILE	"File doesn't exist."
+# define ERR_FILEXT	"File has wrong extension. Should be '.ber'"
+# define ERR_RECT	"The Map is not rectangular."
+# define ERR_CHAR	"The Map contains invalid characters."
+# define ERR_PATH	"The Map has no valid path."
+# define ERR_NOE	"The Map has no exit."
+# define ERR_NOP	"The Map has no player."
+# define ERR_NOC	"The Map has no collectible."
+# define ERR_DUE	"The Map has duplicate exit."
+# define ERR_DUP	"The Map has duplicate player."
+# define ERR_WALL	"The Map is not surrounded by walls."
 
 typedef struct s_pos
 {
@@ -37,60 +44,40 @@ typedef struct s_pos
 
 }	t_pos;
 
-typedef struct s_col
-{
-	int			x;
-	int			y;
-	mlx_image_t	*col;
-
-}	t_col;
-
-typedef struct s_end
-{
-	t_pos		pos;
-	mlx_image_t	*img;
-
-}	t_end;
-
 typedef struct s_map
 {
+	mlx_t		*window;
 	int			moves;
 	int			width;
 	int			height;
 	char		**map;
 	char		**mapcpy;
-	mlx_t		*window;
-	t_pos		pos;
-	mlx_image_t	*player;
-	t_col		**collections;
-	t_end 		*end;
-	t_end 		*end2;
 	int			pcount;
 	int			ccount;
 	int			ecount;
 	int			collected;
+	mlx_image_t *collectibles;
+	mlx_image_t	*player;
+	mlx_image_t	*end1;
+	mlx_image_t	*end2;
+	mlx_image_t	*wall1;
+	mlx_image_t	*wall2;
+	mlx_image_t	*wall3;
+	mlx_image_t	*wall4;
 }	t_map;
 
-void	ft_map_check(char *file, t_map *m);
 void	ft_map_parse(char *file, t_map *m);
 void	ft_print_map(t_map m);
 
 void	keyhook(mlx_key_data_t keydata, void *param);
-void	hook_up_h(t_map *m);
-void	hook_down_h(t_map *m);
-void	hook_left_h(t_map *m);
-void	hook_right_h(t_map *m);
-void	find_collectibles(int x, int y, t_map *m);
 
 void	draw_water(t_map *m);
 void	draw_land(t_map *m);
-void	draw_obstacle(t_map *m);
-void	draw_end(t_map *m);
-void	draw_collect(t_map *m);
-void	draw_player(t_map *m);
-void	draw_place(t_map *m, int x, int y, char *path);
-void	draw_line(t_map *m, int y, char *path, char *path2, char *path3);
+void	draw_wall(int x, int y, t_map *m);
 
-void	ft_error(char *msg, t_map *m);
+void	ft_error(char *msg);
+void	check_file(char *path);
+void	check_rectangle(t_map *m);
+void	check_chars(t_map *m);
 void	free_mem(t_map *m);
 #endif

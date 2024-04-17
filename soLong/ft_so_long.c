@@ -15,58 +15,113 @@ void	free_mem(t_map *m)
 {
 	int	i;
 
-	free(m->end);
-	free(m->end2);
-	i = 0;
-	while (i < m->collected)
-		free(m->collections[i++]);
-	free(m->collections);
-
 	i = m->height - 1;
-	while (i-- > 0)
+	while (i-- >= 0)
 	{
 		free(m->map[i]);
 		free(m->mapcpy[i]);
 	}
 	free(m->map);
 	free(m->mapcpy);
+	//free(m);
 }
 
-int	main(int argc, char **argv)
+void	parse_textures(t_map *m)
 {
-	t_map		*m;
+	mlx_texture_t	*texture;
 
-	if (argc != 2)
-		ft_error(ERR_ARGS, NULL);
+	texture = mlx_load_png("./src/p2.png");
+	m->player = mlx_texture_to_image(m->window, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./src/collect.png");
+	m->collectibles = mlx_texture_to_image(m->window, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./src/end1.png");
+	m->end1 = mlx_texture_to_image(m->window, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./src/end2.png");
+	m->end2 = mlx_texture_to_image(m->window, texture);
+	mlx_delete_texture(texture);
+}
+
+void	draw_game(t_map *m)
+{
+	int		x;
+	int		y;
+	t_pos	pos_p;
+	t_pos	pos;
+
+	y = 0;
+	while (++y < m->height - 1)
+	{
+		x = 0;
+		while (++x < m->width - 1)
+		{
+			pos = (t_pos){(x + 1) * 32, (y + 1) * 32};
+			if (m->map[y][x] == 'P')
+			{
+				m->map[y][x] = '0';
+				pos_p = (t_pos){(x + 1) * 32, (y + 1) * 32};
+			}
+			if (m->map[y][x] == 'C')
+				mlx_image_to_window(m->window, m->collectibles, pos.x, pos.y);
+			if (m->map[y][x] == '1')
+				draw_wall(pos.x, pos.y, m);
+			if (m->map[y][x] == 'E')
+				mlx_image_to_window(m->window, m->end1, pos.x, pos.y);
+			if (m->map[y][x] == 'E')
+			{
+				mlx_image_to_window(m->window, m->end2, pos.x, pos.y);
+				m->end2->instances[0].enabled = false;
+			}
+		}
+	}
+	mlx_image_to_window(m->window, m->player, pos_p.x, pos_p.y);
+}
+
+t_map	*init_map(void)
+{
+	t_map	*m;
+
 	m = malloc(sizeof(t_map));
+	if (!m)
+		exit(EXIT_FAILURE);
+	m->map = NULL;
+	m->mapcpy = NULL;
+	m->window = NULL;
+	m->player = NULL;
+	m->collectibles = NULL;
+	m->end1 = NULL;
+	m->end2 = NULL;
+	m->wall1 = NULL;
+	m->wall2 = NULL;
+	m->wall3 = NULL;
+	m->wall4 = NULL;
+	m->collected = 0;
 	m->ccount = 0;
 	m->pcount = 0;
 	m->ecount = 0;
 	m->moves = 0;
 	m->width = 0;
 	m->height = 0;
-	m->map = NULL;
-	m->mapcpy = NULL;
-	m->end = NULL;
-	m->end2 = NULL;
-	m->window = NULL;
-	//m->collections = NULL;
-	m->player = NULL;
-	m->collected = 0;
-	//m->pos = NULL;
-	if (!m)
-		exit(EXIT_FAILURE);
-	ft_map_check(argv[1], m);
+	return (m);
+}
+
+int	main(int argc, char **argv)
+{
+	t_map	*m;
+
+	if (argc != 2)
+		ft_error(ERR_ARGS);
+	m = init_map();
+	ft_map_parse(argv[1], m);
 	m->window = mlx_init(m->width * 32 + 64, m->height * 32 + 64, \
 		"so_long", false);
 	draw_water(m);
 	draw_land(m);
-	draw_obstacle(m);
-	draw_end(m);
-	draw_collect(m);
-	draw_player(m);
+	parse_textures(m);
+	draw_game(m);
 	mlx_key_hook(m->window, &keyhook, m);
 	mlx_loop(m->window);
-	mlx_terminate(m->window);
 	return (EXIT_SUCCESS);
 }

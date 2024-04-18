@@ -100,7 +100,6 @@ void	ft_map_parse(char *file, t_map *m)
 	if (fd < 0)
 		return ;
 	str = ft_readf(fd, amount, m);
-	printf("%s %d", str, m->height);
 	m->map = ft_split(str, '\n');
 	m->mapcpy = ft_split(str, '\n');
 	m->width = ft_strlen(m->map[0]);

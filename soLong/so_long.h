@@ -45,6 +45,20 @@ typedef struct s_pos
 
 }	t_pos;
 
+typedef struct s_land
+{
+	mlx_image_t	*lb;
+	mlx_image_t	*lbl;
+	mlx_image_t	*lbr;
+	mlx_image_t	*ll;
+	mlx_image_t	*lm;
+	mlx_image_t	*lr;
+	mlx_image_t	*lt;
+	mlx_image_t	*ltl;
+	mlx_image_t	*ltr;
+
+}	t_land;
+
 typedef struct s_map
 {
 	mlx_t		*window;
@@ -59,12 +73,14 @@ typedef struct s_map
 	int			collected;
 	mlx_image_t	*collectibles;
 	mlx_image_t	*player;
+	mlx_image_t	player2;
 	mlx_image_t	*end1;
 	mlx_image_t	*end2;
 	mlx_image_t	*wall1;
 	mlx_image_t	*wall2;
 	mlx_image_t	*wall3;
 	mlx_image_t	*wall4;
+	t_land		land;
 }	t_map;
 
 void	ft_map_parse(char *file, t_map *m);

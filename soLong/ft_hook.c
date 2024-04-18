@@ -22,6 +22,7 @@ static void	check_end(t_map *m)
 		{
 			mlx_terminate(m->window);
 			exit(EXIT_SUCCESS);
+			return ;
 		}
 	}
 }
@@ -86,5 +87,6 @@ void	ft_close_hook(void *param)
 	t_map	*m;
 
 	m = param;
-	free_mem(m);
+	printf("Closing Program\n");
+	//free_mem(m);
 }

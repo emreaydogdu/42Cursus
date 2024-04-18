@@ -21,8 +21,7 @@ void	free_mem(t_map *m)
 	}
 	free(m->map);
 	free(m->mapcpy);
-	//free(m->window);
-	//free(m);
+	free(m->player);
 }
 
 void	parse_textures(t_map *m)
@@ -117,5 +116,6 @@ int	main(int argc, char **argv)
 	mlx_key_hook(m.window, &keyhook, &m);
 	mlx_close_hook(m.window, &ft_close_hook, &m);
 	mlx_loop(m.window);
+	
 	return (EXIT_SUCCESS);
 }

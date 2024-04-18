@@ -27,8 +27,8 @@
 # include <time.h>
 # include <stdbool.h>
 # include <limits.h>
-# include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
+# include "libft/libft.h"
+# include "minilibx-linux/mlx.h"
 
 /****************************************************************************/
 /*                               DEFINES                                    */
@@ -53,6 +53,8 @@
 				 Increase Cs (Julia): k\n\
 				 Decrease Cs (Julia): l\n\
 				 Exit: esc\n"
+
+#define ERR_ARGS "Error: missing argument!"
 
 # define BASE_COLOR 265
 # define C_STEP 0.001
@@ -115,17 +117,16 @@ float	ft_strtof(const char *str);
 /****************************************************************************/
 /*                               UTILS.C                                    */
 /****************************************************************************/
-void	frac_init(t_fractal *fractal, char *title, int flag);
+void	frac_init(t_fractal *fractal, int flag);
 int		killall_free(t_fractal *fractal);
-int		check_valid(char *arg);
 int		check_args(int argc, char **argv);
 void	random_double(t_fractal *fractal);
+void	ft_error(char *msg, int ins);
 
 /****************************************************************************/
 /*                               KEY_HOOKS.C                                */
 /****************************************************************************/
 int		key_hook(int keycode, t_fractal *fractal);
-void	key_hook2(int keycode, t_fractal *fractal);
 void	key_hook3(int keycode, t_fractal *fractal);
 void	key_hook4(int keycode, t_fractal *fractal);
 void	key_hook5(int keycode, t_fractal *fractal);
@@ -140,9 +141,8 @@ int		mouse_hook(int button, int x, int y, t_fractal *fractal);
 /****************************************************************************/
 void	draw_fractal(t_fractal *fractal);
 void	my_mlx_pixel_put(t_fractal *data, int x, int y, int color);
-void	draw_infos(t_fractal *fractal);
+void	draw_menu(t_fractal *fractal);
 void	draw_commands_and_infos(t_fractal *fractal);
-void	draw_commands_and_infos2(t_fractal *fractal);
 
 /****************************************************************************/
 /*                               MANDELBROT.C                               */
@@ -157,17 +157,5 @@ void	calculate_julia(t_fractal *fractal);
 void	*draw_julia(t_fractal *fractal);
 int		julia_hook(int keycode, t_fractal *fractal);
 void	reset_julia(t_fractal *fractal);
-
-/****************************************************************************/
-/*                               BURNINGSHIP.C                              */
-/****************************************************************************/
-void	calculate_burningship(t_fractal *fractal);
-void	*draw_burningship(void *frac_void);
-
-/****************************************************************************/
-/*                               TRICORN.C                                  */
-/****************************************************************************/
-void	calculate_tricorn(t_fractal *fractal);
-void	*draw_tricorn(void *frac_void);
 
 #endif

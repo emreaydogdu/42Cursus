@@ -10,69 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fractol.h"
+#include "../fractol.h"
 
 int	key_hook(int keycode, t_fractal *fractal)
 {
-	ft_printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	if (keycode == ESC)
-	{
-		ft_printf("ESC pressed!\n");
 		killall_free(fractal);
-	}
 	else if (keycode == LEFT)
-	{
 		fractal->offset_x -= 42 / fractal->zoom;
-		ft_printf("Shifted left!\n");
-	}
 	else if (keycode == RIGHT)
-	{
 		fractal->offset_x += 42 / fractal->zoom;
-		ft_printf("Shifted right!\n");
-	}
 	else if (keycode == UP)
-	{
 		fractal->offset_y -= 42 / fractal->zoom;
-		ft_printf("Shifted up!\n");
-	}
-	key_hook2(keycode, fractal);
-	draw_fractal(fractal);
-	ft_printf("%s", COMMANDS);
-	return (0);
-}
-
-void	key_hook2(int keycode, t_fractal *fractal)
-{
-	if (keycode == DOWN)
-	{
+	else if (keycode == DOWN)
 		fractal->offset_y += 42 / fractal->zoom;
-		ft_printf("Shifted down!\n");
-	}
 	else if (keycode == PLUS)
-	{
 		fractal->zoom *= 1.1;
-		ft_printf("Zoomed in!\n");
-	}
 	else if (keycode == MINUS)
-	{
 		fractal->zoom /= 1.1;
-		ft_printf("Zoomed out!\n");
-	}
 	else if (keycode == SPACE)
-	{
 		fractal->max_iter += 10;
-		ft_printf("Increased max iterations!\n");
-	}
 	key_hook3(keycode, fractal);
+	draw_fractal(fractal);
+	return (0);
 }
 
 void	key_hook3(int keycode, t_fractal *fractal)
 {
 	if (keycode == BACKSPACE)
-	{
 		fractal->max_iter -= 10;
-		ft_printf("Decreased max iterations!\n");
-	}
 	else if (keycode == R)
 	{
 		fractal->color += fractal->color_shift_step;
@@ -135,9 +101,4 @@ void	key_hook5(int keycode, t_fractal *fractal)
 	}
 	else if (fractal->flag == 2)
 		julia_hook(keycode, fractal);
-	else
-	{
-		if (keycode != ENTER)
-			ft_printf("Unmapped key: %d\n%s\n", keycode, COMMANDS);
-	}
 }

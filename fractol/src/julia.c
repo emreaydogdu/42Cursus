@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fractol.h"
+#include "../fractol.h"
 
 void	calculate_julia(t_fractal *fractal)
 {

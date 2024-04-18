@@ -9,8 +9,7 @@
 /*   Updated: 2023/12/06 13:44:28 by fzucconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../inc/fractol.h"
+#include "../fractol.h"
 
 int	main(int argc, char **argv)
 {
@@ -21,9 +20,8 @@ int	main(int argc, char **argv)
 	fractal = malloc(sizeof(t_fractal));
 	if (!fractal)
 		return (-1);
-	ft_printf("Fractal Allocated.\n");
-	frac_init(fractal, "Fractol", flag);
-	if (flag == 2)
+	frac_init(fractal, flag);
+	if (fractal->flag == 2)
 	{
 		if (argc == 5)
 		{

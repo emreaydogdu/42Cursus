@@ -6,15 +6,14 @@ RM = rm -f
 AR = ar rcs
 DIR_OBJ = obj
 DIR_SRC = src
-SOURCES = burningship.c \
-          draw.c \
+SOURCES = draw.c \
           julia.c \
           key_hooks.c \
 		  main.c \
 		  mandelbrot.c \
 		  mouse_hooks.c \
 		  utils.c \
-		  tricorn.c
+		  error.c
 LIBFT = libft
 MINLIBX = minilibx-linux
 HEADER = inc

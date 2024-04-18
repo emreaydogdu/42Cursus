@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <emaydogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:26:01 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/12/06 17:08:55 by fzucconi         ###   ########.fr       */
+/*   Created: 2024/04/18 17:09:11 by emaydogd          #+#    #+#             */
+/*   Updated: 2024/04/18 17:16:27 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	calculate_mandelbrot(t_fractal *fractal)
 	fractal->z_y = 0.0;
 	fractal->c_x = (fractal->x / fractal->zoom) + fractal->offset_x;
 	fractal->c_y = (fractal->y / fractal->zoom) + fractal->offset_y;
-	while (++i < fractal->max_iter && (fractal->z_x
-			* fractal->z_x + fractal->z_y * fractal->z_y) < 4)
+	while (++i < fractal->max_iter && \
+		(fractal->z_x * fractal->z_x + fractal->z_y * fractal->z_y) < 4)
 	{
-		x_tmp = fractal->z_x * fractal->z_x - fractal->z_y
-			* fractal->z_y + fractal->c_x;
+		x_tmp = fractal->z_x * fractal->z_x \
+			- fractal->z_y * fractal->z_y + fractal->c_x;
 		fractal->z_y = 2.0 * fractal->z_x * fractal->z_y + fractal->c_y;
 		fractal->z_x = x_tmp;
 	}
@@ -42,8 +42,8 @@ void	*draw_mandelbrot(void *frac_void)
 	t_fractal	*fractal;
 
 	fractal = (t_fractal *)frac_void;
-	fractal->x = 0;
-	while (fractal->x < WIDTH)
+	fractal->x = -1;
+	while (++fractal->x < WIDTH)
 	{
 		fractal->y = 0;
 		while (fractal->y < HEIGHT)
@@ -51,7 +51,6 @@ void	*draw_mandelbrot(void *frac_void)
 			calculate_mandelbrot(fractal);
 			fractal->y++;
 		}
-		fractal->x++;
 	}
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
 	draw_commands_and_infos(fractal);

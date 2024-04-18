@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <emaydogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:25:56 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/12/06 13:44:28 by fzucconi         ###   ########.fr       */
+/*   Created: 2024/04/18 17:08:32 by emaydogd          #+#    #+#             */
+/*   Updated: 2024/04/18 17:12:17 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../fractol.h"
 
 int	main(int argc, char **argv)

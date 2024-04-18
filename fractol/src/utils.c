@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <emaydogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:26:09 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/12/06 13:38:00 by fzucconi         ###   ########.fr       */
+/*   Created: 2024/04/18 17:09:28 by emaydogd          #+#    #+#             */
+/*   Updated: 2024/04/18 17:11:14 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../fractol.h"
 
 int	check_args(int argc, char **argv)

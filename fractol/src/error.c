@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-void	ft_error(char *msg, int ins)
+void	pr_error(char *msg, int ins)
 {
 	ft_printf("%s\n", msg);
 	if (ins)

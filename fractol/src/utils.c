@@ -18,9 +18,9 @@ int	check_args(int argc, char **argv)
 
 	valid = 0;
 	if (argc < 2)
-		ft_error(ERR_ARGS, 1);
+		pr_error(ERR_ARGS, 1);
 	if (!ft_strncmp(argv[1], "--help\0", 7) || !ft_strncmp(argv[1], "-h\0", 3))
-		ft_error(INSTRUCTIONS, 0);
+		pr_error(INSTRUCTIONS, 0);
 	else if (!ft_strncmp(argv[1], "--mandelbrot\0", 13) \
 		|| !ft_strncmp(argv[1], "-m\0", 3))
 		valid = 1;
@@ -28,7 +28,7 @@ int	check_args(int argc, char **argv)
 		|| !ft_strncmp(argv[1], "-j\0", 3))
 		valid = 2;
 	else
-		ft_error(ERR_ARGS, 1);
+		pr_error(ERR_ARGS, 1);
 	return (valid);
 }
 

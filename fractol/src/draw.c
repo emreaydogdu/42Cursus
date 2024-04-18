@@ -20,7 +20,7 @@ void	draw_fractal(t_fractal *frac)
 		draw_julia(frac);
 }
 
-void	my_mlx_pixel_put(t_fractal *data, int x, int y, int color)
+void	put_pixel(t_fractal *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -28,7 +28,7 @@ void	my_mlx_pixel_put(t_fractal *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_menu(t_fractal *fractal)
+static void	draw_iter(t_fractal *fractal)
 {
 	char	*str;
 
@@ -39,9 +39,9 @@ void	draw_menu(t_fractal *fractal)
 	free(str);
 }
 
-void	draw_commands_and_infos(t_fractal *fractal)
+void	draw_infos(t_fractal *fractal)
 {
-	draw_menu(fractal);
+	draw_iter(fractal);
 	mlx_string_put(fractal->mlx, fractal->win, 20, 40, 0x00FFFFFF, "Commands:");
 	mlx_string_put(fractal->mlx, fractal->win, 20, 60, 0x00FFFFFF,
 		"Exit: ESC");

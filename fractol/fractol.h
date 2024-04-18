@@ -110,50 +110,23 @@ typedef struct s_fractal
 	int		color_shift_step;
 }	t_fractal;
 
-/****************************************************************************/
-/*                               PROTOTYPES                                 */
-/****************************************************************************/
-float	ft_strtof(const char *str);
-/****************************************************************************/
-/*                               UTILS.C                                    */
-/****************************************************************************/
 void	frac_init(t_fractal *fractal, int flag);
 int		killall_free(t_fractal *fractal);
 int		check_args(int argc, char **argv);
 void	random_double(t_fractal *fractal);
-void	ft_error(char *msg, int ins);
+void	pr_error(char *msg, int ins);
 
-/****************************************************************************/
-/*                               KEY_HOOKS.C                                */
-/****************************************************************************/
 int		key_hook(int keycode, t_fractal *fractal);
 void	key_hook3(int keycode, t_fractal *fractal);
 void	key_hook4(int keycode, t_fractal *fractal);
 void	key_hook5(int keycode, t_fractal *fractal);
-
-/****************************************************************************/
-/*                               MOUSE_HOOKS.C                              */
-/****************************************************************************/
 int		mouse_hook(int button, int x, int y, t_fractal *fractal);
 
-/****************************************************************************/
-/*		                          DRAW.C                                    */
-/****************************************************************************/
 void	draw_fractal(t_fractal *fractal);
-void	my_mlx_pixel_put(t_fractal *data, int x, int y, int color);
-void	draw_menu(t_fractal *fractal);
-void	draw_commands_and_infos(t_fractal *fractal);
+void	draw_infos(t_fractal *fractal);
+void	put_pixel(t_fractal *data, int x, int y, int color);
 
-/****************************************************************************/
-/*                               MANDELBROT.C                               */
-/****************************************************************************/
-void	calculate_mandelbrot(t_fractal *fractal);
 void	*draw_mandelbrot(void *frac_void);
-
-/****************************************************************************/
-/*                               JULIA.C                                    */
-/****************************************************************************/
-void	calculate_julia(t_fractal *fractal);
 void	*draw_julia(t_fractal *fractal);
 int		julia_hook(int keycode, t_fractal *fractal);
 void	reset_julia(t_fractal *fractal);

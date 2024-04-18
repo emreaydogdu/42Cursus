@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-void	calculate_mandelbrot(t_fractal *fractal)
+static void	calculate_mandelbrot(t_fractal *fractal)
 {
 	int		i;
 	double	x_tmp;
@@ -32,9 +32,9 @@ void	calculate_mandelbrot(t_fractal *fractal)
 		fractal->z_x = x_tmp;
 	}
 	if (i == fractal->max_iter)
-		my_mlx_pixel_put(fractal, fractal->x, fractal->y, 0x000000);
+		put_pixel(fractal, fractal->x, fractal->y, 0x000000);
 	else
-		my_mlx_pixel_put(fractal, fractal->x, fractal->y, (i * fractal->color));
+		put_pixel(fractal, fractal->x, fractal->y, (i * fractal->color));
 }
 
 void	*draw_mandelbrot(void *frac_void)
@@ -53,6 +53,6 @@ void	*draw_mandelbrot(void *frac_void)
 		}
 	}
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
-	draw_commands_and_infos(fractal);
+	draw_infos(fractal);
 	return (NULL);
 }

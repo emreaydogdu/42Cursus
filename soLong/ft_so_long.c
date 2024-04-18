@@ -13,27 +13,16 @@
 
 void	free_mem(t_map *m)
 {
-	int	i;
-
-	i = 0;
-	while (i <= m->height)
-	{	
+	int i = -1;
+	while (++i < m->height)
+	{
 		free(m->map[i]);
 		free(m->mapcpy[i]);
-		i++;
 	}
 	free(m->map);
 	free(m->mapcpy);
-	mlx_delete_image(m->window ,m->player);
-	mlx_delete_image(m->window ,m->collectibles);
-	mlx_delete_image(m->window ,m->end1);
-	mlx_delete_image(m->window ,m->end2);
-	mlx_delete_image(m->window ,m->wall1);
-	mlx_delete_image(m->window ,m->wall2);
-	mlx_delete_image(m->window ,m->wall3);
-	mlx_delete_image(m->window ,m->wall4);
-	free(m->window);
-	free(m);
+	//free(m->window);
+	//free(m);
 }
 
 void	parse_textures(t_map *m)
@@ -119,10 +108,10 @@ int	main(int argc, char **argv)
 		ft_error(ERR_ARGS);
 	init_map(&m);
 	ft_map_parse(argv[1], &m);
-	m.window = mlx_init(m.width * 32 + 64, m.height * 32 + 64, \
-		"so_long", false);
-	//draw_water(&m);
-	//draw_land(&m);
+	m.window = mlx_init(m.width * 32 + 64, m.height * 32 + 64,"so_long", false);
+	//mlx_set_setting(MLX_STRETCH_IMAGE, 1);
+	draw_water(&m);
+	draw_land(&m);
 	parse_textures(&m);
 	draw_game(&m);
 	mlx_key_hook(m.window, &keyhook, &m);

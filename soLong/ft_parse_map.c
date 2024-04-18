@@ -48,19 +48,63 @@ static void	check_path(t_map *m)
 	}
 }
 
+static int	get_wh(const char *filename)
+{
+	int		fd;
+	int		len;
+	int		size_read;
+	char	buffer[BUFFER_SIZE];
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	len = 0;
+	while (1)
+	{
+		size_read = read(fd, buffer, BUFFER_SIZE);
+		if (!size_read)
+			break ;
+		len += size_read;
+	}
+	close(fd);
+	return (len);
+}
+
+static char	*ft_readf(int fd, int count, t_map *m)
+{
+	char *str;
+	char	buffer[1];
+	ssize_t	i;
+
+	str = malloc(sizeof(char) * count + 1);
+	i = 0;
+	while (read(fd, buffer, 1))
+	{
+		if (*buffer == '\n')
+			m->height++;
+		str[i++] = *buffer;
+	}
+	m->height++;
+	str[i] = '\0';
+	return (str);
+}
+
 void	ft_map_parse(char *file, t_map *m)
 {
 	char *str;
+	int	fd;
 
 	check_file(file);
-	str = ft_file_read(file);
-	if (!str)
-		ft_error(ERR_FILE);
+	int	amount =  get_wh(file);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return ;
+	str = ft_readf(fd, amount, m);
+	printf("%s %d", str, m->height);
 	m->map = ft_split(str, '\n');
 	m->mapcpy = ft_split(str, '\n');
-	free(str);
 	m->width = ft_strlen(m->map[0]);
-	m->height = ft_arrlen(m->map);
+	free(str);
 	check_rectangle(m);
 	check_chars(m);
 	check_path(m);

@@ -1,5 +1,5 @@
 NAME = so_long
-SRC = ft_so_long.c ft_parse_map.c ft_draw_map.c ft_hook.c ft_error.c
+SRC = ft_so_long.c ft_parse_map.c ft_draw_map.c ft_hook.c ft_error.c getNextLine/get_next_line.c getNextLine/get_next_line_utils.c
 OBJS = ${SRC:.c=.o}
 CC = cc
 CFLAGS = -Wall -g #m-Werror -Wextra

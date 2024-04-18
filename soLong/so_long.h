@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include "MLX42/include/MLX42/MLX42.h"
+# include "getNextLine/get_next_line.h"
 # include "libft/libft.h"
 
 # define ERR_ARGS	"Error\nWrong number of arguments. Map path is required."

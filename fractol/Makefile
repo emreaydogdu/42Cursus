@@ -2,6 +2,8 @@ NAME = fractol
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3
 PFLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o
+#CFLAGS = -Wall -Wextra -Werror
+#PFLAGS = -lXext -lX11 -o
 RM = rm -f -r
 DIR_OBJ = obj
 DIR_SRC = src
@@ -22,7 +24,7 @@ $(NAME): $(OBJS)
 	@make -s -C $(MINLIBX)
 	@cp $(MINLIBX)/libmlx_Linux.a .
 	@echo "Creating $(NAME)."
-	@$(CC) $(OBJS) libft.a libmlx_Linux.a $(PFLAGS) $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) libft.a libmlx_Linux.a $(PFLAGS) $(NAME)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@mkdir -p $(DIR_OBJ)
@@ -31,6 +33,7 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 clean:
 	@echo "Clear Objects"
 	@$(RM) $(DIR_OBJ)
+	@make -s -C $(LIBFT) fclean
 
 fclean: clean
 	@echo "Clear fractol"

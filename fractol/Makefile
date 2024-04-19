@@ -6,11 +6,11 @@ RM = rm -f -r
 DIR_OBJ = obj
 DIR_SRC = src
 SOURCES = main.c draw.c julia.c mandelbrot.c hooks.c utils.c error.c
+SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
+OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 LIBFT = libft
 MINLIBX = minilibx-linux
 HEADER = inc
-SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
-OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 
 all: $(NAME)
 

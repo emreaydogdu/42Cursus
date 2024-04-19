@@ -3,50 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 11:58:28 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/11/22 19:17:36 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/05/09 10:12:04 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/09 10:16:38 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
-
-static size_t	lenght(long long int n)
-{
-	size_t	counter;
-
-	counter = 0;
-	if (n == 0)
-		return (1);
-	while (n)
-	{
-		n /= 10;
-		counter++;
-	}
-	return (counter);
-}
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char					ans[12];
-	int						len;
-	long long int			buf;
+	char	c;
 
-	buf = (long long int)n;
-	if (buf < 0)
-		len = lenght(buf) + 1;
-	else
-		len = lenght(buf);
-	if (buf < 0)
-		buf *= -1;
-	ans[len--] = 0;
-	while (len >= 0)
+	if (n == -2147483648)
 	{
-		ans[len--] = (buf % 10) + '0';
-		buf /= 10;
+		write(fd, "-2147483648", ft_strlen("-2147483648"));
+		return ;
 	}
 	if (n < 0)
-		ans[0] = '-';
-	ft_putstr_fd((char *)ans, fd);
+	{
+		n *= -1;
+		write(fd, "-", 1);
+	}
+	if (n > 9)
+		ft_putnbr_fd(n / 10, fd);
+	c = n % 10 + '0';
+	write(fd, &c, 1);
 }

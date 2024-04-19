@@ -3,39 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 17:26:03 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/10/12 17:26:04 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/04/05 19:25:30 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/08 16:24:00 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	unsigned char	*ans;
-	int				i;
-	int				len_s1;
-	int				len;
+	char	*join;
+	size_t	i;
 
+	join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (join == NULL)
+		return (NULL);
 	i = 0;
-	len_s1 = ft_strlen(s1);
-	len = len_s1 + ft_strlen(s2) + 1;
-	ans = (unsigned char *)malloc(sizeof(unsigned char) * len);
-	if (!ans)
-		return (0);
-	while ((unsigned char)s1[i])
+	while (*s1 != '\0')
 	{
-		ans[i] = (unsigned char)s1[i];
+		join[i] = *s1++;
 		i++;
 	}
-	i = 0;
-	while ((unsigned char)s2[i])
+	while (*s2 != '\0')
 	{
-		ans[i + len_s1] = (unsigned char)s2[i];
+		join[i] = *s2++;
 		i++;
 	}
-	ans[len_s1 + i] = '\0';
-	return ((char *)ans);
+	join[i] = '\0';
+	return (join);
 }
+/*
+#include <stdio.h>
+int	main(void)
+{
+	char **strs = malloc(sizeof(int)*2);
+	strs[0] = "Hello";
+	strs[1] = "World";
+	char *res = ft_strjoin(2, strs, "-||-");
+	printf("%s", res);
+	free(strs);
+	free(res);
+	return (0);
+}
+*/

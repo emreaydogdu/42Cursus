@@ -3,89 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 13:59:14 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/12/06 13:34:04 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/05/12 11:46:24 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/26 15:33:18 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_printf.h"
 
-#include "libft.h"
-
-int	ft_print_formatted(char *format, va_list arg, int fd)
+void	ft_putarg(char type, va_list args, t_print *p)
 {
-	if (*format && *(format + 1))
+	if (type == 'c')
+		p->size += ft_putchar_f(va_arg(args, int), *p);
+	else if (type == 's')
+		p->size += ft_putstr_f(va_arg(args, const char *), *p);
+	else if (type == 'd' || type == 'i')
+		p->size += ft_putnumbr_f(va_arg(args, int), *p);
+	else if (type == 'x' || type == 'X')
+		p->size += ft_puthex_f(va_arg(args, unsigned int),
+				type == 'X', *p);
+	else if (type == 'u')
+		p->size += ft_putunumbr_f(va_arg(args, unsigned int), *p);
+	else if (type == 'p')
+		p->size += ft_putptr_f((unsigned long int) va_arg(args, void *), *p);
+	else if (type == '%')
+		p->size += ft_putchar_f('%', *p);
+}
+
+int	ft_parse_args(const char *str, int i, va_list args, t_print *p)
+{
+	while (str[++i] && ft_isflag(str[i]))
 	{
-		if (*(format + 1) == 'c')
-			return (ft_check_print_c(format, arg, fd));
-		if (*(format + 1) == 's')
-			return (ft_check_print_s(format, arg, fd));
-		if (*(format + 1) == 'd' || *(format + 1) == 'i')
-			return (ft_check_print_d_i(format, arg, fd));
-		if (*(format + 1) == 'u')
-			return (ft_check_print_u(format, arg, fd));
-		if (*(format + 1) == 'x')
-			return (ft_check_print_x(format, arg, fd));
-		if (*(format + 1) == 'X')
-			return (ft_check_print_u_x(format, arg, fd));
-		if (*(format + 1) == 'p')
-			return (ft_check_print_p(format, arg, fd));
-		if (ft_check_print_perc(format, fd))
-			return (1);
+		if (str[i] == '-')
+			ft_minus(p);
+		if (str[i] == '#')
+			p->hash = 1;
+		if (str[i] == ' ')
+			p->space = 1;
+		if (str[i] == '+')
+			p->plus = 1;
+		if (str[i] == '0' && p->minus == 0 && p->width == 0)
+			p->zero = 1;
+		if (str[i] == '.')
+			i = ft_precision(str, i, args, p);
+		if (str[i] == '*')
+			ft_width(args, p);
+		if (ft_isdigit(str[i]))
+			ft_width_num(str[i], p);
+		if (ft_istype(str[i]))
+		{
+			p->spec = (int)str[i];
+			break ;
+		}
 	}
-	return (-1);
+	return (i);
+}
+
+void	ft_parse(char *str, va_list args, t_print *p)
+{
+	int	i;
+	int	x;
+
+	i = -1;
+	while (str[++i])
+	{
+		ft_reset(p);
+		if (str[i] == '%' && str[i + 1])
+		{
+			x = ft_parse_args(str, i, args, p);
+			if (p->spec)
+				i = x;
+			if (str[i] && p->spec && ft_istype(str[i]))
+				ft_putarg(str[i], args, p);
+			else if (str[i])
+				p->size += ft_putchar(str[i]);
+		}
+		else
+			p->size += ft_putchar(str[i]);
+	}
 }
 
 int	ft_printf(const char *format, ...)
 {
-	va_list			arglist;
-	int				ret;
-	int				len;
+	va_list	args;
+	t_print	p;
+	char	*str;
 
-	len = 0;
-	va_start(arglist, format);
-	while (*format)
-	{
-		while (*format != '%' && *(format))
-		{
-			write(1, format++, 1);
-			len++;
-		}
-		if (*format)
-		{
-			ret = ft_print_formatted((char *)format, arglist, 1);
-			if (ret == -1)
-				return (-1);
-			len += ret;
-			format += 2;
-		}
-	}
-	va_end(arglist);
-	return (len);
+	p.size = 0;
+	if (!format || *format == '\0')
+		return (0);
+	str = (char *)format;
+	va_start(args, format);
+	ft_parse(str, args, &p);
+	va_end(args);
+	return (p.size);
 }
 
-/* void	ft_check_equality(int b, int c)
+/*
+int	main(void)
 {
-	if (b == c)
-		printf("\nCorretto il return\n\tmio = %d\tsuo = %d\n\n", b, c);
-	else
-		printf("\nErrato il return\n\tmio = %d\tsuo = %d\n\n", b, c);
+	int	i;
+
+	i = ft_printf("|%10.5i|", -216);
+	printf("\n|%10.5i|", -216);
+	printf("\n|%10d|\n", i);
+	return (0);
 }
-int main() {
-	int a = 0;
-	int b = ft_printf("Hello, %s!", "world");
-	int c = printf("Hello, %s!", "world");
-	ft_check_equality(b, c);
-	// ft_printf("char %c", '0');
-	// ft_printf("char %c\n", '0'); 
-	// b = ft_printf("The ans%%wer is %d", -1);
-	// c = printf("The ans%%wer is %d", -1);
-	// ft_check_equality(b, c); 
-	// b = ft_printf("MIO hexa min = %x\thexa upper = %X\n", LONG_MIN, -11);
-	// c = printf("SUO hexa min = %x\thexa upper = %X\n",LONG_MIN, -11);
-	// ft_check_equality(b, c);
-	b = ft_printf("mio pointer = %p\t%p", LONG_MIN, LONG_MAX);
-	c = printf("suo pointer = %p\t%p", LONG_MIN, LONG_MAX);
-	ft_check_equality(b, c); 
-	return 0;
-}  */
+*/

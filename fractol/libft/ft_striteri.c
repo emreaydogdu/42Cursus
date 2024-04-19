@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 19:20:03 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/10/12 19:20:04 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/05/08 17:57:39 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/08 18:16:41 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	unsigned int		index;
+	size_t	i;
 
-	if (!s || !f)
-		return ;
-	index = 0;
-	while (s[index])
-	{
-		(f)(index, s + index);
-		index++;
-	}
+	i = -1;
+	while (s[++i])
+		f(i, &s[i]);
 }

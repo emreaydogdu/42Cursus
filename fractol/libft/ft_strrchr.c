@@ -1,44 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 16:13:56 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/10/09 16:13:57 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/05/05 16:57:20 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/11 18:33:38 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-static char	*ft_endl(const char *s)
+char	*ft_strrchr(const char *s, int c)
 {
 	int	i;
 
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return ((char *)s + i);
-}
-
-char	*ft_strrchr(const char *s, int c)
-{
-	int		i;
-	char	*buf;
-
-	if (!s)
-		return (0);
-	buf = (char *)s;
-	i = ft_strlen(s) - 1;
-	if ((unsigned char)c == 0)
-		return (ft_endl(s));
-	while (i >= 0)
-	{
-		if ((unsigned char)buf[i] == (unsigned char)c)
-			return (&buf[i]);
+	i = ft_strlen(s);
+	while (i && s[i] != (unsigned char)c)
 		i--;
-	}
+	if (s[i] == (unsigned char)c)
+		return ((char *)s + i);
 	return (0);
 }

@@ -3,74 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 17:55:20 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/10/12 17:55:21 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/05/08 00:26:27 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/08 17:14:40 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
-
-static int	is_trimmmable(char to_check, char const *set)
-{
-	int	i;
-
-	i = 0;
-	while (set[i])
-		if (to_check == set[i++])
-			return (1);
-	return (0);
-}
-
-static int	trimmed_lenght(char const *s1, char const *set)
-{
-	int	len;
-	int	counter;
-	int	i;
-
-	counter = 0;
-	i = 0;
-	len = ft_strlen(s1) - 1;
-	while (is_trimmmable(s1[i], set))
-	{
-		counter++;
-		i++;
-	}
-	while (is_trimmmable(s1[len], set))
-	{
-		counter++;
-		len--;
-	}
-	if ((int)(ft_strlen(s1) - counter) <= 0)
-		return (0);
-	else
-		return (ft_strlen(s1) - counter);
-}
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int				len;
-	int				i;
-	unsigned char	*ans;
+	size_t	len;
 
-	len = trimmed_lenght(s1, set);
-	ans = (unsigned char *)malloc((sizeof(unsigned char) * (len + 1)));
-	if (!ans)
-		return (0);
-	if (len == 0)
-	{
-		ans[0] = '\0';
-		return ((char *)ans);
-	}
-	while (is_trimmmable(*s1, set))
+	if (s1 == NULL || set == NULL)
+		return (NULL);
+	while (*s1 && ft_strchr(set, *s1))
 		s1++;
-	i = 0;
-	while (i < len && s1[i])
-	{
-		ans[i] = (unsigned char)s1[i];
-		i++;
-	}
-	ans[i] = '\0';
-	return ((char *)ans);
+	len = ft_strlen(s1);
+	while (len && ft_strchr(set, s1[len]))
+		len--;
+	return (ft_substr(s1, 0, len + 1));
 }

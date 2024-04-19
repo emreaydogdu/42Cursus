@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_callocc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:51:19 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/10/09 15:51:20 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/05/08 00:26:27 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/11 11:50:12 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_callocc(size_t count, size_t size)
 {
-	void	*ret;
+	void	*dst;
 
-	ret = malloc(nmemb * size);
-	if (!ret)
-		return (0);
-	ft_bzero(ret, (nmemb * size));
-	return (ret);
+	dst = malloc(count * size);
+	if (dst == NULL)
+		return (NULL);
+	ft_bzero(dst, count * size);
+	return (dst);
 }

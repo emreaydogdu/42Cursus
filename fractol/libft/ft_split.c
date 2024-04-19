@@ -3,104 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 17:20:06 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/10/12 17:20:06 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/04/05 19:27:29 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/08 17:53:09 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-static int	is_sep(char c, char sep)
+static size_t	strcounter(char const *s, char c)
 {
-	if (c == sep)
-		return (1);
-	return (0);
-}
-
-static int	get_word_count(char const *str, char c)
-{
-	int		count;
+	size_t	count;
+	size_t	i;
 
 	count = 0;
-	while (*str)
+	i = 0;
+	while (s[i] != '\0')
 	{
-		while (*str && is_sep(*str, c))
-			str++;
-		if (*str && !is_sep(*str, c))
+		if (s[i] == c)
+			i++;
+		else
 		{
+			while (s[i] != c && s[i] != '\0')
+				i++;
 			count++;
-			while (*str && !is_sep(*str, c))
-				str++;
 		}
 	}
 	return (count);
 }
 
-static char	*get_word(char const *str, char c)
+static void	fillarr(char **arr, size_t len_arr, char const *s, char c)
 {
-	char	*word;
-	int		i;
+	size_t	i;
+	size_t	len_word;
 
 	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] && !is_sep(str[i], c))
-		i++;
-	word = (char *)malloc(sizeof(char) * (i + 1));
-	if (!word)
-		return (0);
-	i = 0;
-	while (str[i] && !is_sep(str[i], c))
+	while (i < len_arr)
 	{
-		word[i] = str[i];
+		len_word = 0;
+		while (*s == c && *s != 0)
+			s++;
+		while (s[len_word] != c && s[len_word] != '\0')
+			len_word++;
+		arr[i] = ft_substr(s, 0, len_word);
+		s += len_word;
 		i++;
 	}
-	word[i] = '\0';
-	return (word);
+	arr[i] = 0;
 }
 
-static int	check_allocation(char **words, int i)
+char	**ft_split(char const *s, char c)
 {
-	int	j;
+	size_t	len_arr;
+	char	**arr;
 
-	j = 0;
-	if (!words[i])
-	{
-		while (words[j])
-			free(words[j++]);
-		free(words);
+	if (!s)
 		return (0);
-	}
-	return (1);
-}
-
-char	**ft_split(char const *str, char c)
-{
-	int		i;
-	char	**words;
-
-	if (!str)
-		return (0);
-	i = 0;
-	words = (char **)malloc(sizeof(char *) * (get_word_count(str, c) + 1));
-	if (!words)
-		return (0);
-	while (*str)
-	{
-		while (*str && is_sep(*str, c))
-			str++;
-		if (*str && !is_sep(*str, c))
-		{
-			words[i] = get_word(str, c);
-			if (!check_allocation(words, i))
-				return (0);
-			i++;
-			while (*str && !is_sep(*str, c))
-				str++;
-		}
-	}
-	words[i] = 0;
-	return (words);
+	len_arr = strcounter(s, c);
+	arr = malloc(sizeof(char *) * (len_arr + 1));
+	if (!arr)
+		return (NULL);
+	fillarr(arr, len_arr, s, c);
+	return (arr);
 }

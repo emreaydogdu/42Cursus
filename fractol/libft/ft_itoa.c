@@ -3,53 +3,105 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 11:56:39 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/10/16 11:56:43 by fzucconi         ###   ########.fr       */
+/*   Created: 2023/05/08 17:55:00 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/08 17:55:31 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-static size_t	lenght(long long int n)
+size_t	numlen(int n)
 {
-	size_t	counter;
+	size_t	len;
 
-	counter = 0;
-	if (n == 0)
-		return (1);
+	len = 0;
+	if (n <= 0)
+		len++;
 	while (n)
 	{
 		n /= 10;
-		counter++;
+		len++;
 	}
-	return (counter);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	char			*ans;
-	int				len;
-	long long int	buf;
+	char	*a;
+	size_t	len;
+	long	nb;
 
-	buf = (long long int)n;
-	if (buf < 0)
-		len = lenght(buf) + 1;
-	else
-		len = lenght(buf);
-	ans = (char *)malloc(sizeof(char) * len + 1);
-	if (!ans)
-		return (0);
-	if (buf < 0)
-		buf *= -1;
-	ans[len--] = 0;
-	while (len >= 0)
+	nb = n;
+	len = numlen(n);
+	a = malloc(sizeof(char) * (len + 1));
+	if (a == 0)
+		return (NULL);
+	if (nb < 0)
 	{
-		ans[len--] = (buf % 10) + '0';
-		buf /= 10;
+		a[0] = '-';
+		nb = -nb;
 	}
-	if (n < 0)
-		ans[0] = '-';
-	return (ans);
+	a[len--] = '\0';
+	if (nb == 0)
+		a[0] = '0';
+	while (nb)
+	{
+		a[len--] = nb % 10 + '0';
+		nb /= 10;
+	}
+	return (a);
 }
+
+
+static size_t	ft_itoa_len(long num)
+{
+	size_t	len;
+
+	len = 0;
+	if (num == 0)
+		return (1);
+	if (num < 0)
+	{
+		len++;
+		num = -num;
+	}
+	while (num >= 1)
+	{
+		len++;
+		num /= 10;
+	}
+	return (len);
+}
+
+static char	*ft_itoa2(long num, char *str, size_t len)
+{
+	str = ft_callocc(len + 1, sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	if (num < 0)
+	{
+		str[0] = '-';
+		num = -num;
+	}
+	while (--len)
+	{
+		str[len] = (num % 10) + '0';
+		num /= 10;
+	}
+	if (str[0] != '-')
+		str[0] = (num % 10) + '0';
+	return (str);
+}
+
+char	*ft_itoa_h(long num)
+{
+	char	*str;
+
+	str = 0;
+	str = ft_itoa2(num, str, ft_itoa_len(num));
+	if (!str)
+		return (NULL);
+	return (str);
+}
+

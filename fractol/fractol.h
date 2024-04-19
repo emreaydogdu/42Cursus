@@ -12,21 +12,8 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-/*
-# include <stdlib.h>
-# include <unistd.h>
-# include <math.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <string.h>
-# include <errno.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <time.h>
-# include <stdbool.h>
-# include <limits.h>
- */
 # include "libft/libft.h"
+# include "libft/ft_printf.h"
 # include "minilibx-linux/mlx.h"
 
 # define WIDTH 1080

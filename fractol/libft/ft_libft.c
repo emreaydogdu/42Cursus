@@ -1,17 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_libft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 13:35:45 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/09 10:20:15 by emaydogd         ###   ########.fr       */
+/*   Created: 2023/05/12 12:09:27 by emaydogd          #+#    #+#             */
+/*   Updated: 2023/05/26 15:41:10 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putchar_fd(char c, int fd)
+size_t	ft_strlen(const char *str)
 {
-	write(fd, &c, 1);
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+void	*ft_callocc(size_t count, size_t size)
+{
+	void	*dst;
+	size_t	n;
+
+	n = count * size;
+	dst = malloc(count * size);
+	if (dst == NULL)
+		return (NULL);
+	while (n--)
+		((unsigned char *)dst)[n] = (unsigned char)0;
+	return (dst);
 }

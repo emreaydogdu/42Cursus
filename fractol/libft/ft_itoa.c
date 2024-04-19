@@ -53,7 +53,6 @@ char	*ft_itoa(int n)
 	return (a);
 }
 
-
 static size_t	ft_itoa_len(long num)
 {
 	size_t	len;
@@ -104,4 +103,3 @@ char	*ft_itoa_h(long num)
 		return (NULL);
 	return (str);
 }
-

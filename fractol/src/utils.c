@@ -68,12 +68,12 @@ void	random_double(t_fractal *fract)
 		fract->c_y = 0.2;
 		return ;
 	}
-	fract->c_x *= 1.1 * 4 - 2;
-	fract->c_y *= 1.1 * 4 - 2;
-	if (fract->c_x > 2)
-		fract->c_x = 0;
+	fract->c_x *= 1.1;
+	fract->c_y *= 1.1;
+	if (fract->c_x < -2)
+		fract->c_x = -0.1;
 	if (fract->c_y > 2)
-		fract->c_y = 0;
+		fract->c_y = 0.1;
 }
 
 int	killall_free(t_fractal *fract)

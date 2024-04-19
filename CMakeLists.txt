@@ -9,3 +9,4 @@ add_executable(getNextLine getNextLine/get_next_line.h getNextLine/get_next_line
 add_executable(getNextLine_bonus getNextLine/file getNextLine/file_bonus getNextLine/get_next_line_bonus.c getNextLine/get_next_line_utils_bonus.c getNextLine/get_next_line_bonus.h)
 add_executable(server minitalk/server.c)
 add_executable(client minitalk/client.c)
+add_executable(fractol fractol/src/draw.c fractol/src/error.c fractol/src/julia.c fractol/src/hooks.c fractol/src/main.c fractol/src/mandelbrot.c fractol/src/utils.c)

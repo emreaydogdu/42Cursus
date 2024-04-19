@@ -28,18 +28,16 @@ void	draw_infos(t_fractal *fract)
 	mlx_string_put(fract->mlx, fract->win, 20, 60, WHITE, "Exit: ESC");
 	mlx_string_put(fract->mlx, fract->win, 20, 80, WHITE, "Zoom: + -");
 	mlx_string_put(fract->mlx, fract->win, 20, 100, WHITE, "Move: Arrows");
-	mlx_string_put(fract->mlx, fract->win, 20, 120, WHITE, "Colors: r f");
+	mlx_string_put(fract->mlx, fract->win, 20, 120, WHITE, "Colors: W Q");
 	mlx_string_put(fract->mlx, fract->win, 20, 140, WHITE,
-		"Increase Iterations: space");
-	mlx_string_put(fract->mlx, fract->win, 20, 160, WHITE,
-		"Decrease Iterations: backspace");
-	mlx_string_put(fract->mlx, fract->win, 20, 180, WHITE, "Reset: 1");
+		"Iterations: +A -S");
+	mlx_string_put(fract->mlx, fract->win, 20, 160, WHITE, "Reset: R");
 	if (fract->flag == 2)
 	{
 		mlx_string_put(fract->mlx, fract->win, 20, 200, WHITE,
-			"Randomize Julia: j");
+			"Randomize Julia: J");
 		mlx_string_put(fract->mlx, fract->win, 20, 220, WHITE,
-			"Increase\\Decrease Cs: k l");
+			"Increase\\Decrease C: K L");
 	}
 }
 

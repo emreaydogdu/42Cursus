@@ -9,40 +9,31 @@
 /*   Updated: 2023/12/05 16:30:51 by fzucconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
-
-static	void	check_sign(const char **str, int *sign)
-{
-	if (**str == '-')
-	{
-		*sign = -1;
-		(*str)++;
-	}
-	else if (**str == '+')
-		(*str)++;
-}
 
 float	ft_strtof(const char *str)
 {
-	float	result;
-	int		sign;
-	float	decimal_multiplier;
+	float val = 0;
+	int afterdot=0;
+	float scale=1;
+	int neg = 1;
 
-	result = 0.0f;
-	sign = 1;
-	decimal_multiplier = 0.1f;
-	check_sign(&str, &sign);
-	while (*str >= '0' && *str <= '9')
-		result = result * 10.0f + (*(str++) - '0');
-	if (*str == '.')
+	if (*str == '-')
 	{
 		str++;
-		while (*str >= '0' && *str <= '9')
-		{
-			result = result + (*(str++) - '0') * decimal_multiplier;
-			decimal_multiplier *= 0.1f;
-		}
+		neg = -1;
 	}
-	return ((float)sign * (float)((int)result));
+	while (*str) {
+		if (afterdot) {
+			scale = scale/10;
+			val = val + (*str-'0')*scale;
+		} else {
+			if (*str == '.')
+				afterdot++;
+			else
+				val = val * 10.0 + (*str - '0');
+		}
+		str++;
+	}
+	return ((float)neg * (float)val);
 }

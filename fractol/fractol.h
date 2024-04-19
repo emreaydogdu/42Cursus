@@ -39,8 +39,8 @@
 
 #define ERR_ARGS "Error: missing argument!"
 
-# define BASE_COLOR 265
-# define C_STEP 0.001
+# define BASE_COLOR 20
+# define C_STEP 0.1
 # define ESC 65307
 # define LEFT 65361
 # define RIGHT 65363

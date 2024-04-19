@@ -51,8 +51,8 @@ t_fractal	*frac_init(int flag)
 	frac->offset_y = -HEIGHT / frac->zoom / 2;
 	frac->z_x = 0;
 	frac->z_y = 0;
-	frac->c_x = 0;
-	frac->c_y = 0.138240;
+	frac->c_x = -0.8;
+	frac->c_y = 0.2;
 	frac->x = 10;
 	frac->y = 0;
 	frac->max_iter = 100;

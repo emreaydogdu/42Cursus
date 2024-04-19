@@ -29,9 +29,9 @@ int	key_hook(int keycode, t_fractal *fractal)
 	else if (keycode == MINUS)
 		fractal->zoom /= 1.1;
 	else if (keycode == SPACE)
-		fractal->max_iter += 50;
+		fractal->max_iter += 10;
 	if (keycode == BACKSPACE)
-		fractal->max_iter -= 50;
+		fractal->max_iter -= 10;
 	key_hook3(keycode, fractal);
 	draw_fractal(fractal);
 	return (0);
@@ -41,13 +41,13 @@ void	key_hook3(int keycode, t_fractal *fractal)
 {
 	if (keycode == R)
 	{
-		fractal->color += (255 * 255 * 255) / 100;
+		fractal->color += (255 * 255 * 255) / 50;
 		if (fractal->color > 0xFFFFFF)
 			fractal->color = BASE_COLOR;
 	}
 	else if (keycode == F)
 	{
-		fractal->color -= (255 * 255 * 255) / 100;
+		fractal->color -= (255 * 255 * 255) / 50;
 		if (fractal->color < 0x000000)
 			fractal->color = BASE_COLOR;
 	}
@@ -67,8 +67,8 @@ void	key_hook5(int keycode, t_fractal *fractal)
 			fractal->max_iter = 100;
 		fractal->max_iter = 100;
 		fractal->zoom = 300;
-		fractal->offset_x = -2.1;
-		fractal->offset_y = -1.21;
+		fractal->offset_x = -WIDTH / fractal->zoom / 2;
+		fractal->offset_y = -HEIGHT / fractal->zoom / 2;
 		ft_printf("Reset all!\n");
 	}
 	else if (fractal->flag == 2)

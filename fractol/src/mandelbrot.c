@@ -9,7 +9,6 @@
 /*   Updated: 2024/04/18 17:16:27 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../fractol.h"
 
 static void	calculate_mandelbrot(t_fractal *fractal)

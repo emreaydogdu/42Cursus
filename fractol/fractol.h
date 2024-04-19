@@ -25,8 +25,7 @@
 |                  --help (-h)                    |\n\
 |_________________________________________________|\n"
 
-#define ERR_ARGS "Error: missing argument!"
-
+# define ERR_ARGS "Error: missing argument!"
 # define BASE_COLOR 20
 # define WHITE 0x00FFFFFF
 # define C_STEP 0.01

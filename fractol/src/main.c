@@ -13,18 +13,18 @@
 
 int	main(int argc, char **argv)
 {
-	t_fractal	*frac;
+	t_fractal	*fract;
 
-	frac = frac_init(check_args(argc, argv));
-	if (frac->flag == 2 && argc == 4)
+	fract = frac_init(check_args(argc, argv));
+	if (fract->flag == 2 && argc == 4)
 	{
-		frac->c_x = ft_strtof(argv[2]);
-		frac->c_y = ft_strtof(argv[3]);
+		fract->c_x = ft_strtof(argv[2]);
+		fract->c_y = ft_strtof(argv[3]);
 	}
-	draw_fractal(frac);
-	mlx_key_hook(frac->win, key_hook, frac);
-	mlx_mouse_hook(frac->win, mouse_hook, frac);
-	mlx_hook(frac->win, 17, 0L, killall_free, frac);
-	mlx_loop(frac->mlx);
+	draw_fractal(fract);
+	mlx_key_hook(fract->win, key_hook, fract);
+	mlx_mouse_hook(fract->win, mouse_hook, fract);
+	mlx_hook(fract->win, 17, 0L, killall_free, fract);
+	mlx_loop(fract->mlx);
 	return (0);
 }

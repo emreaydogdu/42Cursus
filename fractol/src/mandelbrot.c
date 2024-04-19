@@ -11,45 +11,40 @@
 /* ************************************************************************** */
 #include "../fractol.h"
 
-static void	calculate_mandelbrot(t_fractal *fractal)
+static void	calculate_mandelbrot(t_fractal *fract)
 {
 	int		i;
 	double	x_tmp;
 
 	i = 0;
-	fractal->flag = 1;
-	fractal->z_x = 0.0;
-	fractal->z_y = 0.0;
-	fractal->c_x = (fractal->x / fractal->zoom) + fractal->offset_x;
-	fractal->c_y = (fractal->y / fractal->zoom) + fractal->offset_y;
-	while (++i < fractal->max_iter && (fractal->z_x * fractal->z_x + fractal->z_y * fractal->z_y) < 4)
+	fract->flag = 1;
+	fract->z_x = 0.0;
+	fract->z_y = 0.0;
+	fract->c_x = (fract->x / fract->zoom) + fract->offset_x;
+	fract->c_y = (fract->y / fract->zoom) + fract->offset_y;
+	while (++i < fract->max_iter && (fract->z_x * fract->z_x + \
+		fract->z_y * fract->z_y) < 4)
 	{
-		x_tmp = fractal->z_x * fractal->z_x - fractal->z_y * fractal->z_y + fractal->c_x;
-		fractal->z_y = 2.0 * fractal->z_x * fractal->z_y + fractal->c_y;
-		fractal->z_x = x_tmp;
+		x_tmp = fract->z_x * fract->z_x - fract->z_y * fract->z_y + fract->c_x;
+		fract->z_y = 2.0 * fract->z_x * fract->z_y + fract->c_y;
+		fract->z_x = x_tmp;
 	}
-	if (i == fractal->max_iter)
-		put_pixel(fractal, fractal->x, fractal->y, 0x000000);
+	if (i == fract->max_iter)
+		put_pixel(fract, fract->x, fract->y, 0x000000);
 	else
-		put_pixel(fractal, fractal->x, fractal->y, (i * fractal->color));
+		put_pixel(fract, fract->x, fract->y, (i * fract->color));
 }
 
-void	*draw_mandelbrot(void *frac_void)
+void	*draw_mandelbrot(t_fractal	*fract)
 {
-	t_fractal	*fractal;
-
-	fractal = (t_fractal *)frac_void;
-	fractal->x = -1;
-	while (++fractal->x < WIDTH)
+	fract->x = -1;
+	while (++fract->x < WIDTH)
 	{
-		fractal->y = 0;
-		while (fractal->y < HEIGHT)
-		{
-			calculate_mandelbrot(fractal);
-			fractal->y++;
-		}
+		fract->y = -1;
+		while (++fract->y < HEIGHT)
+			calculate_mandelbrot(fract);
 	}
-	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
-	draw_infos(fractal);
+	mlx_put_image_to_window(fract->mlx, fract->win, fract->img, 0, 0);
+	draw_infos(fract);
 	return (NULL);
 }

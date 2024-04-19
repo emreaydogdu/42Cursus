@@ -33,55 +33,55 @@ int	check_args(int argc, char **argv)
 
 t_fractal	*frac_init(int flag)
 {
-	t_fractal	*frac;
+	t_fractal	*fract;
 
-	frac = malloc(sizeof(t_fractal));
-	if (!frac)
+	fract = malloc(sizeof(t_fractal));
+	if (!fract)
 		pr_error("Error", 0);
-	frac->flag = flag;
-	frac->mlx = mlx_init();
-	frac->win = mlx_new_window(frac->mlx, WIDTH, HEIGHT, "Fractol");
-	frac->img = mlx_new_image(frac->mlx, WIDTH, HEIGHT);
-	frac->addr = mlx_get_data_addr(frac->img, &frac->bits_per_pixel,
-		&frac->line_length, &frac->endian);
-	frac->zoom = 300;
-	frac->offset_x = 0;
-	frac->offset_y = 0;
-	frac->offset_x = -WIDTH / frac->zoom / 2;
-	frac->offset_y = -HEIGHT / frac->zoom / 2;
-	frac->z_x = 0;
-	frac->z_y = 0;
-	frac->c_x = -0.8;
-	frac->c_y = 0.2;
-	frac->x = 10;
-	frac->y = 0;
-	frac->max_iter = 100;
-	frac->color = BASE_COLOR;
-	return (frac);
+	fract->flag = flag;
+	fract->mlx = mlx_init();
+	fract->win = mlx_new_window(fract->mlx, WIDTH, HEIGHT, "Fractol");
+	fract->img = mlx_new_image(fract->mlx, WIDTH, HEIGHT);
+	fract->addr = mlx_get_data_addr(fract->img, &fract->bits_per_pixel,
+			&fract->line_length, &fract->endian);
+	fract->zoom = 300;
+	fract->offset_x = 0;
+	fract->offset_y = 0;
+	fract->offset_x = -WIDTH / fract->zoom / 2;
+	fract->offset_y = -HEIGHT / fract->zoom / 2;
+	fract->z_x = 0;
+	fract->z_y = 0;
+	fract->c_x = -0.8;
+	fract->c_y = 0.2;
+	fract->x = 10;
+	fract->y = 0;
+	fract->max_iter = 100;
+	fract->color = BASE_COLOR;
+	return (fract);
 }
 
-void	random_double(t_fractal *frac)
+void	random_double(t_fractal *fract)
 {
-	if (frac->c_x == 0 && frac->c_y == 0)
+	if (fract->c_x == 0 && fract->c_y == 0)
 	{
-		frac->c_x = 0;
-		frac->c_y = 0.138240;
+		fract->c_x = -0.8;
+		fract->c_y = 0.2;
 		return ;
 	}
-	frac->c_x *= 1.1 * 4 - 2;
-	frac->c_y *= 1.1 * 4 - 2;
-	if (frac->c_x > 2)
-		frac->c_x = 0;
-	if (frac->c_y > 2)
-		frac->c_y = 0;
+	fract->c_x *= 1.1 * 4 - 2;
+	fract->c_y *= 1.1 * 4 - 2;
+	if (fract->c_x > 2)
+		fract->c_x = 0;
+	if (fract->c_y > 2)
+		fract->c_y = 0;
 }
 
-int	killall_free(t_fractal *frac)
+int	killall_free(t_fractal *fract)
 {
-	mlx_destroy_image(frac->mlx, frac->img);
-	mlx_destroy_window(frac->mlx, frac->win);
-	mlx_destroy_display(frac->mlx);
-	free(frac->mlx);
-	free(frac);
+	mlx_destroy_image(fract->mlx, fract->img);
+	mlx_destroy_window(fract->mlx, fract->win);
+	mlx_destroy_display(fract->mlx);
+	free(fract->mlx);
+	free(fract);
 	exit(EXIT_SUCCESS);
 }

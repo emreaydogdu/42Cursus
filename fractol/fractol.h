@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fzucconi <fzucconi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaydogd <emaydogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:26:48 by fzucconi          #+#    #+#             */
-/*   Updated: 2023/12/06 14:26:33 by fzucconi         ###   ########.fr       */
+/*   Created: 2024/04/18 17:06:51 by emaydogd          #+#    #+#             */
+/*   Updated: 2024/04/18 17:14:48 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+/*
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
@@ -25,21 +25,23 @@
 # include <time.h>
 # include <stdbool.h>
 # include <limits.h>
+ */
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 
 # define WIDTH 1080
 # define HEIGHT 720
 # define INSTRUCTIONS "\n\
- _____________________________________________________\n\
-|   Usage: ./fractol --mandelbrot (-m)                |\n\
-|                    --julia (-j) (double) (double)   |\n\
-|                    --help (-h)                      |\n\
-|_____________________________________________________|\n"
+ _________________________________________________\n\
+| Usage: ./fractol --mandelbrot (-m)              |\n\
+|                  --julia (-j) (double) (double) |\n\
+|                  --help (-h)                    |\n\
+|_________________________________________________|\n"
 
 #define ERR_ARGS "Error: missing argument!"
 
 # define BASE_COLOR 20
+# define WHITE 0x00FFFFFF
 # define C_STEP 0.1
 # define ESC 65307
 # define LEFT 65361
@@ -85,23 +87,23 @@ typedef struct s_fractal
 }	t_fractal;
 
 t_fractal	*frac_init(int flag);
-int			killall_free(t_fractal *frac);
+int			killall_free(t_fractal *fract);
 int			check_args(int argc, char **argv);
-void		random_double(t_fractal *frac);
+void		random_double(t_fractal *fract);
 void		pr_error(char *msg, int ins);
 
-int			key_hook(int keycode, t_fractal *fractal);
-void		key_hook3(int keycode, t_fractal *fractal);
-void		key_hook5(int keycode, t_fractal *fractal);
-int			mouse_hook(int button, int x, int y, t_fractal *frac);
+int			key_hook(int keycode, t_fractal *fract);
+void		key_hook3(int keycode, t_fractal *fract);
+void		key_hook5(int keycode, t_fractal *fract);
+int			mouse_hook(int button, int x, int y, t_fractal *fract);
 
 void		draw_fractal(t_fractal *fractal);
-void		draw_infos(t_fractal *fractal);
+void		draw_infos(t_fractal *fract);
 void		put_pixel(t_fractal *data, int x, int y, int color);
 
-void		*draw_mandelbrot(void *frac_void);
-void		*draw_julia(t_fractal *fractal);
-int			julia_hook(int keycode, t_fractal *fractal);
-void		reset_julia(t_fractal *fractal);
+void		*draw_mandelbrot(t_fractal *fract);
+void		*draw_julia(t_fractal *fract);
+int			julia_hook(int keycode, t_fractal *fract);
+void		reset_julia(t_fractal *fract);
 
 #endif

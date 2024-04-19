@@ -1,6 +1,6 @@
 NAME = fractol
 CC = cc
-CFLAGS = -I/usr/include -Imlx_linux -O3 -Wall #-Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3
 PFLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o
 RM = rm -f -r
 DIR_OBJ = obj
@@ -41,4 +41,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-.SILENT: clean fclean re $(NAME) $(OBJS) $(DIR_OBJ)/%.o $(DIR_SRC)/%.c

@@ -12,9 +12,7 @@
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-/****************************************************************************/
-/*                               LIBRARIES                                  */
-/****************************************************************************/
+
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
@@ -30,29 +28,14 @@
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 
-/****************************************************************************/
-/*                               DEFINES                                    */
-/****************************************************************************/
-# define WIDTH 800
-# define HEIGHT 800
-# define INSTRUCTIONS "\n\n\
-/*****************************************************\\\n\
+# define WIDTH 1080
+# define HEIGHT 720
+# define INSTRUCTIONS "\n\
+ _____________________________________________________\n\
 |   Usage: ./fractol --mandelbrot (-m)                |\n\
 |                    --julia (-j) (double) (double)   |\n\
-|                    --burning-ship (-bs)             |\n\
-|                    --tricorn (-t)                   |\n\
 |                    --help (-h)                      |\n\
-\\****************************************************/\n\n"
-# define COMMANDS "Commands:\n\
-				 Zoom: + -\n\
-				 Move: arrows\n\
-				 Change color: r f t\n\
-				 Change color shift step: c v b\n\
-				 Reset: 1\n\
-				 Randomize Julia: j\n\
-				 Increase Cs (Julia): k\n\
-				 Decrease Cs (Julia): l\n\
-				 Exit: esc\n"
+|_____________________________________________________|\n"
 
 #define ERR_ARGS "Error: missing argument!"
 
@@ -67,13 +50,8 @@
 # define MINUS 45
 # define SPACE 32
 # define BACKSPACE 65288
-# define ENTER 65293
 # define R 114
 # define F 102
-# define T 116
-# define C 99
-# define V 118
-# define B 98
 # define J 106
 # define K 107
 # define L 108
@@ -104,31 +82,26 @@ typedef struct s_fractal
 	double	zoom;
 	int		max_iter;
 	int		color;
-	int		color_shift;
-	int		color_shift_max;
-	int		color_shift_min;
-	int		color_shift_step;
 }	t_fractal;
 
-void	frac_init(t_fractal *fractal, int flag);
-int		killall_free(t_fractal *fractal);
-int		check_args(int argc, char **argv);
-void	random_double(t_fractal *fractal);
-void	pr_error(char *msg, int ins);
+t_fractal	*frac_init(int flag);
+int			killall_free(t_fractal *frac);
+int			check_args(int argc, char **argv);
+void		random_double(t_fractal *frac);
+void		pr_error(char *msg, int ins);
 
-int		key_hook(int keycode, t_fractal *fractal);
-void	key_hook3(int keycode, t_fractal *fractal);
-void	key_hook4(int keycode, t_fractal *fractal);
-void	key_hook5(int keycode, t_fractal *fractal);
-int		mouse_hook(int button, int x, int y, t_fractal *fractal);
+int			key_hook(int keycode, t_fractal *fractal);
+void		key_hook3(int keycode, t_fractal *fractal);
+void		key_hook5(int keycode, t_fractal *fractal);
+int			mouse_hook(int button, int x, int y, t_fractal *frac);
 
-void	draw_fractal(t_fractal *fractal);
-void	draw_infos(t_fractal *fractal);
-void	put_pixel(t_fractal *data, int x, int y, int color);
+void		draw_fractal(t_fractal *fractal);
+void		draw_infos(t_fractal *fractal);
+void		put_pixel(t_fractal *data, int x, int y, int color);
 
-void	*draw_mandelbrot(void *frac_void);
-void	*draw_julia(t_fractal *fractal);
-int		julia_hook(int keycode, t_fractal *fractal);
-void	reset_julia(t_fractal *fractal);
+void		*draw_mandelbrot(void *frac_void);
+void		*draw_julia(t_fractal *fractal);
+int			julia_hook(int keycode, t_fractal *fractal);
+void		reset_julia(t_fractal *fractal);
 
 #endif

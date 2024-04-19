@@ -9,33 +9,22 @@
 /*   Updated: 2024/04/18 17:12:17 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../fractol.h"
 
 int	main(int argc, char **argv)
 {
-	int			flag;
-	t_fractal	*fractal;
+	t_fractal	*frac;
 
-	flag = check_args(argc, argv);
-	fractal = malloc(sizeof(t_fractal));
-	if (!fractal)
-		return (-1);
-	frac_init(fractal, flag);
-	if (fractal->flag == 2)
+	frac = frac_init(check_args(argc, argv));
+	if (frac->flag == 2 && argc == 4)
 	{
-		if (argc == 5)
-		{
-			fractal->c_x = ft_strtof(argv[2]);
-			fractal->c_y = ft_strtof(argv[3]);
-		}
-		else
-			random_double(fractal);
+		frac->c_x = ft_strtof(argv[2]);
+		frac->c_y = ft_strtof(argv[3]);
 	}
-	draw_fractal(fractal);
-	mlx_key_hook(fractal->win, key_hook, fractal);
-	mlx_mouse_hook(fractal->win, mouse_hook, fractal);
-	mlx_hook(fractal->win, 17, 0L, killall_free, fractal);
-	mlx_loop(fractal->mlx);
+	draw_fractal(frac);
+	mlx_key_hook(frac->win, key_hook, frac);
+	mlx_mouse_hook(frac->win, mouse_hook, frac);
+	mlx_hook(frac->win, 17, 0L, killall_free, frac);
+	mlx_loop(frac->mlx);
 	return (0);
 }

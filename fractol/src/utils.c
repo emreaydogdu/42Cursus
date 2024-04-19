@@ -9,7 +9,6 @@
 /*   Updated: 2024/04/18 17:11:14 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../fractol.h"
 
 int	check_args(int argc, char **argv)
@@ -32,59 +31,57 @@ int	check_args(int argc, char **argv)
 	return (valid);
 }
 
-void	frac_init(t_fractal *fractal, int flag)
+t_fractal	*frac_init(int flag)
 {
-	fractal->flag = flag;
-	fractal->mlx = mlx_init();
-	fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fractol");
-	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
-	fractal->addr = mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel,
-			&fractal->line_length, &fractal->endian);
-	fractal->offset_x = -2.1;
-	fractal->offset_y = -1.21;
-	fractal->z_y = 0;
-	fractal->z_x = 0;
-	fractal->c_y = 0;
-	fractal->c_x = 0;
-	fractal->x = 0;
-	fractal->y = 0;
-	fractal->zoom = 300;
-	if (flag == 3)
-		fractal->max_iter = 30;
-	else
-		fractal->max_iter = 100;
-	fractal->color = BASE_COLOR;
-	fractal->color_shift_step = (255 * 255 * 255) / 100;
-	fractal->color_shift_max = 0xFFFFFF;
-	fractal->color_shift_min = 0x000000;
+	t_fractal	*frac;
+
+	frac = malloc(sizeof(t_fractal));
+	if (!frac)
+		pr_error("Error", 0);
+	frac->flag = flag;
+	frac->mlx = mlx_init();
+	frac->win = mlx_new_window(frac->mlx, WIDTH, HEIGHT, "Fractol");
+	frac->img = mlx_new_image(frac->mlx, WIDTH, HEIGHT);
+	frac->addr = mlx_get_data_addr(frac->img, &frac->bits_per_pixel,
+		&frac->line_length, &frac->endian);
+	frac->zoom = 300;
+	frac->offset_x = 0;
+	frac->offset_y = 0;
+	frac->offset_x = -WIDTH / frac->zoom / 2;
+	frac->offset_y = -HEIGHT / frac->zoom / 2;
+	frac->z_x = 0;
+	frac->z_y = 0;
+	frac->c_x = 0;
+	frac->c_y = 0.138240;
+	frac->x = 10;
+	frac->y = 0;
+	frac->max_iter = 100;
+	frac->color = BASE_COLOR;
+	return (frac);
 }
 
-int	killall_free(t_fractal *fractal)
+void	random_double(t_fractal *frac)
 {
-	ft_printf("ESC pressed!\n");
-	ft_printf("Killing all processes...\n");
-	mlx_destroy_image(fractal->mlx, fractal->img);
-	mlx_destroy_window(fractal->mlx, fractal->win);
-	mlx_destroy_display(fractal->mlx);
-	free(fractal->mlx);
-	free(fractal);
-	ft_printf("Memory Cleared.\nExiting...\n");
-	exit(1);
-	return (0);
-}
-
-void	random_double(t_fractal *fractal)
-{
-	if (fractal->c_x == 0 && fractal->c_y == 0)
+	if (frac->c_x == 0 && frac->c_y == 0)
 	{
-		fractal->c_x = 0;
-		fractal->c_y = 0.138240;
+		frac->c_x = 0;
+		frac->c_y = 0.138240;
 		return ;
 	}
-	fractal->c_x *= 1.1 * 4 - 2;
-	fractal->c_y *= 1.1 * 4 - 2;
-	if (fractal->c_x > 2)
-		fractal->c_x = 0;
-	if (fractal->c_y > 2)
-		fractal->c_y = 0;
+	frac->c_x *= 1.1 * 4 - 2;
+	frac->c_y *= 1.1 * 4 - 2;
+	if (frac->c_x > 2)
+		frac->c_x = 0;
+	if (frac->c_y > 2)
+		frac->c_y = 0;
+}
+
+int	killall_free(t_fractal *frac)
+{
+	mlx_destroy_image(frac->mlx, frac->img);
+	mlx_destroy_window(frac->mlx, frac->win);
+	mlx_destroy_display(frac->mlx);
+	free(frac->mlx);
+	free(frac);
+	exit(EXIT_SUCCESS);
 }

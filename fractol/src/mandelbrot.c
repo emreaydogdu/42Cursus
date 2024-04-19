@@ -23,11 +23,9 @@ static void	calculate_mandelbrot(t_fractal *fractal)
 	fractal->z_y = 0.0;
 	fractal->c_x = (fractal->x / fractal->zoom) + fractal->offset_x;
 	fractal->c_y = (fractal->y / fractal->zoom) + fractal->offset_y;
-	while (++i < fractal->max_iter && \
-		(fractal->z_x * fractal->z_x + fractal->z_y * fractal->z_y) < 4)
+	while (++i < fractal->max_iter && (fractal->z_x * fractal->z_x + fractal->z_y * fractal->z_y) < 4)
 	{
-		x_tmp = fractal->z_x * fractal->z_x \
-			- fractal->z_y * fractal->z_y + fractal->c_x;
+		x_tmp = fractal->z_x * fractal->z_x - fractal->z_y * fractal->z_y + fractal->c_x;
 		fractal->z_y = 2.0 * fractal->z_x * fractal->z_y + fractal->c_y;
 		fractal->z_x = x_tmp;
 	}

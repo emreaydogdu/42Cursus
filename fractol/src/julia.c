@@ -21,12 +21,10 @@ static void	calculate_julia(t_fractal *fractal)
 	fractal->flag = 2;
 	fractal->z_x = (fractal->x / fractal->zoom) + fractal->offset_x;
 	fractal->z_y = (fractal->y / fractal->zoom) + fractal->offset_y;
-	while (++i < fractal->max_iter && (fractal->z_x
-			* fractal->z_x + fractal->z_y * fractal->z_y) < 4)
+	while (++i < fractal->max_iter && (fractal->z_x * fractal->z_x + fractal->z_y * fractal->z_y) < 4)
 	{
 		x_tmp = fractal->z_x;
-		fractal->z_x = fractal->z_x * fractal->z_x - fractal->z_y
-			* fractal->z_y + fractal->c_x - 0.8;
+		fractal->z_x = fractal->z_x * fractal->z_x - fractal->z_y * fractal->z_y + fractal->c_x + 0.3;
 		fractal->z_y = 2.0 * x_tmp * fractal->z_y + fractal->c_y;
 	}
 	if (i == fractal->max_iter)
@@ -79,7 +77,6 @@ void	reset_julia(t_fractal *fractal)
 {
 	fractal->c_x = 0.0;
 	fractal->c_y = 0.138240;
-	fractal->color_shift_step = (255 * 255 * 255) / 100;
 	fractal->color = BASE_COLOR;
 	fractal->max_iter = 100;
 	fractal->zoom = 300;

@@ -1,11 +1,11 @@
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3
+CFLAGS = -I/usr/include -Imlx_linux -O3 -Wall #-Wextra -Werror
 PFLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o
 RM = rm -f -r
 DIR_OBJ = obj
 DIR_SRC = src
-SOURCES = main.c draw.c julia.c mandelbrot.c key_hooks.c mouse_hooks.c utils.c error.c
+SOURCES = main.c draw.c julia.c mandelbrot.c hooks.c utils.c error.c
 LIBFT = libft
 MINLIBX = minilibx-linux
 HEADER = inc

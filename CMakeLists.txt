@@ -10,3 +10,4 @@ add_executable(getNextLine_bonus getNextLine/file getNextLine/file_bonus getNext
 add_executable(server minitalk/server.c)
 add_executable(client minitalk/client.c)
 add_executable(fractol fractol/src/draw.c fractol/src/error.c fractol/src/julia.c fractol/src/hooks.c fractol/src/main.c fractol/src/mandelbrot.c fractol/src/utils.c)
+add_executable(soLong soLong/ft_so_long.c soLong/ft_parse_map.c soLong/ft_error.c)

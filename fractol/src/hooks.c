@@ -31,13 +31,13 @@ int	key_hook(int keycode, t_fractal *fract)
 		fract->max_iter += 10;
 	else if (keycode == S)
 		fract->max_iter -= 10;
+	key_hook2(keycode, fract);
 	key_hook3(keycode, fract);
-	key_hook5(keycode, fract);
 	draw_fractal(fract);
 	return (0);
 }
 
-void	key_hook3(int keycode, t_fractal *fract)
+void	key_hook2(int keycode, t_fractal *fract)
 {
 	if (keycode == Q)
 	{
@@ -53,17 +53,13 @@ void	key_hook3(int keycode, t_fractal *fract)
 	}
 }
 
-void	key_hook5(int keycode, t_fractal *fract)
+void	key_hook3(int keycode, t_fractal *fract)
 {
 	if (keycode == R && fract->flag == 2)
 		reset_julia(fract);
 	else if (keycode == R)
 	{
 		fract->color = BASE_COLOR;
-		if (fract->flag == 3)
-			fract->max_iter = 30;
-		else
-			fract->max_iter = 100;
 		fract->max_iter = 100;
 		fract->zoom = 300;
 		fract->offset_x = -WIDTH / fract->zoom / 2;

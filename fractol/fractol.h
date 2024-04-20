@@ -79,8 +79,8 @@ void		random_double(t_fractal *fract);
 void		pr_error(char *msg, int ins);
 
 int			key_hook(int keycode, t_fractal *fract);
+void		key_hook2(int keycode, t_fractal *fract);
 void		key_hook3(int keycode, t_fractal *fract);
-void		key_hook5(int keycode, t_fractal *fract);
 int			mouse_hook(int button, int x, int y, t_fractal *fract);
 
 void		draw_fractal(t_fractal *fractal);

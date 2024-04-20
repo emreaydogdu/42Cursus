@@ -52,7 +52,7 @@ t_fractal	*frac_init(int flag)
 	fract->z_x = 0;
 	fract->z_y = 0;
 	fract->c_x = -0.8;
-	fract->c_y = 0.2;
+	fract->c_y = -0.2;
 	fract->x = 10;
 	fract->y = 0;
 	fract->max_iter = 100;
@@ -65,7 +65,7 @@ void	random_double(t_fractal *fract)
 	if (fract->c_x == 0 && fract->c_y == 0)
 	{
 		fract->c_x = -0.8;
-		fract->c_y = 0.2;
+		fract->c_y = -0.2;
 		return ;
 	}
 	fract->c_x *= 1.1;

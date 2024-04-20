@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	if (fract->flag == 2 && argc == 4)
 	{
 		fract->c_x = ft_strtof(argv[2]);
-		fract->c_y = ft_strtof(argv[3]);
+		fract->c_y = -ft_strtof(argv[3]);
 	}
 	draw_fractal(fract);
 	mlx_key_hook(fract->win, key_hook, fract);

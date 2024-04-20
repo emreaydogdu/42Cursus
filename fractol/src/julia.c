@@ -68,7 +68,7 @@ int	julia_hook(int keycode, t_fractal *fract)
 void	reset_julia(t_fractal *fract)
 {
 	fract->c_x = -0.8;
-	fract->c_y = 0.2;
+	fract->c_y = -0.2;
 	fract->color = BASE_COLOR;
 	fract->max_iter = 100;
 	fract->zoom = 300;

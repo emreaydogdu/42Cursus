@@ -1,5 +1,3 @@
-.PHONY: all bonus clean fclean re libft
-
 NAME = push_swap
 NAMEB = checker
 SRC = push_swap.c ft_error.c ft_find.c ft_lst.c ft_p.c ft_r.c ft_rr.c ft_s.c ft_sort.c ft_stack.c ft_place.c ft_libft.c ft_operation.c
@@ -39,3 +37,5 @@ fclean: clean
 	@rm -f $(NAME) checker
 
 re: fclean all
+
+.PHONY: all bonus clean fclean re libft

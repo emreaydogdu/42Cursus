@@ -6,7 +6,7 @@
 /*   By: emaydogd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:46:41 by emaydogd          #+#    #+#             */
-/*   Updated: 2023/05/06 15:51:38 by emaydogd         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:13:49 by emaydogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -25,6 +25,8 @@ int	ft_atoi(const char *str)
 	if (str[i] == '-' || str[i] == '+')
 		if (str[i++] == '-')
 			sign *= -1;
+	if (!(str[i] >= '0' && str[i] <= '9'))
+		return (-1);
 	while (ft_isdigit(str[i]))
 		res = res * 10 + (str[i++] - '0');
 	return (res * sign);

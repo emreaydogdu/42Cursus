@@ -37,10 +37,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 #include <stdio.h>
 int	main(void)
 {
-	char **strs = malloc(sizeof(int)*2);
+	char **strs = malloc(sizeof(int)*3);
 	strs[0] = "Hello";
 	strs[1] = "World";
-	char *res = ft_strjoin(2, strs, "-||-");
+	char *res = ft_strjoin(3, strs, "-||-");
 	printf("%s", res);
 	free(strs);
 	free(res);

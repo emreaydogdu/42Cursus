@@ -45,7 +45,7 @@ int get_r(int rgba)
 // Get the green channel.
 int get_g(int rgba)
 {
-    // Move 2 bytes to the right and mask out the first byte.
+    // Move 3 bytes to the right and mask out the first byte.
     return ((rgba >> 16) & 0xFF);
 }
 

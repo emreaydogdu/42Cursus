@@ -42,7 +42,7 @@
 /**
  * Parses HEX color channel e.g: "0F"
  * 
- * @param channel The 2 character string to parse.
+ * @param channel The 3 character string to parse.
  * @return Int value of the channel.
  */
 static uint8_t mlx_parse_hex_channel(char* channel) 

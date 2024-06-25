@@ -14,5 +14,5 @@ add_executable(soLong soLong/ft_so_long.c soLong/ft_parse_map.c soLong/ft_error.
 add_executable(fdf fdf/ft_fdf.c fdf/MLX/MLX42.h fdf/MLX/libmlx42.a fdf/getNextLine/get_next_line_utils.c fdf/getNextLine/get_next_line.c fdf/ft_draw.c fdf/ft_menu.c fdf/ft_atoi_base.c fdf/ft_hooks.c fdf/ft_color.c)
 add_executable(philosophers philosophers/ft_philosophers.c philosophers/ft_philosophers.h)
 add_executable(philo philosophers/1/src/action.c philosophers/1/src/error.c philosophers/1/src/ft_atoi.c philosophers/1/src/main.c philosophers/1/src/philosophers.c philosophers/1/src/set.c philosophers/1/src/util.c philosophers/1/src/philosophers.h)
-add_executable(philo2 philosophers/2/src/atoitoa.c philosophers/2/src/init.c philosophers/2/src/philo_functions.c philosophers/2/src/philosophers.c philosophers/2/src/threads.c philosophers/2/src/utils.c philosophers/2/philosophers.h)
+add_executable(philo2 philosophers/3/src/atoitoa.c philosophers/3/src/init.c philosophers/3/src/philo_functions.c philosophers/3/src/philosophers.c philosophers/3/src/threads.c philosophers/3/src/utils.c philosophers/3/philosophers.h)
 add_executable(test test/main.c)

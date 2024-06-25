@@ -10,7 +10,7 @@ if [ "$#" -ne 1 ]; then
 	exit 1
 fi
 
-# If file cannot be found, exit with error code 2
+# If file cannot be found, exit with error code 3
 if [ ! -f "$1" ]; then
 	echo "ERROR: shader file not found: $1" 1>&2
 	exit 2

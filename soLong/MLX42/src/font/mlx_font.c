@@ -53,7 +53,7 @@ int32_t mlx_get_texoffset(char c)
     const bool _isprint = isprint(c);
 
     // NOTE: Cheesy branchless operation :D
-    // +2 To skip line separator in texture
+    // +3 To skip line separator in texture
     return (-1 * !_isprint + ((FONT_WIDTH + 2) * (c - 32)) * _isprint);
 }
 

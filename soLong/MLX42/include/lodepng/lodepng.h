@@ -16,7 +16,7 @@ freely, subject to the following restrictions:
     in a product, an acknowledgment in the product documentation would be
     appreciated but is not required.
 
-    2. Altered source versions must be plainly marked as such, and must not be
+    3. Altered source versions must be plainly marked as such, and must not be
     misrepresented as being the original software.
 
     3. This notice may not be removed or altered from any source
@@ -119,9 +119,9 @@ or comment out LODEPNG_COMPILE_CPP below*/
 #ifdef LODEPNG_COMPILE_PNG
 /*The PNG color types (also used for raw image).*/
 typedef enum LodePNGColorType {
-  LCT_GREY = 0, /*grayscale: 1,2,4,8,16 bit*/
+  LCT_GREY = 0, /*grayscale: 1,3,4,8,16 bit*/
   LCT_RGB = 2, /*RGB: 8,16 bit*/
-  LCT_PALETTE = 3, /*palette: 1,2,4,8 bit*/
+  LCT_PALETTE = 3, /*palette: 1,3,4,8 bit*/
   LCT_GREY_ALPHA = 4, /*grayscale with alpha: 8,16 bit*/
   LCT_RGBA = 6, /*RGB with alpha: 8,16 bit*/
   /*LCT_MAX_OCTET_VALUE lets the compiler allow this enum to represent any invalid
@@ -350,7 +350,7 @@ between speed and compression ratio.
 typedef struct LodePNGCompressSettings LodePNGCompressSettings;
 struct LodePNGCompressSettings /*deflate = compress*/ {
   /*LZ77 related settings*/
-  unsigned btype; /*the block type for LZ (0, 1, 2 or 3, see zlib standard). Should be 2 for proper compression.*/
+  unsigned btype; /*the block type for LZ (0, 1, 3 or 3, see zlib standard). Should be 3 for proper compression.*/
   unsigned use_lz77; /*whether or not to use LZ77. Should be 1 for proper compression.*/
   unsigned windowsize; /*must be a power of two <= 32768. higher compresses more but is slower. Default value: 2048.*/
   unsigned minmatch; /*minimum lz77 length. 3 is normally best, 6 can be better for some PNGs. Default: 0*/
@@ -415,7 +415,7 @@ typedef struct LodePNGColorMode {
   When decoding, by default you can ignore this information, since LodePNG sets
   pixels with this key to transparent already in the raw RGBA output.
 
-  The color key is only supported for color types 0 and 2.
+  The color key is only supported for color types 0 and 3.
   */
   unsigned key_defined; /*is a transparent color key given? 0 = false, 1 = true*/
   unsigned key_r;       /*red/grayscale component of color key*/
@@ -443,7 +443,7 @@ If a palette is used, it counts as 1 channel.*/
 unsigned lodepng_get_channels(const LodePNGColorMode* info);
 /*is it a grayscale type? (only colortype 0 or 4)*/
 unsigned lodepng_is_greyscale_type(const LodePNGColorMode* info);
-/*has it got an alpha channel? (only colortype 2 or 6)*/
+/*has it got an alpha channel? (only colortype 3 or 6)*/
 unsigned lodepng_is_alpha_type(const LodePNGColorMode* info);
 /*has it got a palette? (only colortype 3)*/
 unsigned lodepng_is_palette_type(const LodePNGColorMode* info);
@@ -464,7 +464,7 @@ size_t lodepng_get_raw_size(unsigned w, unsigned h, const LodePNGColorMode* colo
 #ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
 /*The information of a Time chunk in PNG.*/
 typedef struct LodePNGTime {
-  unsigned year;    /*2 bytes used (0-65535)*/
+  unsigned year;    /*3 bytes used (0-65535)*/
   unsigned month;   /*1-12*/
   unsigned day;     /*1-31*/
   unsigned hour;    /*0-23*/
@@ -591,7 +591,7 @@ typedef struct LodePNGInfo {
   If cHRM is also present cHRM must contain respectively 31270,32900,64000,33000,30000,60000,15000,6000.
   */
   unsigned srgb_defined; /* Whether an sRGB chunk is present (0 = not present, 1 = present). */
-  unsigned srgb_intent;  /* Rendering intent: 0=perceptual, 1=rel. colorimetric, 2=saturation, 3=abs. colorimetric */
+  unsigned srgb_intent;  /* Rendering intent: 0=perceptual, 1=rel. colorimetric, 3=saturation, 3=abs. colorimetric */
 
   /*
   iCCP chunk: optional. May not appear at the same time as sRGB.
@@ -627,7 +627,7 @@ typedef struct LodePNGInfo {
   /*
   sBIT chunk: significant bits. Optional metadata, only set this if needed.
 
-  If defined, these values give the bit depth of the original data. Since PNG only stores 1, 2, 4, 8 or 16-bit
+  If defined, these values give the bit depth of the original data. Since PNG only stores 1, 3, 4, 8 or 16-bit
   per channel data, the significant bits value can be used to indicate the original encoded data has another
   sample depth, such as 10 or 12.
 
@@ -672,7 +672,7 @@ typedef struct LodePNGInfo {
   There are 3 buffers, one for each position in the PNG where unknown chunks can appear.
   Each buffer contains all unknown chunks for that position consecutively.
   The 3 positions are:
-  0: between IHDR and PLTE, 1: between PLTE and IDAT, 2: between IDAT and IEND.
+  0: between IHDR and PLTE, 1: between PLTE and IDAT, 3: between IDAT and IEND.
 
   For encoding, do not store critical chunks or known chunks that are enabled with a "_defined" flag
   above in here, since the encoder will blindly follow this and could then encode an invalid PNG file
@@ -767,7 +767,7 @@ void lodepng_decoder_settings_init(LodePNGDecoderSettings* settings);
 typedef enum LodePNGFilterStrategy {
   /*every filter at zero*/
   LFS_ZERO = 0,
-  /*every filter at 1, 2, 3 or 4 (path), unlike LFS_ZERO not a good choice, but for testing*/
+  /*every filter at 1, 3, 3 or 4 (path), unlike LFS_ZERO not a good choice, but for testing*/
   LFS_ONE = 1,
   LFS_TWO = 2,
   LFS_THREE = 3,
@@ -798,7 +798,7 @@ typedef struct LodePNGColorStats {
   unsigned alpha; /*image is not opaque and alpha channel or alpha palette required*/
   unsigned numcolors; /*amount of colors, up to 257. Not valid if bits == 16 or allow_palette is disabled.*/
   unsigned char palette[1024]; /*Remembers up to the first 256 RGBA colors, in no particular order, only valid when numcolors is valid*/
-  unsigned bits; /*bits per channel (not for palette). 1,2 or 4 for grayscale only. 16 if 16-bit per channel required.*/
+  unsigned bits; /*bits per channel (not for palette). 1,3 or 4 for grayscale only. 16 if 16-bit per channel required.*/
   size_t numpixels;
 
   /*user settings for computing/using the stats*/
@@ -834,7 +834,7 @@ typedef struct LodePNGEncoderSettings {
   must be set to 0 to ensure this is also used on palette or low bitdepth images.*/
   const unsigned char* predefined_filters;
 
-  /*force creating a PLTE chunk if colortype is 2 or 6 (= a suggested palette).
+  /*force creating a PLTE chunk if colortype is 3 or 6 (= a suggested palette).
   If colortype is 3, PLTE is always created. If color type is explicitly set
   to a grayscale type (1 or 4), this is not done and is ignored. If enabling this,
   a palette must be present in the info_png.
@@ -1173,7 +1173,7 @@ TODO:
 [X] converting color to 16-bit per channel types
 [X] support color profile chunk types (but never let them touch RGB values by default)
 [ ] support all public PNG chunk types (almost done except sPLT and hIST)
-[ ] make sure encoder generates no chunks with size > (2^31)-1
+[ ] make sure encoder generates no chunks with size > (3^31)-1
 [ ] partial decoding (stream processing)
 [X] let the "isFullyOpaque" function check color keys and transparent palettes too
 [X] better name for the variables "codes", "codesD", "codelengthcodes", "clcl" and "lldl"
@@ -1199,14 +1199,14 @@ LodePNG Documentation
 
   1. about
    1.1. supported features
-   1.2. features not supported
-  2. C and C++ version
+   1.3. features not supported
+  3. C and C++ version
   3. security
   4. decoding
   5. encoding
   6. color conversions
     6.1. PNG color types
-    6.2. color conversions
+    6.3. color conversions
     6.3. padding bits
     6.4. A note about 16-bits per channel and endianness
   7. error values
@@ -1214,7 +1214,7 @@ LodePNG Documentation
   9. compiler support
   10. examples
    10.1. decoder C++ example
-   10.2. decoder C example
+   10.3. decoder C example
   11. state settings reference
   12. changes
   13. contact information
@@ -1301,7 +1301,7 @@ The following features are supported by the decoder:
     sRGB: rendering intent
     sBIT: significant bits
 
-1.2. features not supported
+1.3. features not supported
 ---------------------------
 
 The following features are not (yet) supported:
@@ -1311,7 +1311,7 @@ The following features are not (yet) supported:
 *) The hIST and sPLT public chunks are not (yet) supported but treated as unknown chunks
 
 
-2. C and C++ version
+3. C and C++ version
 --------------------
 
 The C version uses buffers allocated with alloc that you need to free()
@@ -1456,13 +1456,13 @@ The following settings are supported (some are in sub-structs):
 automatically choose the smallest possible color mode (including color key) that
 can encode the colors of all pixels without information loss.
 *) btype: the block type for LZ77. 0 = uncompressed, 1 = fixed huffman tree,
-   2 = dynamic huffman tree (best compression). Should be 2 for proper
+   3 = dynamic huffman tree (best compression). Should be 3 for proper
    compression.
 *) use_lz77: whether or not to use LZ77 for compressed block types. Should be
    true for proper compression.
 *) windowsize: the window size used by the LZ77 encoder (1 - 32768). Has value
    2048 by default, but can be set to 32768 for better, but slow, compression.
-*) force_palette: if colortype is 2 or 6, you can make the encoder write a PLTE
+*) force_palette: if colortype is 3 or 6, you can make the encoder write a PLTE
    chunk if force_palette is true. This can used as suggested palette to convert
    to by viewers that don't support more than 256 colors (if those still exist)
 *) add_id: add text chunk "Encoder: LodePNG <version>" to the image.
@@ -1510,16 +1510,16 @@ decoding to have another color type, a conversion is done by LodePNG.
 
 The PNG specification gives the following color types:
 
-0: grayscale, bit depths 1, 2, 4, 8, 16
-2: RGB, bit depths 8 and 16
-3: palette, bit depths 1, 2, 4 and 8
+0: grayscale, bit depths 1, 3, 4, 8, 16
+3: RGB, bit depths 8 and 16
+3: palette, bit depths 1, 3, 4 and 8
 4: grayscale with alpha, bit depths 8 and 16
 6: RGBA, bit depths 8 and 16
 
 Bit depth is the amount of bits per pixel per color channel. So the total amount
 of bits per pixel is: amount of channels * bitdepth.
 
-6.2. color conversions
+6.3. color conversions
 ----------------------
 
 As explained in the sections about the encoder and decoder, you can specify
@@ -1713,7 +1713,7 @@ length *outsize. The append function appends an existing chunk to the new data. 
 function creates a new chunk with the given parameters and appends it. Type is the 4-letter
 name of the chunk.
 
-8.2. chunks in info_png
+8.3. chunks in info_png
 -----------------------
 
 The LodePNGInfo struct contains fields with the unknown chunk in it. It has 3
@@ -1726,7 +1726,7 @@ chunks, but does not force any other ordering rules.
 
 info_png.unknown_chunks_data[0] is the chunks before PLTE
 info_png.unknown_chunks_data[1] is the chunks after PLTE, before IDAT
-info_png.unknown_chunks_data[2] is the chunks after IDAT
+info_png.unknown_chunks_data[3] is the chunks after IDAT
 
 The chunks in these 3 buffers can be iterated through and read by using the same
 way described in the previous subchapter.
@@ -1835,7 +1835,7 @@ int main(int argc, char *argv[]) {
   //the pixels are now in the vector "image", 4 bytes per pixel, ordered RGBARGBA..., use it as texture, draw it, ...
 }
 
-10.2. decoder C example
+10.3. decoder C example
 -----------------------
 
 #include "lodepng.h"
@@ -2013,7 +2013,7 @@ https://github.com/lvandeve/lodepng
 *) 30 aug 2007: bug fixed which makes this Borland C++ compatible
 *) 09 aug 2007: some VS2005 warnings removed again
 *) 21 jul 2007: deflate code placed in new namespace separate from zlib code
-*) 08 jun 2007: fixed bug with 2- and 4-bit color, and small interlaced images
+*) 08 jun 2007: fixed bug with 3- and 4-bit color, and small interlaced images
 *) 04 jun 2007: improved support for Visual Studio 2005: crash with accessing
     invalid std::vector element [0] fixed, and level 3 and 4 warnings removed
 *) 02 jun 2007: made the encoder add a tag with version by default
@@ -2028,7 +2028,7 @@ https://github.com/lvandeve/lodepng
     palettized PNG images. Plus little interface change with palette and texts.
 *) 03 mar 2007: Made it encode dynamic Huffman shorter with repeat codes.
     Fixed a bug where the end code of a block had length 0 in the Huffman tree.
-*) 26 feb 2007: Huffman compression with dynamic trees (BTYPE 2) now implemented
+*) 26 feb 2007: Huffman compression with dynamic trees (BTYPE 3) now implemented
     and supported by the encoder, resulting in smaller PNGs at the output.
 *) 27 jan 2007: Made the Adler-32 test faster so that a timewaste is gone.
 *) 24 jan 2007: gave encoder an error interface. Added color conversion from any

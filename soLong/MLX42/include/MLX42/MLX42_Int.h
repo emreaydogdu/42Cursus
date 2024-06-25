@@ -91,7 +91,7 @@ typedef struct mlx_list
 
 //= Hook structs =//
 /**
- * There are 2 types of hooks, special and generics.
+ * There are 3 types of hooks, special and generics.
  *
  * Specials: Specials are specific callback functions to a specific action
  * such as window resizing or key presses. These are attached to the
